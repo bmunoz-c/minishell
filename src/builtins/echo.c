@@ -18,7 +18,7 @@ void ft_putstring(char *s, int fd)
 
 int check_option(char *arg, int *new_line)
 {
-	int i = 0;
+	int i = 1;
 	if(arg[0] != '-')
 		return(0);
 	while(arg[i])
@@ -26,7 +26,6 @@ int check_option(char *arg, int *new_line)
 		if(arg[i] != 'n')
 			return(0);
 		i++;
-		printf("checking: %c\n", arg[i]);
 	}
 	*new_line = 0;
 	return(1);
@@ -36,6 +35,7 @@ int run_echo(char **args)
 {
 	int new_line = 1;
 	int i;
+	int first_print;
 	// when no args
 	if(!args[0])
 	{
@@ -43,30 +43,26 @@ int run_echo(char **args)
 		return(0);
 	}
 	i = 0;
-	//iter all args & ommit all valid flags
-	while(check_option(args[i++], &new_line))
-		(void)"hola";	
+	// iter all args & ommit all valid flags
+	while(check_option(args[i], &new_line))
+		i++;
+	first_print = i;
 	// print rest of the string
-	/*
-	 if(new_line)
-		 i--;
-	*/while(args[i])
+	while(args[i])
+	{
+		if(i != first_print)
+			ft_putchar_fd(' ', 1);
 		ft_putstring(args[i++], 1);
+	}
 	if(new_line)
 		ft_putchar_fd('\n',1);
 	return(1);
 }
-/*int run_echo(char **args) {
-    // Print all arguments passed to run_echo
-    for (int i = 0; args[i] != NULL; i++) {
-        printf("Argument %d: %s\n", i, args[i]);
-    }
-    return 0;
-}*/
+
 int main(int argc, char **argv)
 {
 	ft_putstring("Main to check the echo built-in command\n", 1);
 	ft_putstring("--------- Starting Execution ---------\n", 1);
-	run_echo(argv + 1);
+	run_echo(&argv[1]);
 	ft_putstring("---------- End of Execution ----------\n", 1);
 }
