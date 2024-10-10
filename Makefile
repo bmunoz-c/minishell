@@ -6,7 +6,7 @@
 #    By: ltrevin- <ltrevin-@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
-#    Updated: 2024/10/10 21:47:20 by ltrevin-         ###   ########.fr        #
+#    Updated: 2024/10/10 22:00:24 by ltrevin-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
 libft:
-	@$(MAKE) -C inc/libft bonus --no-print-directory
+	@$(MAKE) -C inc/libft --no-print-directory
 
 clean :
 	rm -rf $(OBJ_DIR)
