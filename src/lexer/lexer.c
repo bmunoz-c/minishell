@@ -6,14 +6,14 @@
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:04:02 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/10 19:01:52 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/10 19:36:20 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "lexer/lexer.h"
-#include "metachars.h"
-#include "quotes/quotes.h"
+#include "../../inc/libft/libft.h"
+#include "lexer.h"
+#include "../../inc/metachars.h"
+#include "../quotes/quotes.h"
 
 int	is_space(char c)
 {
@@ -66,8 +66,8 @@ int	check_redirection(t_context *context, char *line, int index)
 		return (1);
 	i = index + 1;
 	//Si line[index] == <> || <<>>, i++;
-	if (line[index] == INPUT_RD[0] && line[index + 1] == INPUT_RD[0]
-		|| line[index] == OUTPUT_RD[0] && line[index + 1] == OUTPUT_RD[0])
+	if ((line[index] == INPUT_RD[0] && line[index + 1] == INPUT_RD[0])
+		|| (line[index] == OUTPUT_RD[0] && line[index + 1] == OUTPUT_RD[0]))
 		i++;
 	//Mientras exista line[i]
 	while (line[i])

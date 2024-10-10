@@ -6,16 +6,17 @@
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 17:48:18 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/07 18:12:26 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/10 19:40:41 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
-# include "context.h"
+# include "../../inc/context.h"
 
 //_____LEXER_____//
-int		check_syntax(t_context *context, char *line);
+int		check_pipe(t_context *context, char *line, int index);
+//int		check_syntax(t_context *context, char *line);
 
 //____LEXER_UTILS____//
 int		is_redirection(char *line, int index);

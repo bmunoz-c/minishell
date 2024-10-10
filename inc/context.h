@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:18:20 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/07 20:31:17 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/10 19:32:40 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 typedef struct s_context
 {
 	int		error_code;
-	t_env	local_env
-	t_env	global_env;
+//	t_env	local_env
+//	t_env	global_env;
 }	t_context;
 
 #endif
