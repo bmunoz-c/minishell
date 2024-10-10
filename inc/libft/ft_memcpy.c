@@ -1,47 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/07 18:54:57 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/10 17:41:54 by bmunoz-c         ###   ########.fr       */
+/*   Created: 2024/01/11 20:47:04 by bmunoz-c          #+#    #+#             */
+/*   Updated: 2024/01/21 17:55:14 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "lexer/lexer.h"
-#include "metachars.h"
-i/*
-int	main(int ac, char **av)
+
+void	*ft_memcpy(void *dst, const void *src, size_t len)
 {
-	//t_token		*token;
-	t_context	context;
-	char		*line;
+	size_t			i;
+	unsigned char	*d;
+	unsigned char	*s;
 
-	(void) argv;
-
-	if (argc > 1)
+	i = 0;
+	d = (unsigned char *) dst;
+	s = (unsigned char *) src;
+	while (i < len)
 	{
-		return (EXIT_FAILURE);
+		d[i] = s[i];
+		i++;
 	}
-	return (EXIT_SUCCESS);
-}*/
-
-int	main(inc ac, char **av)
+	return (dst);
+}
+/*
+int	main(void)
 {
-	int	i;
-	t_context	context;
-	char		*line;
-
-	if (ac >= 1)
-	{
-		i = 0;
-		line = av[1];
-		check_pipe(context, line[i], index);
-		check_redirection(context, line[i], index);
-	}
-	write(1, "\n", 1);
+	char d[] = "Hola ";
+	char s[] = "mundo!";
+	printf("%s\n", ft_memcpy(d, s, sizeof(char) * 3);
+	printf("%s\n", memcpy(d, s, sizeof(char) * 3);
 	return (0);
 }
+*/

@@ -1,47 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/07 18:54:57 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/10 17:41:54 by bmunoz-c         ###   ########.fr       */
+/*   Created: 2024/01/15 17:31:01 by bmunoz-c          #+#    #+#             */
+/*   Updated: 2024/01/25 18:14:39 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "lexer/lexer.h"
-#include "metachars.h"
-i/*
-int	main(int ac, char **av)
-{
-	//t_token		*token;
-	t_context	context;
-	char		*line;
+#include <stdio.h>
+#include <string.h>
 
-	(void) argv;
-
-	if (argc > 1)
-	{
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
-}*/
-
-int	main(inc ac, char **av)
+char	*ft_strrchr(const char *s, int c)
 {
 	int	i;
-	t_context	context;
-	char		*line;
 
-	if (ac >= 1)
+	i = ft_strlen(s);
+	while (i >= 0)
 	{
-		i = 0;
-		line = av[1];
-		check_pipe(context, line[i], index);
-		check_redirection(context, line[i], index);
+		if (s[i] == (char) c)
+			return ((char *) &s[i]);
+		i--;
 	}
-	write(1, "\n", 1);
 	return (0);
 }
+/*
+int	main(void)
+{
+	char	s[20] = "Hello World";
+	char	s2[20] = "Hello World";
+
+	printf("%s\n", ft_strrchr(s, 'o'));
+	printf("%s\n", strrchr(s2, 'o'));
+	return (0);
+}
+*/

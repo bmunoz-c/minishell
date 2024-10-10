@@ -1,47 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/07 18:54:57 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/10 17:41:54 by bmunoz-c         ###   ########.fr       */
+/*   Created: 2024/01/30 17:04:16 by bmunoz-c          #+#    #+#             */
+/*   Updated: 2024/01/30 18:40:47 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "lexer/lexer.h"
-#include "metachars.h"
-i/*
-int	main(int ac, char **av)
+
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	//t_token		*token;
-	t_context	context;
-	char		*line;
+	size_t	i;
+	size_t	j;
+	char	*p;
 
-	(void) argv;
-
-	if (argc > 1)
+	i = 0;
+	j = 0;
+	p = (char *) malloc(sizeof (char) * (ft_strlen(s1) + ft_strlen(s2)) + 1);
+	if (!p)
+		return (NULL);
+	while (s1[i] != '\0')
 	{
-		return (EXIT_FAILURE);
+		p[j] = s1[i];
+		i++;
+		j++;
 	}
-	return (EXIT_SUCCESS);
-}*/
-
-int	main(inc ac, char **av)
+	j = 0;
+	while (s2[j] != '\0')
+	{
+		p[i] = s2[j];
+		i++;
+		j++;
+	}
+	p[i] = '\0';
+	return (p);
+}
+/*
+int	main(void)
 {
-	int	i;
-	t_context	context;
-	char		*line;
-
-	if (ac >= 1)
-	{
-		i = 0;
-		line = av[1];
-		check_pipe(context, line[i], index);
-		check_redirection(context, line[i], index);
-	}
-	write(1, "\n", 1);
+	char s1[] = "Hola ";
+	char s2[] = "mundo!";
+	printf("%s\n", ft_strjoin(s1, s2));
 	return (0);
 }
+*/

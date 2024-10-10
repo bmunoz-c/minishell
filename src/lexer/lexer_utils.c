@@ -6,12 +6,13 @@
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 17:52:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/07 18:23:27 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/10 17:33:20 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "lexer.h"
+#include "lexer/lexer.h"
+#include "metachars.h"
 
 //is <>, <<>>
 int	is_redirection(char *line, int index)

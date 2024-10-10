@@ -1,47 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/07 18:54:57 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/10 17:41:54 by bmunoz-c         ###   ########.fr       */
+/*   Created: 2024/01/09 17:40:08 by bmunoz-c          #+#    #+#             */
+/*   Updated: 2024/01/19 17:46:20 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "lexer/lexer.h"
-#include "metachars.h"
-i/*
-int	main(int ac, char **av)
+
+size_t	ft_strlen(const char *s)
 {
-	//t_token		*token;
-	t_context	context;
-	char		*line;
+	size_t	i;
 
-	(void) argv;
-
-	if (argc > 1)
-	{
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
-}*/
-
-int	main(inc ac, char **av)
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
+/*
+int	main(void)
 {
-	int	i;
-	t_context	context;
-	char		*line;
+	char	*str;
+	int x;
 
-	if (ac >= 1)
-	{
-		i = 0;
-		line = av[1];
-		check_pipe(context, line[i], index);
-		check_redirection(context, line[i], index);
-	}
-	write(1, "\n", 1);
+	str = "Holais";
+	x = ft_strlen(str);
+	printf("%d\n",x);
 	return (0);
 }
+*/

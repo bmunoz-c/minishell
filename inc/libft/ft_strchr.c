@@ -1,47 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/07 18:54:57 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/10 17:41:54 by bmunoz-c         ###   ########.fr       */
+/*   Created: 2024/01/15 16:35:20 by bmunoz-c          #+#    #+#             */
+/*   Updated: 2024/01/26 18:29:15 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "lexer/lexer.h"
-#include "metachars.h"
-i/*
-int	main(int ac, char **av)
+
+char	*ft_strchr(const char *s, int c)
 {
-	//t_token		*token;
-	t_context	context;
-	char		*line;
+	size_t	i;
 
-	(void) argv;
-
-	if (argc > 1)
-	{
-		return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
-}*/
-
-int	main(inc ac, char **av)
+	i = 0;
+	while (s[i] != '\0' && s[i] != (char) c)
+		i++;
+	if (s[i] == '\0' && (char) c != 0)
+		return (0);
+	else
+		return ((char *) &s[i]);
+}
+/*
+int	main(void)
 {
-	int	i;
-	t_context	context;
-	char		*line;
+	char str[] = "Hello World";
+	char str_2[] = "Hello World";
 
-	if (ac >= 1)
-	{
-		i = 0;
-		line = av[1];
-		check_pipe(context, line[i], index);
-		check_redirection(context, line[i], index);
-	}
-	write(1, "\n", 1);
+	printf("%p\n", ft_strchr(str, 'l'));
+	printf("%p\n", strchr(str_2, 'l'));
 	return (0);
 }
+*/
