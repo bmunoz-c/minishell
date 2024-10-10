@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:54:57 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/10 19:52:03 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/10 21:10:39 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	index_ch(char *str, char c)
 	return (0);
 }
 
+//check 1 PIPE
 int	main(int ac, char **av)
 {
 	int	pipe_index;
@@ -76,9 +77,10 @@ int	main(int ac, char **av)
 				write(1, "ko", 2);
 		}
 
-//		if (search_ch(line))
+//		if (searline, '|'ch_ch(line))
 //		check_redirection(context, line[i], index);
 	}
 	write(1, "\n", 1);
 	return (0);
 }
+
