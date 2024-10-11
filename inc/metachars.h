@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   metachars.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/10/10 22:00:15 by ltrevin-         ###   ########.fr       */
+/*   Created: 2024/10/07 18:06:40 by bmunoz-c          #+#    #+#             */
+/*   Updated: 2024/10/07 18:13:18 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
-int			main(int ac, char **av, char **env)
-{
-	(void)ac;
-	av[0] = "hola\n";
-	readline (">");
-	printf("Holaa soy un minishell que va a quedar xulisimo\n");
-	printf("%s\n", env[0]);
-}
+#ifndef METACHARS_H
+# define METACHARS_H
+
+# define D_QUOTE "\""
+# define S_QUOTE "\'"
+# define PIPE "|"
+# define INPUT_RD "<"
+# define OUTPUT_RD ">"
+# define HERE_DOC_RD "<<"
+# define APPEND_RD ">>"
+
+#endif
