@@ -6,23 +6,13 @@
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 16:50:50 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/11 20:40:33 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/11 21:20:23 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "quotes/quotes.h"
+#include "../../inc/error.h"
 #include "libft.h"
-
-/*
-//Check '' || ""
-void	check_quotes(t_quotes *quotes, char c)
-{
-	if (c == '\'' && !quotes->doubles)
-		quotes->simple = !quotes_simple;
-	else if	(c == '\"' && !quotes->simple)
-		quotes->doubles = !quotes->doubles;
-}
-*/
 
 int	check_quotes(t_data	*data)
 {
@@ -46,23 +36,16 @@ int	check_quotes(t_data	*data)
 	return (0);
 }
 
-void	syntax_error(t_context *context)
+static int	syntax_error(t_data *data, char *msg)
 {
-	context->error_code = SYNTAX_ERROR;
+	data->err_code = SYNTAX_ERROR;
+	data->err_msg = msg;
+	return (1);
 }
 
 int	check_syntax(t_data *data)
 {
 	if (check_quotes(data))
-		syntax_error(data)
-
-	
-	if (da)
-	{
-		//salir
-		//printar error
-		return (1);
-
-	}
+		return (syntax_error(data, QUOTE_FORMAT_ERROR));
 	return (0);
 }
