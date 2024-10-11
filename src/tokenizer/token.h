@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:45:23 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/10 22:07:08 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/11 20:06:11 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,43 +18,37 @@
 //ESTRUCTURA ENUMERACION TIPO DE TOKEN
 typedef enum e_token_type
 {
-	CMD,
+	WORD,
+	SPACE,
 	PIPE,
-	DEF,
-}	t_token_type;
+	REDIR,
+	SQ_STR,
+	DQ_STR,
+	ENV_VAR
 
-//ESTRUCTURA ENUMERACION REDIRECCIONES
-typedef enum e_redirection
-{
 	HERE_DOC,
 	INPUT,
 	OUTPUT, 
 	APPEND,
-	UKNOWN,
-}	t_redirection;
+}	t_token_type;
+
 
 typedef struct s_token
 {
-	t_token_type	type;			//Tipo de token
-	char			*txt_token		//Texto del token
-	char			**av;			//Lista de argumentos
-	int				ac;				//Cantidad de argumentos
-	t_redirection	*redirections;	//Info sobre redirecciones
-
-	int				here_docs		//Numero de <<
-	int				infiles			//Numero de <
-	int				ourfiles		//Numero de >
-
-	t_token			*next;			//Puntero al siguiente token
-	t_tokens		tokens;			//Estructura de tokens
+	e_token_type	type;			//Tipo de token
+	char			*content;		//Texto del token
+	s_token			*next;			//Puntero al siguiente token
 }	t_token;
 
 //Puntero a token & cantidad de tokens
-typedef struct s_tokens
+typedef struct s_data
 {
-	t_token	*token;					//Puntero a una t_token
-	int		amount;					//Cantidad de tokens
-}	t_tokens;
+	t_token		*token_list;			//Puntero a una lista de tokens
+	char		**env;
+	char		**path;
+	char		*prompt;
+
+}	t_data;
 
 
 
