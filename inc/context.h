@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 18:18:20 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/10 19:32:40 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/11 20:27:17 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # define CMDNOTFND "command not found"
 # define NOFILEDIR "No such file or directory"
 # define ISDIRECTORY "is a directory"
+
+
+# define QUOTE_FORMAT_ERROR	"Error: Brackets not closed correctly"
 
 typedef struct s_context
 {
