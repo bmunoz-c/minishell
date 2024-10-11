@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   isdigit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/10/10 22:00:15 by ltrevin-         ###   ########.fr       */
+/*   Created: 2024/01/09 16:48:12 by bmunoz-c          #+#    #+#             */
+/*   Updated: 2024/01/19 16:41:23 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
-int			main(int ac, char **av, char **env)
+#include "libft.h"
+#include <unistd.h>
+
+int	ft_isdigit(int c)
 {
-	(void)ac;
-	av[0] = "hola\n";
-	readline (">");
-	printf("Holaa soy un minishell que va a quedar xulisimo\n");
-	printf("%s\n", env[0]);
+	if (c >= 48 && c <= 57)
+		return (c);
+	else
+		return (0);
 }

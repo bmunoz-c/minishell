@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/10/10 22:00:15 by ltrevin-         ###   ########.fr       */
+/*   Created: 2024/01/12 18:58:30 by bmunoz-c          #+#    #+#             */
+/*   Updated: 2024/01/15 16:34:51 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
-int			main(int ac, char **av, char **env)
+#include <stdio.h>
+
+int	ft_toupper(int c)
 {
-	(void)ac;
-	av[0] = "hola\n";
-	readline (">");
-	printf("Holaa soy un minishell que va a quedar xulisimo\n");
-	printf("%s\n", env[0]);
+	if (c >= 97 && c <= 122)
+		c = c -32;
+	return (c);
 }
+/*
+int	main(void)
+{
+	char	c = 'a';
+	printf("%c\n", ft_toupper(c));
+	return (0);
+}
+*/

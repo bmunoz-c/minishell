@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/10/10 22:00:15 by ltrevin-         ###   ########.fr       */
+/*   Created: 2024/01/26 17:25:56 by bmunoz-c          #+#    #+#             */
+/*   Updated: 2024/01/26 19:00:18 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
-int			main(int ac, char **av, char **env)
+#include "libft.h"
+
+char	*ft_strdup(const char *s1)
 {
-	(void)ac;
-	av[0] = "hola\n";
-	readline (">");
-	printf("Holaa soy un minishell que va a quedar xulisimo\n");
-	printf("%s\n", env[0]);
+	size_t	i;
+	char	*p;
+
+	p = (char *) malloc(ft_strlen(s1) + 1);
+	if (p == NULL)
+		return (NULL);
+	i = 0;
+	while (s1[i] != '\0')
+	{
+		p[i] = s1[i];
+		i++;
+	}
+	p[i] = '\0';
+	return (p);
 }

@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/10/10 22:00:15 by ltrevin-         ###   ########.fr       */
+/*   Created: 2024/02/05 17:29:06 by bmunoz-c          #+#    #+#             */
+/*   Updated: 2024/02/05 18:45:52 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
-int			main(int ac, char **av, char **env)
+#include "libft.h"
+
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	(void)ac;
-	av[0] = "hola\n";
-	readline (">");
-	printf("Holaa soy un minishell que va a quedar xulisimo\n");
-	printf("%s\n", env[0]);
+	size_t	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		(*f)(i, &s[i]);
+		i++;
+	}
 }
