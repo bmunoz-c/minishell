@@ -6,7 +6,7 @@
 #    By: ltrevin- <ltrevin-@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
-#    Updated: 2024/10/15 20:21:42 by bmunoz-c         ###   ########.fr        #
+#    Updated: 2024/10/15 21:36:45 by ltrevin-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ HEADER			= inc/minishell.h
 
 SRC_DIR 		= src/
 OBJ_DIR 		= obj/
-SRC 			:= main.c \
+SRC 			:= main.c clean_utils.c env.c\
 				  builtins/echo.c \
 				  tokenizer/check_syntax.c tokenizer/syntax_utils.c tokenizer/tokenizer.c
 SRC				:= $(addprefix $(SRC_DIR), $(SRC))

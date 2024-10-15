@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:32:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/15 18:35:46 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/10/15 20:54:00 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,18 @@ typedef struct s_token
 
 }	t_token;
 
+
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct  s_env 	*next;
+}	t_env;
+
 typedef struct s_data
 {
 	t_token		*token_list;		//Puntero a una lista de tokens
-	char		**env;
+	t_env		**env;
 	char		**path;
 	char		*prompt;
 	int			err_code;
