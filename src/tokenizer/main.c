@@ -6,14 +6,11 @@
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 16:37:31 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/15 17:19:47 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:46:30 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/tokenizer.h"
-#include "../../inc/metachars.h"
-#include "../../inc/error.h"
-#include "../../inc/libft/libft.h"
+#include <minishell.h>
 
 /*
 int	main(int ac, char **av)

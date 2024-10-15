@@ -6,14 +6,11 @@
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:29:05 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/15 17:34:03 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:45:23 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/tokenizer.h"
-#include "../../inc/metachars.h"
-#include "../../inc/error.h"
-#include "../../inc/libft/libft.h"
+#include <minishell.h>
 
 int	check_quotes(t_data	*data)
 {

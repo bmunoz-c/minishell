@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:32:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/15 16:39:27 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:35:46 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 typedef enum e_token_type
 {
 	WORD,
-	SPACE,
+	SPC,
 	PIPE,
 	REDIR,
 	SQ_STR,

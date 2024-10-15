@@ -6,14 +6,11 @@
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 16:17:53 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/15 17:21:33 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:46:00 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/tokenizer.h"
-#include "../../inc/metachars.h"
-#include "../../inc/error.h"
-#include "../../inc/libft/libft.h"
+#include <minishell.h>
 
 //is <>, <<>>
 int	is_redirection(char *line, int index)
