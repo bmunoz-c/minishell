@@ -35,6 +35,8 @@ typedef struct s_token
 	enum e_token_type	type;			//Tipo de token
 	char			*content;		//Texto del token
 	struct s_token			*next;			//Puntero al siguiente token
+	struct s_token			*prev;			//Puntero al anterior token
+
 }	t_token;
 
 typedef struct s_data
