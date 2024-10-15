@@ -1,21 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quotes.h                                           :+:      :+:    :+:   */
+/*   ft_is_space.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/10 16:45:17 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/11 21:20:13 by bmunoz-c         ###   ########.fr       */
+/*   Created: 2024/10/15 16:43:16 by bmunoz-c          #+#    #+#             */
+/*   Updated: 2024/10/15 17:34:52 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef QUOTES_H
-# define QUOTES_H
 
-
-//_____UTILS_____//
-int	check_quotes(t_data *data);
-int	check_syntax(t_data *data);
-
-#endif
+int	ft_is_space(char c)
+{
+	return ((c >= 9 && c <= 13) || c == 32);
+}

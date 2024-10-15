@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token.h                                            :+:      :+:    :+:   */
+/*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/10 21:45:23 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/11 21:02:25 by bmunoz-c         ###   ########.fr       */
+/*   Created: 2024/10/11 21:32:14 by bmunoz-c          #+#    #+#             */
+/*   Updated: 2024/10/15 16:39:27 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOKEN_H
-# define TOKEN_H
-
+#ifndef TOKENIZER_H
+# define TOKENIZER_H
 
 //ESTRUCTURA ENUMERACION TIPO DE TOKEN
 typedef enum e_token_type
@@ -23,26 +22,24 @@ typedef enum e_token_type
 	REDIR,
 	SQ_STR,
 	DQ_STR,
-	ENV_VAR
-
+	ENV_VAR,
+	//____Redirections_____//
 	HERE_DOC,
 	INPUT,
-	OUTPUT, 
+	OUTPUT,
 	APPEND,
 }	t_token_type;
 
-
 typedef struct s_token
 {
-	e_token_type	type;			//Tipo de token
+	enum e_token_type	type;			//Tipo de token
 	char			*content;		//Texto del token
-	s_token			*next;			//Puntero al siguiente token
+	struct s_token			*next;			//Puntero al siguiente token
 }	t_token;
 
-//Puntero a token & cantidad de tokens
 typedef struct s_data
 {
-	t_token		*token_list;			//Puntero a una lista de tokens
+	t_token		*token_list;		//Puntero a una lista de tokens
 	char		**env;
 	char		**path;
 	char		*prompt;
@@ -51,10 +48,19 @@ typedef struct s_data
 
 }	t_data;
 
+//_____SYNTAX_____//
+int		check_quotes(t_data *data);
+int		check_pipe(t_data *data, char *line, int index);
+int		check_redirection(t_data *data, char *line, int index);
+int		check_syntax(t_data *data);
 
+//_____SYNTAX_UTILS_____//
+int		is_redirection(char *line, int index);
+void	metachars_error(t_data *data, char *metachars);
+int		check_metachar(t_data *data, char *line, int i);
 
-
-
-t_token	*tokenize(char *line);
+//_____ERRORS_____//
+void	metachars_error(t_data *data, char *metachars);
+int		syntax_error(t_data *data, char *msg);
 
 #endif

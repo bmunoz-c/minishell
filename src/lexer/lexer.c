@@ -6,21 +6,21 @@
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 19:04:02 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/10 22:07:17 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/15 15:58:03 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/libft/libft.h"
 #include "lexer.h"
 #include "../../inc/metachars.h"
-#include "../quotes/quotes.h"
+#include "../tokenizer/tokenizer.h"
 
 int	is_space(char c)
 {
 	return (c == '\t' || c == ' ');
 }
 
-int	check_pipe(t_context *context, char *line, int index)
+int	check_pipe(t_data *data, char *line, int index)
 {
 	int	i;
 
@@ -37,24 +37,24 @@ int	check_pipe(t_context *context, char *line, int index)
 	}
 	//si es negativo
 	if (i < 0)
-		return (syntax_error(context, PIPE), 0);
+		return (syntax_error(data, PIPE), 0);
 	i = index + 1;
 	//mientras exista line
 	while (line[i])
 	{
 		//si line == ||
 		if (line[i] == PIPE[0])
-			return (syntax_error(context, PIPE), 0);
+			return (syntax_error(data, PIPE), 0);
 		else if (!is_space(line[i]))
 			break ;
 		i++;
 	}
 	if (line[i] == '\0')
-		return (syntax_error(context, "newline"), 0);
+		return (syntax_error(data, "newline"), 0);
 	return (1);
 }
 
-int	check_redirection(t_context *context, char *line, int index)
+int	check_redirection(t_context *data, char *line, int index)
 {
 	int	i;
 
