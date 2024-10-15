@@ -6,7 +6,7 @@
 #    By: ltrevin- <ltrevin-@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
-#    Updated: 2024/10/15 18:59:24 by ltrevin-         ###   ########.fr        #
+#    Updated: 2024/10/15 20:00:09 by ltrevin-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,5 +50,7 @@ clean :
 fclean : clean 
 	@$(MAKE) -C inc/libft fclean --no-print-directory
 	rm $(NAME)
+
+test : 
 
 .PHONY : all clean fclean re
