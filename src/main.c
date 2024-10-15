@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/10/15 19:01:08 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:10:57 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int			main(int ac, char **av, char **env)
 	}
 	while(42)
 	{
-		data.prompt = readline ("prompt> ");
+		data.prompt = readline(PROMPT);
 		//
 		// do minishell
 		//
