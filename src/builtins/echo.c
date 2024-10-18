@@ -16,15 +16,22 @@ void ft_putstring(char *s, int fd)
 		ft_putchar_fd(s[i++], fd);
 }
 
+
+// TODO: 
+// la flag con mas cosas detras la imprime y eso ta mal
+// echo -nh hola -> hola%
 int check_option(char *arg, int *new_line)
 {
 	int i = 1;
+	int n = 0;
 	if(arg[0] != '-')
 		return(0);
 	while(arg[i])
 	{
+		if(arg[i] == 'n')
+			n = 1;
 		if(arg[i] != 'n')
-			return(0);
+			return(n);
 		i++;
 	}
 	*new_line = 0;
@@ -58,11 +65,11 @@ int run_echo(char **args)
 		ft_putchar_fd('\n',1);
 	return(1);
 }
-/*
+
 int main(int argc, char **argv)
 {
 	ft_putstring("Main to check the echo built-in command\n", 1);
 	ft_putstring("--------- Starting Execution ---------\n", 1);
 	run_echo(&argv[1]);
 	ft_putstring("---------- End of Execution ----------\n", 1);
-}*/
+}
