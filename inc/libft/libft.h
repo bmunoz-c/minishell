@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 15:46:15 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/17 18:47:44 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/18 22:20:10 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ void	ft_putnbr_fd(int n, int fd);
 int		ft_is_space(char c);
 int		ft_search_ch(char *str, char c);
 int		ft_index_ch(char *str, char c);
+int		ft_is_metachar(char m);
 
 #endif

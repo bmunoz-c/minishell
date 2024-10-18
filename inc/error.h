@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:00:32 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/11 21:18:42 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/17 19:16:54 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # define CMDNOTFND "command not found"
 # define NOFILEDIR "No such file or directory"
 # define ISDIRECTORY "is a directory"
+# define NEAR_UN_TOKEN "near unexpexted token "
+
 # define QUOTE_FORMAT_ERROR	"quotes not closed correctly"
 
 #endif

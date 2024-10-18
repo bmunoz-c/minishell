@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_mng.c                                        :+:      :+:    :+:   */
+/*   ft_is_metachar.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/17 18:52:46 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/17 19:34:55 by bmunoz-c         ###   ########.fr       */
+/*   Created: 2024/10/18 22:15:09 by bmunoz-c          #+#    #+#             */
+/*   Updated: 2024/10/18 22:19:41 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "libft.h"
 
-int	syntax_error(t_data *data, char *msg)
+int	ft_is_metachar(char m)
 {
-	data->err_code = SYNTAX_ERROR;
-	data->err_msg = ft_strjoin("syntax error", msg);
-	return (1);
-}
-
-void	metachars_error(t_data *data, char *metachars)
-{
-	(void)metachars;
-	data->err_code = SYNTAX_ERROR;
+	return (m == '|' || m == '<' || m == '>');
 }

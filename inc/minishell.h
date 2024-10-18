@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/10/15 19:10:51 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/10/18 21:12:55 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 #include <stdlib.h>
 #include "libft/libft.h"
 #include "tokenizer.h"
-#include "metachars.h"
 #include "error.h"
 
 

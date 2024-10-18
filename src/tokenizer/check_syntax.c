@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:29:05 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/17 18:54:10 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/17 20:19:23 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,58 +32,6 @@ int	check_quotes(t_data	*data)
 	if (s_quote % 2 || d_quote % 2 != 0)
 		return (1);
 	return (0);
-}
-
-int	check_pipe(t_data *data, char *line, int index)
-{
-	int	i;
-
-	if (line[index] != PIPE[0])
-		return (1);
-	i = index - 1;
-	while (i >= 0)
-	{
-		if (!ft_is_space(line[i]))
-			break ;
-		i--;
-	}
-	if (i < 0)
-		return (metachars_error(data, PIPE), 0);
-	i = index + 1;
-	while (line[i])
-	{
-		if (line[i] == PIPE[0])
-			return (metachars_error(data, PIPE), 0);
-		else if (!ft_is_space(line[i]))
-			break ;
-		i++;
-	}
-	if (line[i] == '\0')
-		return (metachars_error(data, "newline"), 0);
-	return (1);
-}
-
-int	check_redirection(t_data *data, char *line, int index)
-{
-	int	i;
-
-	if (!is_redirection(line, index))
-		return (1);
-	i = index + 1;
-	if ((line[index] == INPUT_RD[0] && line[index + 1] == INPUT_RD[0])
-		|| (line[index] == OUTPUT_RD[0] && line[index + 1] == OUTPUT_RD[0]))
-		i++;
-	while (line[i])
-	{
-		if (!check_metachar(data, line, i))
-			return (0);
-		else if (!ft_is_space(line[i]))
-			break ;
-		i++;
-	}
-	if (line [i] == '\0')
-		return (metachars_error(data, "newline"), 0);
-	return (1);
 }
 
 int	check_syntax(t_data *data)

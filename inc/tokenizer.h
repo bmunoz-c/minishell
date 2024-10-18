@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:32:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/17 18:12:14 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/18 23:10:18 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,28 +52,22 @@ typedef struct s_data
 
 //_____SYNTAX_____//
 int			check_quotes(t_data *data);
-int			check_pipe(t_data *data, char *line, int index);
-int			check_redirection(t_data *data, char *line, int index);
 int			check_syntax(t_data *data);
 
-//_____SYNTAX_UTILS_____//
-int			is_redirection(char *line, int index);
-void		metachars_error(t_data *data, char *metachars);
-int			check_metachar(t_data *data, char *line, int i);
-
 //_____ERRORS_____//
-void		metachars_error(t_data *data, char *metachars);
 int			syntax_error(t_data *data, char *msg);
 
-
 //_____TOKENIZER_____//
-//_____new_token_____//
-int			safe_token(t_token *token_list, char *prompt);
+//_____add_new_token_____//
+int			tokenizer(t_data *data, int i);
 t_token		*new_token(char *_content, t_token_type _type);
 void		add_token(t_token **token_list, t_token *new_token);
+void		print_token(t_token *token);
+void		print_token_list(t_token *token_list);
 //_____token_type_____//
 t_token		*sp_token(char *prompt, int	*index);
 t_token		*meta_token(char *prompt, int *index);
-t_token		*quote_token(char *prompt, int *index, t_token type);
+t_token		*quote_token(char *prompt, int *index, t_token_type type);
+t_token		*word_token(char *prompt, int *index);
 
 #endif

@@ -6,34 +6,35 @@
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:28:00 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/17 18:49:05 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/18 23:14:38 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	safe_token(t_token *token_list, char *prompt)
+int	tokenizer(t_data *data, int i)
 {
-	int		i;
 	t_token	*token;
 
-	i = 0;
-	prompt = ft_strtrimifree(prompt, " ", 1);
-	while (prompt[i])
+	data->prompt = ft_strtrimfree(data->prompt, " ", 1);
+	while (data->prompt[i])
 	{
-		if (prompt[i] == ' ')
-			token = sp_token(prompt, &i);
-		else if (is_redirection(prompt[i], &i) || prompt[i] == '|')
-			token = meta_token(prompt[i], &i);
-		else if (prompt[i] == '"')
-			token = quote_token(prompt[i], &i, DQ_STR);
-		else if (prompt[i] == '\'')
-			token = quote_token(prompt[i], &i, SQ_STR);
+		if (data->prompt[i] == ' ')
+			token = sp_token(data->prompt, &i);
+		else if (data->prompt[i] == '<' || data->prompt[i] == '>'
+			|| data->prompt[i] == '|')
+			token = meta_token(data->prompt, &i);
+		else if (data->prompt[i] == '"')
+			token = quote_token(data->prompt, &i, DQ_STR);
+		else if (data->prompt[i] == '\'')
+			token = quote_token(data->prompt, &i, SQ_STR);
+		else
+			token = word_token(data->prompt, &i);
 		if (!token)
 			return (1);
 		else
 			add_token(&(data->token_list), token);
-		if (prompt[i])
+		if (data->prompt[i])
 			i++;
 	}
 	return (0);
@@ -70,3 +71,47 @@ void	add_token(t_token **token_list, t_token *new_token)
 	tmp->next = new_token;
 	new_token->prev = tmp;
 }
+/*
+********** HASTA AQUIIIII **********
+
+
+char *get_tokentype(int n)
+{
+	switch (n)
+	{
+		case WORD: return "WORD";
+		case SPC: return "SPC";
+		case PIPE: return "PIPE";
+		case SQ_STR: return "SQ_STR";
+		case DQ_STR: return "DQ_STR";
+		case ENV_VAR: return "ENV_VAR";
+		case HERE_DOC: return "HERE_DOC";
+		case INPUT: return "INPUT";
+		case OUTPUT: return "OUTPUT";
+		case APPEND: return "APPEND";
+	}
+	return (NULL);
+}
+
+void	print_token(t_token *token)
+{
+	printf("Token_Dir %p\n", token);
+	printf("Type: %s\n", get_tokentype(token->type));
+	printf("Content: ~%s~\n", token->content);
+	printf("Next dir: %p\n", token->next);
+	printf("Prev dir: %p\n", token->prev);
+	printf("**********************************\n");
+}
+
+void	print_token_list(t_token *token_list)
+{
+	t_token	*tmp;
+
+	tmp = token_list;
+	while (tmp)
+	{
+		print_token(tmp);
+		tmp = tmp->next;
+	}
+	printf("*****END PRINT TOKEN*****\n");
+}*/
