@@ -6,12 +6,33 @@
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:32:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/18 23:10:18 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/22 17:41:29 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENIZER_H
 # define TOKENIZER_H
+
+/*
+//_____DEFINES_____//
+# define SPACES				0 // Espacios
+# define STR				1 // Strinf sin comillas
+# define STRSQ				2 // String con comillas simples
+# define STRDQ				3 // String con comillas dobles
+# define MCH_PIPE			4 // Pipe |
+# define REDIR_HDOC			5 // Redir Heredoc <<
+# define REDIR_OUT			6 // Redir Output >
+# define REDIR_IN			7 // Redir Input <
+# define REDIR_APPEND		8 // RedirAppend >>
+*/
+
+//_____ENVIRONMENT_STRUCT_____//
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
 
 //ESTRUCTURA ENUMERACION TIPO DE TOKEN
 typedef enum e_token_type
@@ -30,19 +51,22 @@ typedef enum e_token_type
 	APPEND,
 }	t_token_type;
 
+//_____TOKEN_STRUCT_____//
 typedef struct s_token
 {
 	enum e_token_type	type;
 	char				*content;
+	int					expanded;
 	struct s_token		*next;
 	struct s_token		*prev;
 
 }	t_token;
 
+//_____GENERAL_DATA_____//
 typedef struct s_data
 {
 	t_token		*token_list;
-	char		**env;
+	t_env		*env;
 	char		**path;
 	char		*prompt;
 	int			err_code;
