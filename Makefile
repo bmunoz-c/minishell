@@ -12,7 +12,7 @@
 
 NAME 			= minishell
 CC				= gcc
-CFLAGS			= -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS			= -Wall -Wextra -Werror -g -fsanitize=address
 
 LIBS 			= -lreadline -Linc/libft -lft
 INCLUDE 		= -Iinc 
@@ -22,7 +22,7 @@ SRC_DIR 		= src/
 OBJ_DIR 		= obj/
 SRC 			:= main.c clean_utils.c env.c\
 				  builtins/echo.c \
-				  tokenizer/check_syntax.c tokenizer/syntax_utils.c tokenizer/tokenizer.c
+				  #tokenizer/check_syntax.c tokenizer/syntax_utils.c tokenizer/tokenizer.c
 SRC				:= $(addprefix $(SRC_DIR), $(SRC))
 OBJ				= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 

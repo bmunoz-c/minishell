@@ -12,18 +12,20 @@
 
 #include <minishell.h>
 
-//PATH="bin/echo:bin/cat"
 int			main(int ac, char **av, char **env)
 {
 	t_data data;
 	
 	(void)av;
+	(void)ac;
 	if(ac != 1)
 	{
 		printf("No args are allowed\n");
 		exit(1);
 	}
+	data.env = NULL;
 	copy_env(env, &data);
+	//print_env(data.env);
 	while(42)
 	{
 		data.prompt = readline(PROMPT);
@@ -33,6 +35,8 @@ int			main(int ac, char **av, char **env)
 		printf("%s\n", data.prompt);
 		if(!ft_strncmp(data.prompt, "exit", 4))
 			exit(0);
+		if(!ft_strncmp(data.prompt, "printenv", 8))
+			print_env(data.env);
 		free(data.prompt);
 	}
 	printf("%s\n", env[0]);
