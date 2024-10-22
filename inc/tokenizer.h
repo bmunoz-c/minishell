@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:32:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/22 17:41:29 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/22 18:31:26 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,6 @@ typedef struct s_token
 	struct s_token		*prev;
 
 }	t_token;
-
-
-typedef struct s_env
-{
-	char			*key;
-	char			*value;
-	struct  s_env 	*next;
-}	t_env;
 
 typedef struct s_data
 {
