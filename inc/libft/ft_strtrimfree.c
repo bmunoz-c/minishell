@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   ft_strtrimfree.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/30 16:57:33 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/17 18:41:44 by bmunoz-c         ###   ########.fr       */
+/*   Created: 2024/10/17 18:45:36 by bmunoz-c          #+#    #+#             */
+/*   Updated: 2024/10/17 18:46:49 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrimfree(char *s1, char const *set, int free_s1)
 {
 	int		i;
 	size_t	start;
@@ -31,6 +31,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	res = ft_substr(s1, start, (end - start) + 1);
 	if (!res)
 		return (NULL);
+	if (free_s1)
+		free(s1);
 	return (res);
 }
 

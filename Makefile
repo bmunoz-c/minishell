@@ -6,7 +6,7 @@
 #    By: ltrevin- <ltrevin-@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
-#    Updated: 2024/10/15 21:36:45 by ltrevin-         ###   ########.fr        #
+#    Updated: 2024/10/17 20:10:22 by bmunoz-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRC_DIR 		= src/
 OBJ_DIR 		= obj/
 SRC 			:= main.c clean_utils.c env.c\
 				  builtins/echo.c \
-				  #tokenizer/check_syntax.c tokenizer/syntax_utils.c tokenizer/tokenizer.c
+				  tokenizer/tokenizer.c tokenizer/token_type.c tokenizer/error_mng.c
+
 SRC				:= $(addprefix $(SRC_DIR), $(SRC))
 OBJ				= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 

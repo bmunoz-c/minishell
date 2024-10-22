@@ -6,58 +6,45 @@
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:28:00 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/15 19:59:27 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/18 23:14:38 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include ""
+#include <minishell.h>
 
-int	safe_token(t_token *token_list, char *prompt)
+int	tokenizer(t_data *data, int i)
 {
-	int	i;
-	t_token *token;
+	t_token	*token;
 
-	i = 0;
-	//Limpiar espacios antes y despues
-	while (prompt[i])
+	data->prompt = ft_strtrimfree(data->prompt, " ", 1);
+	while (data->prompt[i])
 	{
-		if (prompt[i] == ' ')
-			token = sp_token(prompt, index)
-		else if (is_metachar(prompt[i]))
-		else if (is_quote(prompt[i], type))
-
+		if (data->prompt[i] == ' ')
+			token = sp_token(data->prompt, &i);
+		else if (data->prompt[i] == '<' || data->prompt[i] == '>'
+			|| data->prompt[i] == '|')
+			token = meta_token(data->prompt, &i);
+		else if (data->prompt[i] == '"')
+			token = quote_token(data->prompt, &i, DQ_STR);
+		else if (data->prompt[i] == '\'')
+			token = quote_token(data->prompt, &i, SQ_STR);
+		else
+			token = word_token(data->prompt, &i);
 		if (!token)
 			return (1);
 		else
 			add_token(&(data->token_list), token);
-			
-		i++;
+		if (data->prompt[i])
+			i++;
 	}
-	return(0);
+	return (0);
 }
 
-t_token	*sp_token(char *prompt, int	*index)
+//Create a new token: type & content
+t_token	*new_token(char *_content, t_token_type _type)
 {
-	int	i;
-	char	*content;
+	t_token	*token;
 
-	i = *index;
-	while (prompt[i] && prompt[i] == ' ')
-		i++;
-	content = malloc(sizeof(char) * 2);
-	if (!content)
-		return (NULL);
-	content[0] == ' ';
-	content[1] == '\0';
-	*index = i;
-
-	return (new_token(token));
-}
-
-t_token *new_token(char *_content, t_token_type _type)
-{
-	t_token *token;
-	
 	token = malloc(sizeof(t_token));
 	if (!token)
 		return (NULL);
@@ -68,7 +55,8 @@ t_token *new_token(char *_content, t_token_type _type)
 	return (token);
 }
 
-void add_token(t_token **token_list, t_token *new_token)
+//Add a new token to the list.
+void	add_token(t_token **token_list, t_token *new_token)
 {
 	t_token	*tmp;
 
@@ -84,12 +72,46 @@ void add_token(t_token **token_list, t_token *new_token)
 	new_token->prev = tmp;
 }
 /*
-t_token	*meta_token(char *prompt, int *index)
+********** HASTA AQUIIIII **********
+
+
+char *get_tokentype(int n)
 {
-	int	i;
+	switch (n)
+	{
+		case WORD: return "WORD";
+		case SPC: return "SPC";
+		case PIPE: return "PIPE";
+		case SQ_STR: return "SQ_STR";
+		case DQ_STR: return "DQ_STR";
+		case ENV_VAR: return "ENV_VAR";
+		case HERE_DOC: return "HERE_DOC";
+		case INPUT: return "INPUT";
+		case OUTPUT: return "OUTPUT";
+		case APPEND: return "APPEND";
+	}
+	return (NULL);
+}
 
-	i = 0;
+void	print_token(t_token *token)
+{
+	printf("Token_Dir %p\n", token);
+	printf("Type: %s\n", get_tokentype(token->type));
+	printf("Content: ~%s~\n", token->content);
+	printf("Next dir: %p\n", token->next);
+	printf("Prev dir: %p\n", token->prev);
+	printf("**********************************\n");
+}
 
-	if (prompt[i] == '|')
-	
+void	print_token_list(t_token *token_list)
+{
+	t_token	*tmp;
+
+	tmp = token_list;
+	while (tmp)
+	{
+		print_token(tmp);
+		tmp = tmp->next;
+	}
+	printf("*****END PRINT TOKEN*****\n");
 }*/
