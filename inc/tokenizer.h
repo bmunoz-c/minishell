@@ -62,11 +62,18 @@ typedef struct s_token
 
 }	t_token;
 
-//_____GENERAL_DATA_____//
+
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct  s_env 	*next;
+}	t_env;
+
 typedef struct s_data
 {
-	t_token		*token_list;
-	t_env		*env;
+	t_token		*token_list;		//Puntero a una lista de tokens
+	t_env		**env;
 	char		**path;
 	char		*prompt;
 	int			err_code;

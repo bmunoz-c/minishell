@@ -7,6 +7,7 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
 /*   Updated: 2024/10/18 21:12:55 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/15 21:30:51 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +17,13 @@
 #include <readline/readline.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stddef.h>
+#include <stdlib.h>
 #include "libft/libft.h"
 #include "tokenizer.h"
 #include "error.h"
 
+void copy_env(char **org_env, t_data *data);
 
 // COLOR MACROS
 # define RESET "\033[0m"
@@ -32,5 +36,13 @@
 # define WHITE "\033[0;37m"
 
 #define PROMPT MAGENTA "dancingShell🩰🦦" BLUE "> " RESET 
+
+///////////// ENVIROMENT
+void copy_env(char **org_env, t_data *data);
+void print_env(t_env **env_list);
+void	*ft_memdel(void *ptr);
+
+
+
 
 #endif
