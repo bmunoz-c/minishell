@@ -29,15 +29,16 @@ int			main(int ac, char **av, char **env)
 	while(42)
 	{
 		data.prompt = readline(PROMPT);
-		//
-		// do minishell
-		//
-		printf("%s\n", data.prompt);
+		if (!data.prompt)
+			continue ; 
+		data.token_list = NULL;
 		if(!ft_strncmp(data.prompt, "exit", 4))
 			exit(0);
-		if(!ft_strncmp(data.prompt, "printenv", 8))
-			print_env(data.env);
-		printf("getenvvalue(%s) |%s| \n", data.prompt, get_env_value(data.env, data.prompt));
+		tokenizer(&data, 0);
+		print_token_list(data.token_list);
+		//if(!ft_strncmp(data.prompt, "printenv", 8))
+		//	print_env(data.env);
+		//printf("getenvvalue(%s) |%s| \n", data.prompt, get_env_value(data.env, data.prompt));
 		free(data.prompt);
 	}
 	free_env(data.env);

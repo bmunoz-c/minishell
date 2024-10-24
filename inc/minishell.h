@@ -20,7 +20,6 @@
 #include <stdlib.h>
 #include "libft/libft.h"
 #include "tokenizer.h"
-#include "metachars.h"
 #include "error.h"
 
 void copy_env(char **org_env, t_data *data);
