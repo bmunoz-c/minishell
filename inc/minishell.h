@@ -6,8 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/10/18 21:12:55 by bmunoz-c         ###   ########.fr       */
-/*   Updated: 2024/10/15 21:30:51 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/10/24 13:42:41 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +38,11 @@ void copy_env(char **org_env, t_data *data);
 
 ///////////// ENVIROMENT
 void copy_env(char **org_env, t_data *data);
-void print_env(t_env **env_list);
+void print_env(t_env *env);
 void	*ft_memdel(void *ptr);
-
+void free_env(t_env *env);
+/// utils
+char *get_env_value(t_env *env, char *key);
 
 
 
