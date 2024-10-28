@@ -6,18 +6,19 @@
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:22:37 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/22 20:45:04 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/28 18:51:48 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char *get_env_value(t_env *env, char key)
+char	*get_env_value(t_env *env, char key)
 {
 	(void)env;
 	(void)key;
 	return ("tinkywinky");
 }
+
 //Search key in str, return value found in env.
 char	*value_search(t_data *data, char *str, int *index)
 {
@@ -33,7 +34,6 @@ char	*value_search(t_data *data, char *str, int *index)
 	key = ft_substr(str, *index, len);
 	if (!key)
 		return (NULL);
-	//get_ev_value??
 	value = ft_strdup(get_env_value(&data->env, key));
 	free(key);
 	if (!value)
@@ -45,14 +45,12 @@ char	*value_search(t_data *data, char *str, int *index)
 char	*expand_str(char *str, t_data data)
 {
 	int		i;
-	char	*content_
+	char	*content_;
 
 	i = 0;
 	content_ = NULL;
-	if  (str[0] == '$' && str[1] == '\0')
-	{
-		return ('$')
-	}
+	if (str[0] == '$' && str[1] == '\0')
+		return ('$');
 	while (str[i] && str[i] != '$')
 		i++;
 }
@@ -63,10 +61,12 @@ char	*expand_dq_str(char *str, t_data data)
 	char	*content_;
 
 	i = 0;
+	content_ = NULL;
 	while (str[i])
 	{
 		while (str[i] != '\0' && str[] != '$')
-			content_ = 
+			i++;
+		content_ = ft_substr(str, 0, i) ;
 	}
 	return (content_);
 }

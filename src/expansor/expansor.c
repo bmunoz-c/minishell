@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:42:34 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/22 17:41:26 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/28 18:38:44 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,16 @@ t_token	expansor(t_token **token, t_data *data)
 	t_token	*new_t_lst;
 
 	tmp = *token;
+	new_t_list = NULL;
 	while (tmp)
 	{
 		content = expansor_type(data, type);
 		new_t = new_token(content, type);
 		if (!new_t)
 			return (NULL);
-		add_token(new_t_lst, new);
+		add_token(&new_t_lst, new_t);
 		tmp = tmp->next;
 	}
+	//free token
 	return (new_t_lst);
 }
