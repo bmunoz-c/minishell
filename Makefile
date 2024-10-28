@@ -6,7 +6,11 @@
 #    By: ltrevin- <ltrevin-@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2024/10/28 18:31:44 by bmunoz-c         ###   ########.fr        #
+=======
+#    Updated: 2024/10/24 13:42:55 by ltrevin-         ###   ########.fr        #
+>>>>>>> 4ed75f4dc2854f85d3e73c1f3424478b4c93a76f
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,10 +24,9 @@ HEADER			= inc/minishell.h
 
 SRC_DIR 		= src/
 OBJ_DIR 		= obj/
-SRC 			:= main.c clean_utils.c env.c\
+SRC 			:= main.c clean_utils.c env.c env_utils.c\
 				  builtins/echo.c \
 				  tokenizer/tokenizer.c tokenizer/token_type.c tokenizer/error_mng.c
-				  expansor/expansor.c expansor/expansor_utils.c
 
 SRC				:= $(addprefix $(SRC_DIR), $(SRC))
 OBJ				= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)

@@ -65,7 +65,7 @@ typedef struct s_token
 typedef struct s_data
 {
 	t_token		*token_list;		//Puntero a una lista de tokens
-	t_env		**env;
+	t_env		*env;
 	char		**path;
 	char		*prompt;
 	int			err_code;
