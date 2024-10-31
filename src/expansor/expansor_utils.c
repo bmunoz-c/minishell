@@ -6,7 +6,7 @@
 /*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:22:37 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/31 17:38:23 by borjamc          ###   ########.fr       */
+/*   Updated: 2024/10/31 19:12:03 by borjamc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,37 @@ char	*value_search(t_data *data, char *str, int *index)
 	*index = j;
 	return (value);
 }
-/*
-char	*expand_str(char *str, t_data data)
-{
-	int		i;
-	char	*content_;
 
-	i = 0;
-	content_ = NULL;
-	if (str[0] == '$' && str[1] == '\0')
-		return ('$');
-	while (str[i] && str[i] != '$')
-		i++;
+void	add_value(char  **lst, char *value, int *index)
+{
+	
 }
 
+void	expand_str(t_token *token, t_data *data)
+{
+	int		i;
+	int		j;
+	char	*str;
+	char	*value;
+	char	**lst_value;
+
+	str = token->content;
+	i = 0;
+	if (str[0] == '$' && str[1] == '\0')
+		return ;
+	j = 0;
+	while (str[i])
+	{
+		if (str[i] == '$')
+		{
+			value = value_search(data, str, &i);
+			
+			
+		}
+		i++;
+	}
+}
+/*
 char	*expand_dq_str(char *str, t_data data)
 {
 	int		i;
@@ -64,5 +81,4 @@ char	*expand_dq_str(char *str, t_data data)
 		content_ = ft_substr(str, 0, i) ;
 	}
 	return (content_);
-}
-*/
+}*/
