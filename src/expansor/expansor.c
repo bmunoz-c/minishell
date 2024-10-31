@@ -6,7 +6,7 @@
 /*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:42:34 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/31 19:02:10 by borjamc          ###   ########.fr       */
+/*   Updated: 2024/10/31 19:17:28 by borjamc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	expansor(t_token **token, t_data *data)
 		}
 		else if (tmp->type == DQ_STR)
 		{
-			
+			//expansion de DQ_STR.
 		}
 		tmp = tmp->next;
 	}
