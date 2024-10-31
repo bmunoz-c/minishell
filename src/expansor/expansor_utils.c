@@ -6,7 +6,7 @@
 /*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:22:37 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/31 19:20:06 by borjamc          ###   ########.fr       */
+/*   Updated: 2024/10/31 19:24:07 by borjamc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void	expand_str(t_token *token, t_data *data)
 	j = 0;
 	while (str[i])
 	{
-		if (str[i] == '$')
+		//solo entra si no termina en $.
+		if (str[i] == '$' && str[i + 1])
 		{
 			value = value_search(data, str, &i);
 			//guardar el value con add_value
