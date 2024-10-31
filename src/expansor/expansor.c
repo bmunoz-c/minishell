@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   expansor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
+/*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:42:34 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/28 18:38:44 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/31 17:13:36 by borjamc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
+/*
 char	*expansor_type(t_data *data, t_token **token)
 {
 	t_token	*tmp;
@@ -55,4 +55,4 @@ t_token	expansor(t_token **token, t_data *data)
 	}
 	//free token
 	return (new_t_lst);
-}
+}*/
