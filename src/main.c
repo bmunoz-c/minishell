@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/10/28 18:56:09 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/31 17:39:16 by borjamc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,15 @@ int			main(int ac, char **av, char **env)
 	//	write(1,"HOLAM\n", 6);
 		if(!ft_strncmp(data.prompt, "exit", 4))
 			exit(0);
-
-		value_serch(&data, data.prompt)
-		//
-		// do minishell
-		//
 		printf("%s\n", data.prompt);
 		if(!ft_strncmp(data.prompt, "exit", 4))
 			exit(0);
 		if(!ft_strncmp(data.prompt, "printenv", 8))
 			print_env(data.env);
+		int	index = ft_index_ch(data.prompt, '$');
+		char *value = value_search(&data, data.prompt, &index);
+		printf ("value: %s\n", value);
+
 		free(data.prompt);
 	}
 	printf("%s\n", env[0]);
