@@ -6,7 +6,7 @@
 /*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:22:37 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/31 19:12:03 by borjamc          ###   ########.fr       */
+/*   Updated: 2024/10/31 19:20:06 by borjamc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 //Search key in str, return value found in env.
 char	*value_search(t_data *data, char *str, int *index)
 {
+	//modificar *index, quitarlo.
 	char	*key;
 	char	*value;
 	int		j;
@@ -39,6 +40,14 @@ char	*value_search(t_data *data, char *str, int *index)
 
 void	add_value(char  **lst, char *value, int *index)
 {
+	//Guardar las expansiones y no expansiones de los values para concatenarlos
+
+}
+
+//Esta funcion concatena los values despues de expandir.
+//Se guardara en el content del token 
+char	*concat_values(char **lst, int size)
+{
 	
 }
 
@@ -60,25 +69,17 @@ void	expand_str(t_token *token, t_data *data)
 		if (str[i] == '$')
 		{
 			value = value_search(data, str, &i);
+			//guardar el value con add_value
 			
 			
 		}
+		else
+		{
+			//guardar lo demas en add_value.
+		}
 		i++;
 	}
+	//sobrescribir el value token con el resultado de concat_value.
 }
-/*
-char	*expand_dq_str(char *str, t_data data)
-{
-	int		i;
-	char	*content_;
 
-	i = 0;
-	content_ = NULL;
-	while (str[i])
-	{
-		while (str[i] != '\0' && str[] != '$')
-			i++;
-		content_ = ft_substr(str, 0, i) ;
-	}
-	return (content_);
-}*/
+//tener en cuenta si termina en $.
