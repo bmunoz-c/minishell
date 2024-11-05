@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
+/*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:32:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/22 18:31:26 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/31 19:02:24 by borjamc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,11 @@ t_token		*sp_token(char *prompt, int	*index);
 t_token		*meta_token(char *prompt, int *index);
 t_token		*quote_token(char *prompt, int *index, t_token_type type);
 t_token		*word_token(char *prompt, int *index);
+
+//_____EXPANSOR_____//
+void		expansor(t_token **token, t_data *data);
+//_____expansor_utils_____//
+char		*value_search(t_data *data, char *str, int *index);
+void		expand_str(t_token *token, t_data *data);
 
 #endif

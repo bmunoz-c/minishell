@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 20:47:49 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/10/24 13:53:35 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/10/31 17:35:15 by borjamc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_env *new_env(char *key)
 	env->value = ft_strdup(getenv(key));
 	env->next = NULL;
 	//if(env)
-	//	printf("Created %s=%s\n", env->key, env->value);
+		//printf("Created %s=%s\n", env->key, env->value);
 	return (env);
 }
 
@@ -53,7 +53,7 @@ void copy_env(char **org_env, t_data *data)
 	{
 		key = ft_substr(org_env[i], 0, ft_index_ch(org_env[i], '='));
 		tmp_env = new_env(key);
-		add_env(&(*data).env, tmp_env);
+		add_env(&(data->env), tmp_env);
 		i++;
 	}
 }

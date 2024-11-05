@@ -6,7 +6,7 @@
 #    By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
-#    Updated: 2024/10/31 16:51:33 by borjamc          ###   ########.fr        #
+#    Updated: 2024/10/31 17:34:38 by borjamc          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,8 @@ SRC_DIR 		= src/
 OBJ_DIR 		= obj/
 SRC 			:= main.c clean_utils.c env.c env_utils.c\
 				  builtins/echo.c \
-				  tokenizer/tokenizer.c tokenizer/token_type.c tokenizer/error_mng.c
-
+				  tokenizer/tokenizer.c tokenizer/token_type.c tokenizer/error_mng.c\
+					expansor/expansor.c expansor/expansor_utils.c					
 SRC				:= $(addprefix $(SRC_DIR), $(SRC))
 OBJ				= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
@@ -35,11 +35,11 @@ $(NAME) : $(OBJ) | libft
 	echo $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBS)
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJ_DIR)
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c  $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(OBJ_DIR):
-	mkdir -p $(OBJ_DIR) $(OBJ_DIR)/builtins $(OBJ_DIR)/tokenizer
+	mkdir -p $(OBJ_DIR) $(OBJ_DIR)/builtins $(OBJ_DIR)/tokenizer $(OBJ_DIR)/expansor
 
 libft:
 	@$(MAKE) -C inc/libft --no-print-directory
@@ -50,7 +50,7 @@ clean :
 
 fclean : clean 
 	@$(MAKE) -C inc/libft fclean --no-print-directory
-	rm $(NAME)
+	rm -f $(NAME)
 
 test : 
 
