@@ -6,7 +6,7 @@
 /*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:32:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/31 19:02:24 by borjamc          ###   ########.fr       */
+/*   Updated: 2024/11/05 20:16:42 by borjamc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ t_token		*word_token(char *prompt, int *index);
 void		expansor(t_token **token, t_data *data);
 //_____expansor_utils_____//
 char		*value_search(t_data *data, char *str, int *index);
+void		add_value(char  **lst, char *value, int *index);
+char		*concat_values(char **lst, int size);
 void		expand_str(t_token *token, t_data *data);
 
 #endif
