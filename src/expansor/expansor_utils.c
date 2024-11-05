@@ -6,7 +6,7 @@
 /*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:22:37 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/31 19:24:07 by borjamc          ###   ########.fr       */
+/*   Updated: 2024/11/05 20:01:47 by borjamc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,22 @@ char	*value_search(t_data *data, char *str, int *index)
 
 void	add_value(char  **lst, char *value, int *index)
 {
+	int		i;
+	char	**new_lst;
+
+	i = 0;
+	new_lst = malloc(sizeof(char *) * (*index + 1));
+	if (!new_lst)
+	    return ;
+	while (i < *index)
+	{
+		new_lst[i] = lst[i];
+		i++;
+	}
+	new_lst[*index] = value;
+	free(lst);
+	lst = new_lst;
+	(*index)++;
 	//Guardar las expansiones y no expansiones de los values para concatenarlos
 
 }
@@ -48,13 +64,26 @@ void	add_value(char  **lst, char *value, int *index)
 //Se guardara en el content del token 
 char	*concat_values(char **lst, int size)
 {
-	
+	int		i;
+	char	*res;
+
+	i = 0;
+	res = ft_strdup("");
+	if (!res)
+	    return (NULL);
+	while (i < size)
+	{
+		res = ft_strjoin(res, lst[i]);
+		i++;
+	}
+	return (res);
 }
 
+/*
 void	expand_str(t_token *token, t_data *data)
 {
 	int		i;
-	int		j;
+	int		lst_size;
 	char	*str;
 	char	*value;
 	char	**lst_value;
@@ -63,24 +92,34 @@ void	expand_str(t_token *token, t_data *data)
 	i = 0;
 	if (str[0] == '$' && str[1] == '\0')
 		return ;
-	j = 0;
+	lst_size = 0;
 	while (str[i])
 	{
 		//solo entra si no termina en $.
-		if (str[i] == '$' && str[i + 1])
+		if (str[i] == '$' && str[i + 1] != '$')
 		{
 			value = value_search(data, str, &i);
 			//guardar el value con add_value
-			
-			
+			if (value)
+				add_value(lst_value, value, &lst_size);
+			else
+				add_value(lst_value, ft_strdup(""), &lst_size);
 		}
 		else
 		{
+			int start;
+			start = i;
+			while (str[i] && str[i] != '$')
+				i++;
+			add_value(lst_value, ft_substr(str, start, i - start), &lst_size);
 			//guardar lo demas en add_value.
 		}
 		i++;
 	}
 	//sobrescribir el value token con el resultado de concat_value.
+	char *expanded_str;
+	expanded_str = concat_values(lst_value, lst_size);
+	token->content = expanded_str;
 }
-
+*/
 //tener en cuenta si termina en $.
