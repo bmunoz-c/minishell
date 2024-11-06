@@ -65,11 +65,11 @@ int run_echo(char **args)
 		ft_putchar_fd('\n',1);
 	return(1);
 }
-/*
+
 int main(int argc, char **argv)
 {
 	ft_putstring("Main to check the echo built-in command\n", 1);
 	ft_putstring("--------- Starting Execution ---------\n", 1);
 	run_echo(&argv[1]);
 	ft_putstring("---------- End of Execution ----------\n", 1);
-}*/
+}
