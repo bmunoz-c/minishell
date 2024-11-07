@@ -3,24 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   expansor_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
+/*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:22:37 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/22 20:45:04 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/10/31 19:24:07 by borjamc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char *get_env_value(t_env *env, char key)
-{
-	(void)env;
-	(void)key;
-	return ("tinkywinky");
-}
 //Search key in str, return value found in env.
 char	*value_search(t_data *data, char *str, int *index)
 {
+	//modificar *index, quitarlo.
 	char	*key;
 	char	*value;
 	int		j;
@@ -28,45 +23,64 @@ char	*value_search(t_data *data, char *str, int *index)
 
 	j = *index;
 	len = 0;
-	while (str[++j] && !is_space(str[j]) && str[j] != '$')
+	while (str[++j] && !ft_is_space(str[j]) && str[j] != '$')
 		len++;
-	key = ft_substr(str, *index, len);
+	key = ft_substr(str, *index + 1, len);
 	if (!key)
 		return (NULL);
-	//get_ev_value??
-	value = ft_strdup(get_env_value(&data->env, key));
+	printf ("KEY: %s\n", key);
+	value = ft_strdup(get_env_value(data->env, key));
+	
 	free(key);
 	if (!value)
 		return (NULL);
-	*i = j;
+	*index = j;
 	return (value);
 }
 
-char	*expand_str(char *str, t_data data)
+void	add_value(char  **lst, char *value, int *index)
 {
-	int		i;
-	char	*content_
+	//Guardar las expansiones y no expansiones de los values para concatenarlos
 
-	i = 0;
-	content_ = NULL;
-	if  (str[0] == '$' && str[1] == '\0')
-	{
-		return ('$')
-	}
-	while (str[i] && str[i] != '$')
-		i++;
 }
 
-char	*expand_dq_str(char *str, t_data data)
+//Esta funcion concatena los values despues de expandir.
+//Se guardara en el content del token 
+char	*concat_values(char **lst, int size)
+{
+	
+}
+
+void	expand_str(t_token *token, t_data *data)
 {
 	int		i;
-	char	*content_;
+	int		j;
+	char	*str;
+	char	*value;
+	char	**lst_value;
 
+	str = token->content;
 	i = 0;
+	if (str[0] == '$' && str[1] == '\0')
+		return ;
+	j = 0;
 	while (str[i])
 	{
-		while (str[i] != '\0' && str[] != '$')
-			content_ = 
+		//solo entra si no termina en $.
+		if (str[i] == '$' && str[i + 1])
+		{
+			value = value_search(data, str, &i);
+			//guardar el value con add_value
+			
+			
+		}
+		else
+		{
+			//guardar lo demas en add_value.
+		}
+		i++;
 	}
-	return (content_);
+	//sobrescribir el value token con el resultado de concat_value.
 }
+
+//tener en cuenta si termina en $.

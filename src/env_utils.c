@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:50:47 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/10/24 13:53:32 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/10/31 17:38:57 by borjamc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char *get_env_value(t_env *env, char *key)
 {
 	while(env)
 	{
-		if(ft_strncmp(env->key, key, ft_strlen(key) + 1) == 0)
+		if(ft_strncmp(env->key, key, ft_strlen(key)) == 0)
 			return(env->value);
 		env = env->next;
 	}
