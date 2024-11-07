@@ -6,7 +6,7 @@
 #    By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
-#    Updated: 2024/10/31 17:34:38 by borjamc          ###   ########.fr        #
+#    Updated: 2024/11/07 14:55:17 by ltrevin-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,10 +20,11 @@ HEADER			= inc/minishell.h
 
 SRC_DIR 		= src/
 OBJ_DIR 		= obj/
-SRC 			:= main.c clean_utils.c env.c env_utils.c\
-				  builtins/echo.c \
-				  tokenizer/tokenizer.c tokenizer/token_type.c tokenizer/error_mng.c\
-					expansor/expansor.c expansor/expansor_utils.c					
+SRC 			:=	main.c clean_utils.c env.c env_utils.c\
+					builtins/echo.c \
+					tokenizer/tokenizer.c tokenizer/token_type.c tokenizer/error_mng.c\
+					executor/executor.c 
+					#expansor/expansor.c expansor/expansor_utils.c					
 SRC				:= $(addprefix $(SRC_DIR), $(SRC))
 OBJ				= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
@@ -39,7 +40,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c  $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(OBJ_DIR):
-	mkdir -p $(OBJ_DIR) $(OBJ_DIR)/builtins $(OBJ_DIR)/tokenizer $(OBJ_DIR)/expansor
+	mkdir -p $(OBJ_DIR) $(OBJ_DIR)/builtins $(OBJ_DIR)/tokenizer $(OBJ_DIR)/expansor $(OBJ_DIR)/executor
 
 libft:
 	@$(MAKE) -C inc/libft --no-print-directory

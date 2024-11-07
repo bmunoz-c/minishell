@@ -20,13 +20,10 @@ void ft_putstring(char *s, int fd)
 int check_option(char *arg, int *new_line)
 {
 	int i = 1;
-	int n = 0;
 	if(arg[0] != '-')
 		return(0);
 	while(arg[i])
 	{
-		if(arg[i] == 'n')
-			n = 1;
 		if(arg[i] != 'n')
 			return(0);
 		i++;
