@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:32:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/05 20:16:42 by borjamc          ###   ########.fr       */
+/*   Updated: 2024/11/08 19:35:36 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,6 @@ void		expansor(t_token **token, t_data *data);
 char		*value_search(t_data *data, char *str, int *index);
 void		add_value(char  **lst, char *value, int *index);
 char		*concat_values(char **lst, int size);
-void		expand_str(t_token *token, t_data *data);
+void		expand_str(t_token *token, t_data *data, char *str);
 
 #endif
