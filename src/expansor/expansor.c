@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:42:34 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/08 21:22:53 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/08 21:33:22 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	expansor(t_token **token, t_data *data)
 		printf("Content: %s\n", tmp->content);
 		if (tmp->type == WORD)
 		{
-			expand_str(tmp, data, tmp->content);
+			expand_str(data, tmp->content);
 			// despues de expandir hay que retokenizar e insertar en la lista de tokens
 		}
 		else if (tmp->type == DQ_STR)
