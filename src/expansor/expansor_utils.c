@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:22:37 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/08 21:48:10 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/08 21:49:12 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,6 @@ char	*value_search(t_data *data, char *str, int *index)
 		return (NULL);
 	return (value);
 }
-
-//Esta funcion concatena los values despues de expandir.
-//Se guardara en el newcontent del token 
-/*char	*concat_values(char **lst, int size)
-{
-	int		i;
-	char	*res;
-
-	i = 0;
-	if (!res)
-	    return (NULL);
-	while (i < size)
-	{
-		res = ft_strjoin(res, lst[i]);
-		i++;
-	}
-	return (res);
-}*/
 
 // TODO: Cambiar newcont a char*
 void	expand_str(t_data *data, char *str, int i)
