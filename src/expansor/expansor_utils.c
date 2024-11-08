@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:22:37 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/08 21:35:30 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/08 21:41:28 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,12 @@ char	*value_search(t_data *data, char *str, int *index)
 }*/
 
 // TODO: Cambiar lst_value a char*
-void	expand_str(t_data *data, char *str)
+void	expand_str(t_data *data, char *str, int i)
 {
-	int		i;
 	char	*value;
 	char	*lst_value;
 	int		start;
 
-	i = 0;
 	lst_value = "";
 	while (str[i])
 	{
