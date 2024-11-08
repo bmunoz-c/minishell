@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:22:37 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/08 21:41:28 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/08 21:48:10 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 //Search key in str, return value found in env.
 char	*value_search(t_data *data, char *str, int *index)
 {
-	//modificar *index, quitarlo.
 	char	*key;
 	char	*value;
 	int		j;
@@ -30,7 +29,6 @@ char	*value_search(t_data *data, char *str, int *index)
 		return (NULL);
 	printf ("KEY: %s\n", key);
 	value = ft_strdup(get_env_value(data->env, key));
-	
 	free(key);
 	*index = j;
 	if (!value)
@@ -39,7 +37,7 @@ char	*value_search(t_data *data, char *str, int *index)
 }
 
 //Esta funcion concatena los values despues de expandir.
-//Se guardara en el content del token 
+//Se guardara en el newcontent del token 
 /*char	*concat_values(char **lst, int size)
 {
 	int		i;
@@ -56,35 +54,35 @@ char	*value_search(t_data *data, char *str, int *index)
 	return (res);
 }*/
 
-// TODO: Cambiar lst_value a char*
+// TODO: Cambiar newcont a char*
 void	expand_str(t_data *data, char *str, int i)
 {
 	char	*value;
-	char	*lst_value;
+	char	*newcont;
 	int		start;
 
-	lst_value = "";
+	newcont = "";
 	while (str[i])
 	{
 		if (str[i] == '$' && str[i + 1])
 		{
 			value = value_search(data, str, &i);
 			if (value)
-				lst_value = ft_strjoin(lst_value, value);
+				newcont = ft_strjoin(newcont, value);
 		}
 		else
 		{
 			start = i;
 			while (str[i + 1] && str[i + 1] != '$')
 				i++;
-			lst_value = ft_strjoin(lst_value, ft_substr(str, start, i - start + 1));
-			if (str[i] == '$' && !str[i+1])
-				break;
+			newcont = ft_strjoin(newcont, ft_substr(str, start, i - start + 1));
+			if (str[i] == '$' && !str[i + 1])
+				break ;
 		}
 		if (str[i] && str[i] != '$')
 			i++;
 	}
-	printf("expandeeeed!!: %s\n", lst_value);
+	printf("expandeeeed!!: %s\n", newcont);
 }
 
 //tener en cuenta si termina en $.
