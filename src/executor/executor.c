@@ -3,40 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:50:26 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/07 15:23:36 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/10 22:24:01 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// Crear la lista de comandos
-/*
- * un comando consta de:
- * 	char *cmd 	-> el texto literal del comando
- * 	char **args -> la lista de textos que recibe como argumento
- * 	int in_fd -> el fd que recoge de input
- * 	int out_fd -> el fd donde tiene que escribir
- * */
-void create_cmd_list(){}
+#include <minishell.h>
 
-// recorre la lista de comandos y la ejecuta
-void execute(t_data *data, t_cmd *cmds){
+
+
+
+// Case when it's only one command in prompt
+void run_sigle(t_cmd *cmd)
+{
 
 }
 
-// gestiona las pipes (abre los procesos hijo)
-void execute_pipe(){}
+// Case when there are multiple commnads in prompt
+void run_pipeline(t_cmd *cmd_list)
+{
 
-// BUILTINS
-// Marcar una flag para saber si el comando es un builtin o no
-void check_builtins(){}
-// ejecuta la funcion q le toca
-void execute_builtin(){}
+}
 
+// Run a builtin cmd
+void hanlde_builtin(t_cmd *cmd)
+{
+    
+}
 
-//UTILS
-//cerrar fd despues de ejecutaer
-void close_fd(){}
+void execute(t_data *data)
+{
+    t_cmd   *cmd_list;
 
-
+    cmd_list = group_cmd(data, data->token_list);
+    if(!cmd_list->next)
+        run_sigle(cmd_list);
+    else
+        run_pipeline(cmd_list);
+    free_cmds(cmd_list);
+}

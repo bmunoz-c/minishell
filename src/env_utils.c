@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:50:47 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/10/31 17:38:57 by borjamc          ###   ########.fr       */
+/*   Updated: 2024/11/10 22:04:09 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void print_env(t_env *env)
+void	print_env(t_env *env)
 {
-	
 	printf("---------- PRINTING ENV -----------\n");
-	while(env)
+	while (env)
 	{
 		printf("key: %s \t\tvalue: %s\n", env->key, env->value);
 		env = env->next;
@@ -24,11 +23,11 @@ void print_env(t_env *env)
 	printf("--------- END PRINT ENV -----------\n");
 }
 
-void free_env(t_env *env)
+void	free_env(t_env *env)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
-	while(env)
+	while (env)
 	{
 		tmp = env;
 		free(tmp->key);
@@ -38,13 +37,12 @@ void free_env(t_env *env)
 	}
 }
 
-
-char *get_env_value(t_env *env, char *key)
+char	*get_env_value(t_env *env, char *key)
 {
-	while(env)
+	while (env)
 	{
-		if(ft_strncmp(env->key, key, ft_strlen(key)) == 0)
-			return(env->value);
+		if (ft_strncmp(env->key, key, ft_strlen(key)) == 0)
+			return (env->value);
 		env = env->next;
 	}
 	return (NULL);

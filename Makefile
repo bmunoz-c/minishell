@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+         #
+#    By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
-#    Updated: 2024/11/07 14:55:17 by ltrevin-         ###   ########.fr        #
+#    Updated: 2024/11/10 22:00:39 by ltrevin-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ OBJ_DIR 		= obj/
 SRC 			:=	main.c clean_utils.c env.c env_utils.c\
 					builtins/echo.c \
 					tokenizer/tokenizer.c tokenizer/token_type.c tokenizer/error_mng.c\
-					executor/executor.c 
+					executor/executor.c executor/cmd_list.c \ executor/checksc.c
 					#expansor/expansor.c expansor/expansor_utils.c					
 SRC				:= $(addprefix $(SRC_DIR), $(SRC))
 OBJ				= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
