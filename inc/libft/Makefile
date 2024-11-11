@@ -10,7 +10,7 @@ SRC			=	ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c\
 				ft_strmapi.c ft_striteri.c ft_itoa.c\
 				ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c\
 				ft_is_space.c ft_search_ch.c ft_index_ch.c\
-				ft_strtrimfree.c ft_is_metachar.c
+				ft_strtrimfree.c ft_is_metachar.c ft_strjoin_f.c
 
 
 #_____Colors_____#
