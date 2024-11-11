@@ -6,21 +6,35 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:20:51 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/10 22:24:13 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/11 03:22:33 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	*ft_memdel(void *ptr)
+void	*free_ptr(void *ptr)
 {
 	if (ptr)
 		free(ptr);
 	return (NULL);
 }
 
-void	free_cmds(t_cmd *ptr)
+void	free_cmd(t_cmd *cmd)
 {
-		// Todo
+	if (!cmd)
+		return ;
+	if (cmd->path)
+		free(cmd->path);
+	if (cmd->args)
+	{
+		for (int i = 0; cmd->args[i]; i++)
+			free(cmd->args[i]);
+		free(cmd->args);
+	}
+	if (cmd->input_file)
+		free(cmd->input_file);
+	if (cmd->output_file)
+		free(cmd->output_file);
+	free(cmd);
+	return NULL;
 }
-

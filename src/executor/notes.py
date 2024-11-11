@@ -76,7 +76,7 @@ function setup_io_redirection(command_group):
             dup2(fd_in, STDIN_FILENO)
             close(fd_in)
         else if token is an output redirection:
-            fd_out = open(token.content, O_WRONLY | O_CREAT | O_TRUNC, 0644)
+            fd_out = open(token.content, O_WRONLY | O_CREAT | O_TRUNC, 0)
             if fd_out == -1:
                 log_error("Failed to open output file")
             dup2(fd_out, STDOUT_FILENO)

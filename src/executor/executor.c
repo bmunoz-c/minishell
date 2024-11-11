@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:50:26 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/10 22:24:01 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/10 22:41:52 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void run_pipeline(t_cmd *cmd_list)
 }
 
 // Run a builtin cmd
-void hanlde_builtin(t_cmd *cmd)
+void hanlde_builtin(t_cmd *cmd) 
 {
     
 }
