@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansor_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:22:37 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/31 19:24:07 by borjamc          ###   ########.fr       */
+/*   Updated: 2024/11/08 21:49:12 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 //Search key in str, return value found in env.
 char	*value_search(t_data *data, char *str, int *index)
 {
-	//modificar *index, quitarlo.
 	char	*key;
 	char	*value;
 	int		j;
@@ -30,57 +29,42 @@ char	*value_search(t_data *data, char *str, int *index)
 		return (NULL);
 	printf ("KEY: %s\n", key);
 	value = ft_strdup(get_env_value(data->env, key));
-	
 	free(key);
+	*index = j;
 	if (!value)
 		return (NULL);
-	*index = j;
 	return (value);
 }
 
-void	add_value(char  **lst, char *value, int *index)
+// TODO: Cambiar newcont a char*
+void	expand_str(t_data *data, char *str, int i)
 {
-	//Guardar las expansiones y no expansiones de los values para concatenarlos
-
-}
-
-//Esta funcion concatena los values despues de expandir.
-//Se guardara en el content del token 
-char	*concat_values(char **lst, int size)
-{
-	
-}
-
-void	expand_str(t_token *token, t_data *data)
-{
-	int		i;
-	int		j;
-	char	*str;
 	char	*value;
-	char	**lst_value;
+	char	*newcont;
+	int		start;
 
-	str = token->content;
-	i = 0;
-	if (str[0] == '$' && str[1] == '\0')
-		return ;
-	j = 0;
+	newcont = "";
 	while (str[i])
 	{
-		//solo entra si no termina en $.
 		if (str[i] == '$' && str[i + 1])
 		{
 			value = value_search(data, str, &i);
-			//guardar el value con add_value
-			
-			
+			if (value)
+				newcont = ft_strjoin(newcont, value);
 		}
 		else
 		{
-			//guardar lo demas en add_value.
+			start = i;
+			while (str[i + 1] && str[i + 1] != '$')
+				i++;
+			newcont = ft_strjoin(newcont, ft_substr(str, start, i - start + 1));
+			if (str[i] == '$' && !str[i + 1])
+				break ;
 		}
-		i++;
+		if (str[i] && str[i] != '$')
+			i++;
 	}
-	//sobrescribir el value token con el resultado de concat_value.
+	printf("expandeeeed!!: %s\n", newcont);
 }
 
 //tener en cuenta si termina en $.

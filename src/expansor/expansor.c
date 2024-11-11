@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:42:34 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/31 19:17:28 by borjamc          ###   ########.fr       */
+/*   Updated: 2024/11/08 21:41:33 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 	}
 }
 */
+
+
 void	expansor(t_token **token, t_data *data)
 {
 	t_token	*tmp;
@@ -42,9 +44,11 @@ void	expansor(t_token **token, t_data *data)
 	tmp = *token;
 	while (tmp)
 	{
+		printf("Content: %s\n", tmp->content);
 		if (tmp->type == WORD)
 		{
-			expand_str(tmp, data);
+			expand_str(data, tmp->content, 0);
+			// despues de expandir hay que retokenizar e insertar en la lista de tokens
 		}
 		else if (tmp->type == DQ_STR)
 		{
@@ -52,5 +56,4 @@ void	expansor(t_token **token, t_data *data)
 		}
 		tmp = tmp->next;
 	}
-	return ();
 }
