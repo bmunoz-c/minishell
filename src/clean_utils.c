@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:20:51 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/11 03:22:33 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/11 13:01:11 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,22 @@ void	*free_ptr(void *ptr)
 	return (NULL);
 }
 
-void	free_cmd(t_cmd *cmd)
+void free_cmds(t_cmd *cmd_list)
+{
+	t_cmd *tmp;
+		
+	while(cmd_list)
+	{
+		tmp = cmd_list;
+		cmd_list = cmd_list->next;
+		free_cmd(tmp);
+	}
+}
+
+void	*free_cmd(t_cmd *cmd)
 {
 	if (!cmd)
-		return ;
+		return NULL;
 	if (cmd->path)
 		free(cmd->path);
 	if (cmd->args)
@@ -37,4 +49,18 @@ void	free_cmd(t_cmd *cmd)
 		free(cmd->output_file);
 	free(cmd);
 	return NULL;
+}
+
+void	free_env(t_env *env)
+{
+	t_env	*tmp;
+
+	while (env)
+	{
+		tmp = env;
+		free(tmp->key);
+		free(tmp->value);
+		free(tmp);
+		env = env->next;
+	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 20:47:49 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/10/31 17:35:15 by borjamc          ###   ########.fr       */
+/*   Updated: 2024/11/11 13:01:33 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_env *new_env(char *key)
 
 	env = malloc(sizeof(t_env));
 	if(!env)
-		return (ft_memdel(env));
+		return (free_ptr(env));
 	env->key = key;
 	env->value = ft_strdup(getenv(key));
 	env->next = NULL;
@@ -40,6 +40,16 @@ void add_env(t_env **env_list, t_env *new_env)
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new_env;
+}
+char	*get_env_value(t_env *env, char *key)
+{
+	while (env)
+	{
+		if (ft_strncmp(env->key, key, ft_strlen(key)) == 0)
+			return (env->value);
+		env = env->next;
+	}
+	return (NULL);
 }
 
 void copy_env(char **org_env, t_data *data)

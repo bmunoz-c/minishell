@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_utils.c                                        :+:      :+:    :+:   */
+/*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:50:47 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/10 22:04:09 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/11 13:29:45 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,39 @@ void	print_env(t_env *env)
 	printf("--------- END PRINT ENV -----------\n");
 }
 
-void	free_env(t_env *env)
+void	print_cmd(t_cmd *cmd)
 {
-	t_env	*tmp;
+	int	i;
 
-	while (env)
+	printf("---------- PRINTING CMDs -----------\n");
+	while (cmd)
 	{
-		tmp = env;
-		free(tmp->key);
-		free(tmp->value);
-		free(tmp);
-		env = env->next;
+		if (cmd->path)
+			printf("path: %s\n [%d] -", cmd->path, cmd->nargs);
+		else
+			printf("path: undefined\n [%d] -", cmd->nargs);
+		i = 0;
+		if (cmd->args)
+		{ // Check if cmd->args is valid
+			while (cmd->args[i])
+			{ // Check each argument for validity
+				printf("|%s|, ", cmd->args[i]);
+				i++;
+			}
+		}
+		else
+		{
+			printf("args: undefined\n");
+		}
+		if (cmd->input_file)
+			printf("\n in: %s", cmd->input_file);
+		else
+			printf("\n in: undefined");
+		if (cmd->output_file)
+			printf(" out: %s", cmd->output_file);
+		else
+			printf(" out: undefined\n");
+		cmd = cmd->next;
 	}
-}
-
-char	*get_env_value(t_env *env, char *key)
-{
-	while (env)
-	{
-		if (ft_strncmp(env->key, key, ft_strlen(key)) == 0)
-			return (env->value);
-		env = env->next;
-	}
-	return (NULL);
+	printf("--------- END PRINT CMDs -----------\n");
 }

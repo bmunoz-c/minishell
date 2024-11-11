@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansor_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:22:37 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/08 21:49:12 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/11 13:16:50 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*value_search(t_data *data, char *str, int *index)
 	key = ft_substr(str, *index + 1, len);
 	if (!key)
 		return (NULL);
-	printf ("KEY: %s\n", key);
+	//printf ("KEY: %s\n", key);
 	value = ft_strdup(get_env_value(data->env, key));
 	free(key);
 	*index = j;
@@ -64,7 +64,7 @@ void	expand_str(t_data *data, char *str, int i)
 		if (str[i] && str[i] != '$')
 			i++;
 	}
-	printf("expandeeeed!!: %s\n", newcont);
+	//printf("expandeeeed!!: %s\n", newcont);
 }
 
 //tener en cuenta si termina en $.

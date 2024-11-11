@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:42:34 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/08 21:41:33 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/11 13:16:54 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	expansor(t_token **token, t_data *data)
 	tmp = *token;
 	while (tmp)
 	{
-		printf("Content: %s\n", tmp->content);
+		//printf("Content: %s\n", tmp->content);
 		if (tmp->type == WORD)
 		{
 			expand_str(data, tmp->content, 0);

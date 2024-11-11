@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/11 03:33:35 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/11 13:31:02 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,21 @@ void	init_cmd_data(t_cmd *cmd, t_token *tk_first, t_token *tk_last)
 	cmd->args = malloc(sizeof(char *) * (cmd->nargs + 1));
 }
 
-// Handles the command path search and returns whether it was successful
-int	handle_command_path(t_cmd *cmd, char *content)
+// TODO: Save the path of the executable
+char *search_cmd_path(t_data *data, char *content)
 {
-	cmd->path = search_cmd_path(content);
+	(void) data;
+	(void) content;
+	if(content)
+		return ft_strdup(content);
+	else
+		return NULL;
+}
+
+// Handles the command path search and returns whether it was successful
+int	handle_command_path(t_data *data, t_cmd *cmd, char *content)
+{
+	cmd->path = search_cmd_path(data, content);
 	if (!cmd->path)
 	{
 		free_cmd(cmd);
@@ -106,19 +117,20 @@ t_cmd	*build_cmd(t_data *data, t_token *tk_list, t_token *tk_last)
 	init_cmd_data(cmd, tk_list->next, tk_last);
 	if (!cmd->args)
 		return (free_cmd(cmd));
-	if (!handle_command_path(cmd, tk_list->content))
+	if (!handle_command_path(data, cmd, tk_list->content))
 		return (free_cmd(cmd));
 	if (!populate_args(cmd, tk_list->next, tk_last))
 		return (free_cmd(cmd));
 	if (!search_redirs(cmd, tk_list->next, tk_last))
 		return (free_cmd(cmd));
+	printf("cmd builded!\n\n");
 	return (cmd);
 }
 void	add_cmd(t_cmd **cmd_list, t_cmd *cmd)
 {
 	t_cmd	*tmp;
 
-	if (!cmd_list)
+	if (!*cmd_list)
 	{
 		*cmd_list = cmd;
 		return ;
@@ -132,27 +144,29 @@ void	add_cmd(t_cmd **cmd_list, t_cmd *cmd)
 // Takes the tk_list and creates a cmd_list,
 // Basically it's a list with all cmds in the prompt
 // and it's necessary info to execute them
-t_cmd	*group_cmd(t_data *data, t_token *tk_list)
+t_cmd *group_cmd(t_data *data, t_token *tk_list)
 {
-	t_token	*tk;
-	t_cmd	*cmd;
-	t_cmd	*cmd_list;
+    t_token *tk = tk_list;
+    t_cmd *cmd;
+    t_cmd *cmd_list = NULL; // Initialize to NULL
 
-	tk = tk_list;
-	while (tk) // Create a cmd for each pipe
-	{
-		if (tk->type == PIPE)
-		{
-			cmd = build_cmd(data, tk_list, tk);
-			add_cmd(&cmd_list, cmd);
-		}
-		tk = tk->next;
-	}
-	// There is no pipes so it's only one command
-	if (!cmd_list)
-	{
-		cmd = build_cmd(data, tk_list, tk);
-		add_cmd(&cmd_list, cmd);
-	}
-	return (cmd_list);
+    while (tk) // Create a cmd for each pipe
+    {
+        if (tk->type == PIPE)
+        {
+            cmd = build_cmd(data, tk_list, tk);
+            if (cmd) // Ensure cmd was built successfully
+                add_cmd(&cmd_list, cmd);
+        }
+        tk = tk->next;
+    }
+
+    // If there are no pipes, handle a single command
+    if (!cmd_list)
+    {
+        cmd = build_cmd(data, tk_list, tk); // tk is NULL
+        if (cmd) // Ensure cmd was built successfully
+            add_cmd(&cmd_list, cmd);
+    }
+    return cmd_list;
 }

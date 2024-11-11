@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:05:32 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/11 03:07:23 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/11 13:11:17 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,3 +23,4 @@ typedef struct s_cmd {
 
 // Cmd list utils
 t_cmd	*group_cmd(t_data *data, t_token *tk_list);
+void execute(t_data *data);

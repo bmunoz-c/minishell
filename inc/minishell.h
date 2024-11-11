@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/11 03:24:45 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/11 13:07:47 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,17 @@ void copy_env(char **org_env, t_data *data);
 
 ///////////// ENVIROMENT
 void copy_env(char **org_env, t_data *data);
-void print_env(t_env *env);
 void free_env(t_env *env);
-/// utils
 char *get_env_value(t_env *env, char *key);
+
+//////////// FREE utils
 void	*free_ptr(void *ptr);
-
-
+void	*free_cmd(t_cmd *cmd);
+void    free_cmds(t_cmd *cmd_list);
+void	free_env(t_env *env);
 #endif
+
+
+////////// BUG: Print utils, delete before submit
+void print_env(t_env *env);
+void	print_cmd(t_cmd *cmd);
