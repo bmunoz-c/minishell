@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/10/24 13:42:41 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/11 03:24:45 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #include "libft/libft.h"
 #include "tokenizer.h"
 #include "error.h"
+#include "executor.h"
 
 void copy_env(char **org_env, t_data *data);
 
@@ -39,11 +40,10 @@ void copy_env(char **org_env, t_data *data);
 ///////////// ENVIROMENT
 void copy_env(char **org_env, t_data *data);
 void print_env(t_env *env);
-void	*ft_memdel(void *ptr);
 void free_env(t_env *env);
 /// utils
 char *get_env_value(t_env *env, char *key);
-
+void	*free_ptr(void *ptr);
 
 
 #endif

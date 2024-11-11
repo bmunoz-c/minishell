@@ -6,7 +6,7 @@
 /*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/10/31 17:39:16 by borjamc          ###   ########.fr       */
+/*   Updated: 2024/11/07 15:12:12 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int			main(int ac, char **av, char **env)
 		if (!data.prompt)
 			continue ; 
 		data.token_list = NULL;
-	//	write(1,"HOLAM\n", 6);
+		//write(1,"HOLAM\n", 6);
 		if(!ft_strncmp(data.prompt, "exit", 4))
 			exit(0);
 		printf("%s\n", data.prompt);
@@ -75,10 +75,11 @@ int			main(int ac, char **av, char **env)
 			exit(0);
 		if(!ft_strncmp(data.prompt, "printenv", 8))
 			print_env(data.env);
-		int	index = ft_index_ch(data.prompt, '$');
-		char *value = value_search(&data, data.prompt, &index);
-		printf ("value: %s\n", value);
-
+		//int	index = ft_index_ch(data.prompt, '$');
+		//char *value = value_search(&data, data.prompt, &index);
+		//printf ("value: %s\n", value);
+		tokenizer(&data, 0);
+		print_token_list(data.token_list);
 		free(data.prompt);
 	}
 	printf("%s\n", env[0]);
