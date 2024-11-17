@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/11 13:31:02 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/18 00:28:47 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ void	init_cmd_data(t_cmd *cmd, t_token *tk_first, t_token *tk_last)
 }
 
 // TODO: Save the path of the executable
-char *search_cmd_path(t_data *data, char *content)
+char	*search_cmd_path(t_data *data, char *content)
 {
-	(void) data;
-	(void) content;
-	if(content)
-		return ft_strdup(content);
+	(void)data;
+	(void)content;
+	if (content)
+		return (ft_strdup(content));
 	else
-		return NULL;
+		return (NULL);
 }
 
 // Handles the command path search and returns whether it was successful
@@ -141,32 +141,37 @@ void	add_cmd(t_cmd **cmd_list, t_cmd *cmd)
 	tmp->next = cmd;
 }
 
-// Takes the tk_list and creates a cmd_list,
+// Takes the token list and creates a command list.
+// This function iterates through the token list, grouping tokens into commands
+// based on the PIPE token. It initializes each command with its arguments,
+// input/output redirections, and executable path.
+
 // Basically it's a list with all cmds in the prompt
 // and it's necessary info to execute them
-t_cmd *group_cmd(t_data *data, t_token *tk_list)
+t_cmd	*group_cmd(t_data *data, t_token *tk_list)
 {
-    t_token *tk = tk_list;
-    t_cmd *cmd;
-    t_cmd *cmd_list = NULL; // Initialize to NULL
+	t_token *tk;
+	t_cmd *cmd;
+	t_cmd *cmd_list;
 
-    while (tk) // Create a cmd for each pipe
-    {
-        if (tk->type == PIPE)
-        {
-            cmd = build_cmd(data, tk_list, tk);
-            if (cmd) // Ensure cmd was built successfully
-                add_cmd(&cmd_list, cmd);
-        }
-        tk = tk->next;
-    }
-
-    // If there are no pipes, handle a single command
-    if (!cmd_list)
-    {
-        cmd = build_cmd(data, tk_list, tk); // tk is NULL
-        if (cmd) // Ensure cmd was built successfully
-            add_cmd(&cmd_list, cmd);
-    }
-    return cmd_list;
+	tk = tk_list;
+	cmd_list = NULL;
+	while (tk)
+	{
+		if (tk->type == PIPE)
+		{
+			cmd = build_cmd(data, tk_list, tk);
+			if (cmd)
+				add_cmd(&cmd_list, cmd);
+			tk_list = tk->next;
+		}
+		tk = tk->next;
+	}
+	if (tk_list)
+	{
+		cmd = build_cmd(data, tk_list, NULL);
+		if (cmd)
+			add_cmd(&cmd_list, cmd);
+	}
+	return (cmd_list);
 }
