@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:42:34 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/08 21:41:33 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/17 19:22:22 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,10 @@ void	expansor(t_token **token, t_data *data)
 		if (tmp->type == WORD)
 		{
 			expand_str(data, tmp->content, 0);
-			// despues de expandir hay que retokenizar e insertar en la lista de tokens
+			//concatenar
 		}
 		else if (tmp->type == DQ_STR)
-		{
-			//expansion de DQ_STR.
-		}
+			expand_str(data, tmp->content, 0);
 		tmp = tmp->next;
 	}
 }
