@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/17 21:13:40 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/17 23:22:09 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int			main(int ac, char **av, char **env)
 		print_token_list(data.token_list);
 		execute(&data);
 		free_ptr(data.prompt);
+		free_tokens(data.token_list);
 		
 	}
 	printf("%s\n", env[0]);

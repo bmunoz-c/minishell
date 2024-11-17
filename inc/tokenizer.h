@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:32:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/17 21:13:56 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/17 23:20:30 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ typedef struct s_token
 {
 	enum e_token_type	type;
 	char				*content;
-	int					expanded;
 	struct s_token		*next;
 	struct s_token		*prev;
 

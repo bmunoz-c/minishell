@@ -6,17 +6,17 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:20:51 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/17 20:22:47 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/17 23:21:01 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void free_cmds(t_cmd *cmd_list)
+void	free_cmds(t_cmd *cmd_list)
 {
-	t_cmd *tmp;
-		
-	while(cmd_list)
+	t_cmd	*tmp;
+
+	while (cmd_list)
 	{
 		tmp = cmd_list;
 		cmd_list = cmd_list->next;
@@ -27,7 +27,7 @@ void free_cmds(t_cmd *cmd_list)
 void	*free_cmd(t_cmd *cmd)
 {
 	if (!cmd)
-		return NULL;
+		return (NULL);
 	if (cmd->path)
 		free(cmd->path);
 	if (cmd->args)
@@ -41,7 +41,7 @@ void	*free_cmd(t_cmd *cmd)
 	if (cmd->output_file)
 		free(cmd->output_file);
 	free(cmd);
-	return NULL;
+	return (NULL);
 }
 
 void	free_env(t_env *env)
@@ -56,4 +56,25 @@ void	free_env(t_env *env)
 		free(tmp);
 		env = env->next;
 	}
+}
+
+void	free_tokens(t_token *token_list)
+{
+	t_token	*tmp;
+
+	while (token_list)
+	{
+		tmp = token_list;
+		token_list = token_list->next;
+		free_token(tmp);
+	}
+}
+
+void	free_token(t_token *token)
+{
+	if (!token)
+		return ;
+	if (token->content)
+		free(token->content);
+	free(token);
 }

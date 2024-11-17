@@ -6,11 +6,14 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:42:34 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/17 21:55:10 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/17 23:22:59 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+//TODO Sevillana
+//HEERDOOK > 16 exit en el main
 
 t_token	*last_token(t_token *token)
 {
@@ -22,14 +25,13 @@ t_token	*last_token(t_token *token)
 	return (tmp);
 }
 
-// TO DO: Cambiar la creacion del data a lafuncion
+// TODO: Cambiar la creacion del data a la funcion
 void	concat_tokens(t_token **head, t_token **token)
 {
 	t_token	*tmp;
 	t_data	data;
 	t_token	*last_t;
 
-	printf("$$$$$$$$$$$$$$$$$$$$$$$$\n");
 	data.prompt = ft_strdup((*token)->content);
 	data.token_list = NULL;
 	tokenizer(&data, 0);
@@ -60,7 +62,6 @@ void	expansor(t_token **token, t_data *data)
 	tmp = *token;
 	while (tmp)
 	{
-		// printf("Content: %s\n", tmp->content);
 		if ((tmp->type == WORD || tmp->type == DQ_STR)
 			&& ft_search_ch(tmp->content, '$'))
 		{

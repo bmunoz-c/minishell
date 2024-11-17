@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/11 13:07:47 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/17 23:22:49 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	*free_ptr(void *ptr);
 void	*free_cmd(t_cmd *cmd);
 void    free_cmds(t_cmd *cmd_list);
 void	free_env(t_env *env);
+void	free_tokens(t_token *token_list);
 #endif
 
 
