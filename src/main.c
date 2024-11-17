@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/17 23:22:09 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/17 23:26:33 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,5 @@ int			main(int ac, char **av, char **env)
 		
 	}
 	printf("%s\n", env[0]);
+	free_env(data.env);
 }

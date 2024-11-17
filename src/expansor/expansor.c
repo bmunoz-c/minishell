@@ -6,14 +6,18 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:42:34 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/17 23:22:59 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/17 23:29:49 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-//TODO Sevillana
-//HEERDOOK > 16 exit en el main
+//TODO Sevillana: despues del expansor, 
+//joinear los tokens SQ DQ WORD si no hay otro tipo de token entre ellos,
+
+//Checkear la liberacion de tokens.
+
+//HEERDOOK > 16 mensaje de error (BASH) en el main
 
 t_token	*last_token(t_token *token)
 {

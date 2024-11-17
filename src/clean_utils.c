@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:20:51 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/17 23:21:01 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/17 23:26:57 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	*free_cmd(t_cmd *cmd)
 	return (NULL);
 }
 
+//TODO checkear si se libera bien
 void	free_env(t_env *env)
 {
 	t_env	*tmp;
