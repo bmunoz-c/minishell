@@ -49,11 +49,11 @@
 
 int			main(int ac, char **av, char **env)
 {
-	t_data data;
-	
+	t_data	data;
+
 	(void)av;
 	(void)ac;
-	if(ac != 1)
+	if (ac != 1)
 	{
 		printf("No args are allowed\n");
 		exit(1);
@@ -61,14 +61,14 @@ int			main(int ac, char **av, char **env)
 	data.env = NULL;
 	copy_env(env, &data);
 	//print_env(data.env);
-	while(42)
+	while (42)
 	{
 		data.prompt = readline(PROMPT);
 		if (!data.prompt)
-			continue ; 
+			continue ;
 		data.token_list = NULL;
 		//write(1,"HOLAM\n", 6);
-		if(!ft_strncmp(data.prompt, "exit", 4))
+		if (!ft_strncmp(data.prompt, "exit", 4))
 			exit(0);
 		if(!ft_strncmp(data.prompt, "printenv", 8))
 			print_env(data.env);
@@ -80,4 +80,3 @@ int			main(int ac, char **av, char **env)
 	}
 	printf("%s\n", env[0]);
 }
-	
