@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/11 13:17:09 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/17 21:13:40 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,11 @@ int			main(int ac, char **av, char **env)
 		if(!ft_strncmp(data.prompt, "printenv", 8))
 			print_env(data.env);
 		tokenizer(&data, 0);
+		print_token_list(data.token_list);
 		expansor(&data.token_list, &data);
+		print_token_list(data.token_list);
 		execute(&data);
-		free(data.prompt);
+		free_ptr(data.prompt);
 		
 	}
 	printf("%s\n", env[0]);

@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:32:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/08 21:49:53 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/17 21:13:56 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,6 @@ t_token		*word_token(char *prompt, int *index);
 void		expansor(t_token **token, t_data *data);
 //_____expansor_utils_____//
 char		*value_search(t_data *data, char *str, int *index);
-void		expand_str(t_data *data, char *str, int i);
+char		*expand_str(t_data *data, char *str, int i);
 
 #endif

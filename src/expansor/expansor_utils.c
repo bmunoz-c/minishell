@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansor_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:22:37 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/17 19:21:00 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/17 20:30:06 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ char	*value_search(t_data *data, char *str, int *index)
 	key = ft_substr(str, *index + 1, len);
 	if (!key)
 		return (NULL);
-	//printf ("KEY: %s\n", key);
 	value = ft_strdup(get_env_value(data->env, key));
 	free(key);
 	*index = j;
@@ -36,14 +35,26 @@ char	*value_search(t_data *data, char *str, int *index)
 	return (value);
 }
 
-// TODO: Cambiar newcont a char*
-void	expand_str(t_data *data, char *str, int i)
+void	expand_var(int *i, char **newcont, char *str)
+{
+	int		start;
+	char	*var;
+
+	start = *i;
+	while (str[*i + 1] && str[*i + 1] != '$')
+		*i += 1;
+	var = ft_substr(str, start, *i - start + 1);
+	*newcont = ft_strjoin_f(*newcont, var);
+}
+
+char	*expand_str(t_data *data, char *str, int i)
 {
 	char	*value;
 	char	*newcont;
-	int		start;
 
-	newcont = "";
+	newcont = ft_strdup("");
+	if (!newcont)
+		return (NULL);
 	while (str[i])
 	{
 		if (str[i] == '$' && str[i + 1])
@@ -54,23 +65,20 @@ void	expand_str(t_data *data, char *str, int i)
 		}
 		else
 		{
-			start = i;
-			while (str[i + 1] && str[i + 1] != '$')
-				i++;
-			newcont = ft_strjoin(newcont, ft_substr(str, start, i - start + 1));
+			expand_var(&i, &newcont, str);
 			if (str[i] == '$' && !str[i + 1])
 				break ;
 		}
 		if (str[i] && str[i] != '$')
 			i++;
 	}
-	//printf("expandeeeed!!: %s\n", newcont);
+	return (newcont);
 }
 
 //TO DO: retoquenizar si es word.
 //TO DO: insertar la lista nueva en la lista de tokens.
-	t_token	new_tokens;
+/*	t_token	new_tokens;
 
 	new_tokens = tokenizer(data, 0);
 	add_token(&data->token_list, new_tokens);
-	free(newcont);
+	free(newcont);*/

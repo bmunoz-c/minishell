@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   clean_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:20:51 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/11 13:01:11 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/17 20:22:47 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-void	*free_ptr(void *ptr)
-{
-	if (ptr)
-		free(ptr);
-	return (NULL);
-}
 
 void free_cmds(t_cmd *cmd_list)
 {
