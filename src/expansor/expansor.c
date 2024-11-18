@@ -6,15 +6,15 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:42:34 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/18 20:25:11 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/18 21:03:42 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 //TODO Sevillana: despues del expansor, 
-//joinear los tokens SQ DQ WORD si no hay otro tipo de token entre ellos,
-//Checkear la liberacion de tokens.
+//joinear los tokens SQ DQ WORD si no hay otro tipo de token entre ellos +
+//liberacion de espacios
 t_token	*last_token(t_token *token)
 {
 	t_token	*tmp;
