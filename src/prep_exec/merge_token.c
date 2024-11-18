@@ -1,28 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   merge_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/26 17:25:56 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/18 19:34:44 by bmunoz-c         ###   ########.fr       */
+/*   Created: 2024/11/18 21:19:03 by bmunoz-c          #+#    #+#             */
+/*   Updated: 2024/11/18 21:20:14 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <minishell.h>
 
-char	*ft_strdup(const char *s1)
-{
-	char	*s2;
-	size_t	size;
-
-	if(!s1)
-		return (NULL);
-	size = ft_strlen(s1);
-	s2 = malloc(size * sizeof(char) + 1);
-	if (!s2)
-		return (NULL);
-	ft_strlcpy(s2, s1, size + 1);
-	return (s2);
-}
+// Merge tokens of type WORD, SQ_STR, DQ_STR.
+// Quitar espacios y tokens vacios.
+// Check sintax errors.

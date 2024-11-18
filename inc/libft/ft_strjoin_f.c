@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 17:04:16 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/17 20:20:31 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/18 20:59:53 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char	*ft_strjoin_f(char *s1, char *s2)
 	if (s2)
 		ft_strlcpy(join + s1len, s2, s2len + 1);
 	free_ptr(s1);
+	free_ptr(s2);
 	return (join);
 }
 /*

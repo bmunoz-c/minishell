@@ -6,12 +6,11 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/18 13:23:51 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/18 19:12:34 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
 
 // TODO: Save the path of the executable
 char	*search_cmd_path(t_data *data, char *content)

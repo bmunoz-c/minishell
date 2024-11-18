@@ -6,10 +6,11 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/18 19:00:31 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/18 19:46:29 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <minishell.h>
 #include <minishell.h>
 
 
@@ -38,6 +39,7 @@ int	here_doc_error(t_data *data)
 int			main(int ac, char **av, char **env)
 {
 	t_data	data;
+	char *dirty_prompt;
 
 	(void)av;
 	if (ac != 1)
@@ -49,7 +51,9 @@ int			main(int ac, char **av, char **env)
 	copy_env(env, &data);
 	while (42)
 	{
-		data.prompt = readline(PROMPT);
+		dirty_prompt = readline(PROMPT);
+		data.prompt = ft_strtrim(dirty_prompt, " ");
+		free(dirty_prompt);
 		if (!data.prompt)
 			continue ;
 		if (!ft_strncmp(data.prompt, "exit", 4))
@@ -63,7 +67,7 @@ int			main(int ac, char **av, char **env)
 		if (here_doc_error(&data))
 			continue ;
 		execute(&data);
-		//free_data(&data, 0);
+		free_data(&data, 0);
 	}
 	free_data(&data, 1);
 }

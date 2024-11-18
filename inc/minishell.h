@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/18 13:25:49 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/18 19:08:47 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ void copy_env(char **org_env, t_data *data);
 void free_env(t_env *env);
 char *get_env_value(t_env *env, char *key);
 
+
+//////////// INIT STRUCTS
+void	init_cmd_data(t_cmd *cmd, t_token *tk_first, t_token *tk_last);
+void    init_data(t_data *data);
+
 //////////// FREE utils
 void	*free_ptr(void *ptr);
 void	*free_cmd(t_cmd *cmd);
@@ -53,7 +58,7 @@ void    free_cmds(t_cmd *cmd_list);
 void	free_env(t_env *env);
 void	free_tokens(t_token *token_list);
 void	free_token(t_token *token);
-void    free_data(t_data *s_data, int env_flag);
+void	free_data(t_data *data, int env_flag);
 #endif
 
 

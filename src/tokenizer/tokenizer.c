@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:28:00 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/18 00:39:26 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/18 19:42:42 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	tokenizer(t_data *data, int i)
 {
 	t_token	*token;
 
-	data->prompt = ft_strtrimfree(data->prompt, " ", 1);
+	//data->prompt = ft_strtrimfree(data->prompt, " ", 1);
 	while (data->prompt[i])
 	{
 		if (data->prompt[i] == ' ')
@@ -71,4 +71,3 @@ void	add_token(t_token **token_list, t_token *new_token)
 	tmp->next = new_token;
 	new_token->prev = tmp;
 }
-
