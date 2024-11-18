@@ -6,28 +6,12 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/18 00:28:47 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/18 13:23:51 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-// Initializes the t_cmd structure and counts the number of arguments
-void	init_cmd_data(t_cmd *cmd, t_token *tk_first, t_token *tk_last)
-{
-	cmd->path = NULL;
-	cmd->input_file = NULL;
-	cmd->output_file = NULL;
-	cmd->next = NULL;
-	cmd->nargs = 0;
-	while (tk_first != tk_last)
-	{
-		if (tk_first->type == WORD || tk_first->type == SPC)
-			cmd->nargs++;
-		tk_first = tk_first->next;
-	}
-	cmd->args = malloc(sizeof(char *) * (cmd->nargs + 1));
-}
 
 // TODO: Save the path of the executable
 char	*search_cmd_path(t_data *data, char *content)
@@ -95,6 +79,15 @@ int	search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 				break ;
 			tk_list = tk_list->next;
 		}
+		else if (tk_list->type == APPEND)
+		{
+			cmd->output_file = ft_strdup(tk_list->next->content);
+			cmd->append_output = 1;
+			if (!cmd->output_file)
+				break ;
+			tk_list = tk_list->next;
+		}
+		
 		// TODO: Handle other redirection types like REDIR and HERE_DOC
 		tk_list = tk_list->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/18 00:43:46 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/18 13:42:48 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,36 +40,26 @@ int			main(int ac, char **av, char **env)
 	t_data	data;
 
 	(void)av;
-	(void)ac;
 	if (ac != 1)
 	{
 		printf("No args are allowed\n");
 		exit(1);
 	}
-	data.env = NULL;
+	init_data(&data);
 	copy_env(env, &data);
-	//print_env(data.env);
 	while (42)
 	{
 		data.prompt = readline(PROMPT);
 		if (!data.prompt)
 			continue ;
-		data.token_list = NULL;
-		//write(1,"HOLAM\n", 6);
 		if (!ft_strncmp(data.prompt, "exit", 4))
-			exit(0);
-		if (!ft_strncmp(data.prompt, "printenv", 8))
-			print_env(data.env);
+			break ;
 		tokenizer(&data, 0);
-		print_token_list(data.token_list);
 		expansor(&data.token_list, &data);
 		if (here_doc_error(&data))
 			continue ;
-		print_token_list(data.token_list);
 		execute(&data);
-		free_ptr(data.prompt);
-		free_tokens(data.token_list);
+		free_data(&data, 0);
 	}
-	printf("%s\n", env[0]);
-	free_env(data.env);
+	free_data(&data, 1);
 }

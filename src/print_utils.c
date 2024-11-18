@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:50:47 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/18 00:42:05 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/18 12:59:15 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	print_env(t_env *env)
 {
 	printf(BLUE "---------- PRINTING ENV -----------" RESET "\n");
+	if(!env)
+		printf("env is empty\n");
 	while (env)
 	{
 		printf(GREEN "key: %s \t\tvalue: %s" RESET "\n", env->key, env->value);
@@ -28,6 +30,8 @@ void	print_cmd(t_cmd *cmd)
 	int	i;
 
 	printf(MAGENTA "---------- PRINTING CMDs -----------" RESET "\n");
+	if(!cmd)
+		printf("cmd is empty\n");
 	while (cmd)
 	{
 		if (cmd->path)
@@ -52,7 +56,7 @@ void	print_cmd(t_cmd *cmd)
 		else
 			printf(RED "\n in: undefined" RESET);
 		if (cmd->output_file)
-			printf(RED " out: %s" RESET, cmd->output_file);
+			printf(RED " out: %s\n" RESET, cmd->output_file);
 		else
 			printf(RED " out: undefined\n" RESET);
 		cmd = cmd->next;
@@ -95,15 +99,17 @@ void	print_token_list(t_token *token_list)
 	t_token	*tmp;
 	int i;
 
-	printf(MAGENTA "******** PRINTING TOKENS ********" RESET "\n");
+	printf(CYAN "********* PRINTING TOKENS *********" RESET "\n");
 	i = 0;
 	tmp = token_list;
+	if(!tmp)
+		printf("token list is empty\n");
 	while (tmp)
 	{
 		print_token(tmp);
 		tmp = tmp->next;
 		i++;
 	}
-	printf(MAGENTA "Tkn count: %d\n" RESET, i);
-	printf(MAGENTA "******** END PRINT TOKEN ********" RESET "\n");
+	printf(CYAN "Tkn count: %d\n" RESET, i);
+	printf(CYAN "********* END PRINT TOKEN *********" RESET "\n");
 }

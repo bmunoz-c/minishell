@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/17 23:57:16 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/18 13:25:49 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@
 #include "error.h"
 #include "executor.h"
 
-void copy_env(char **org_env, t_data *data);
-
 // COLOR MACROS
 # define RESET "\033[0m"
 # define RED "\033[0;31m"
@@ -36,6 +34,12 @@ void copy_env(char **org_env, t_data *data);
 # define WHITE "\033[0;37m"
 
 #define PROMPT MAGENTA "dancingShell🩰🦦" BLUE "> " RESET 
+
+
+///////////// INIT STRUCTS
+void    init_data(t_data *data);
+void	init_cmd_data(t_cmd *cmd, t_token *tk_first, t_token *tk_last);
+
 
 ///////////// ENVIROMENT
 void copy_env(char **org_env, t_data *data);
@@ -49,6 +53,7 @@ void    free_cmds(t_cmd *cmd_list);
 void	free_env(t_env *env);
 void	free_tokens(t_token *token_list);
 void	free_token(t_token *token);
+void    free_data(t_data *s_data, int env_flag);
 #endif
 
 

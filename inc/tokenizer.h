@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:32:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/17 23:20:30 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/18 13:25:35 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,6 @@
 # define REDIR_APPEND		8 // RedirAppend >>
 */
 
-//_____ENVIRONMENT_STRUCT_____//
-typedef struct s_env
-{
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-}	t_env;
-
 //ESTRUCTURA ENUMERACION TIPO DE TOKEN
 typedef enum e_token_type
 {
@@ -44,7 +36,7 @@ typedef enum e_token_type
 	SQ_STR,
 	DQ_STR,
 	ENV_VAR,
-	//____Redirections_____//
+	//____Redirections__t_cmd		*cmd_list;___//
 	HERE_DOC,
 	INPUT,
 	OUTPUT,
@@ -61,16 +53,38 @@ typedef struct s_token
 
 }	t_token;
 
+//_____ENVIRONMENT_STRUCT_____//
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
+
+typedef struct s_cmd {
+    char *path;          // Path to the executable or built-in command
+    int  nargs;
+    char **args;         // Array of arguments for the command, including the command name
+    char *input_file;    // File for input redirection, or NULL if not used
+    char *output_file;   // File for output redirection, or NULL if not used
+    int append_output;   // Flag for >> redirection)
+    struct s_cmd *next;
+} t_cmd;
+
+
+//_____DATA_______STRUCT_____//
 typedef struct s_data
 {
-	t_token		*token_list;		//Puntero a una lista de tokens
+	t_token		*token_list;
 	t_env		*env;
 	char		**path;
 	char		*prompt;
 	int			err_code;
 	char		*err_msg;
+	t_cmd		*cmd_list;
 
 }	t_data;
+
 
 //_____SYNTAX_____//
 int			check_quotes(t_data *data);

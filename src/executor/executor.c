@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:50:26 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/18 00:03:38 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/18 12:54:19 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,42 @@
 	
 // }
 
+
+t_token	*remove_empty_tk(t_token *tk_list)
+{
+	t_token	*tmp_list;
+	t_token *tmp_tk;
+
+	tmp_list = tk_list;
+	while (tmp_list)
+	{
+		if (tmp_list->type == SPC)
+		{
+			if (tmp_list->prev)
+				tmp_list->prev->next = tmp_list->next;
+			if (tmp_list->next)
+				tmp_list->next->prev = tmp_list->prev;
+			if (tmp_list == tk_list)
+				tk_list = tmp_list->next;
+			tmp_tk = tmp_list;
+			tmp_list = tmp_list->next;
+			free_token(tmp_tk);
+		}
+		else
+			tmp_list = tmp_list->next;
+	}
+	return (tk_list);
+}
+
 void execute(t_data *data)
 {
-	t_cmd   *cmd_list;
 
-	cmd_list = group_cmd(data, data->token_list);
+	//data->token_list = remove_empty_tk(data->token_list);
+	print_token_list(data->token_list);
+	data->cmd_list = group_cmd(data, data->token_list);
 	//if(!cmd_list->next)
 	//    run_sigle(cmd_list);
 	//else
 	//    run_pipeline(cmd_list);
-	print_cmd(cmd_list);
-	free_cmds(cmd_list);
+	print_cmd(data->cmd_list);
 }
