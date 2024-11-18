@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/18 13:42:48 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/18 13:58:11 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int			main(int ac, char **av, char **env)
 			continue ;
 		if (!ft_strncmp(data.prompt, "exit", 4))
 			break ;
+		if (!ft_strncmp(data.prompt, "printenv", 8))
+			print_env(data.env);
 		tokenizer(&data, 0);
 		expansor(&data.token_list, &data);
 		if (here_doc_error(&data))

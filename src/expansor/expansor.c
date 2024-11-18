@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:42:34 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/17 23:52:38 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/18 14:00:03 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ t_token	*last_token(t_token *token)
 {
 	t_token	*tmp;
 
+	if(!token)
+		return (NULL);
 	tmp = token;
 	while (tmp->next)
 		tmp = tmp->next;
@@ -53,7 +55,7 @@ void	concat_tokens(t_token **head, t_token **token)
 		tmp->prev = NULL;
 	}
 }
-
+// BUG: segfault con un word y una variable
 void	expansor(t_token **token, t_data *data)
 {
 	t_token	*tmp;
