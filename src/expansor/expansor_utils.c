@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:22:37 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/18 20:59:40 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/18 21:03:02 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,3 @@ char	*expand_str(t_data *data, char *str, int i)
 	}
 	return (newcont);
 }
-
-//TO DO: retoquenizar si es word.
-//TO DO: insertar la lista nueva en la lista de tokens.
-/*	t_token	new_tokens;
-
-	new_tokens = tokenizer(data, 0);
-	add_token(&data->token_list, new_tokens);
-	free(newcont);*/
