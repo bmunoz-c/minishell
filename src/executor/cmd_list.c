@@ -6,28 +6,11 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/11 13:31:02 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/18 19:12:34 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-// Initializes the t_cmd structure and counts the number of arguments
-void	init_cmd_data(t_cmd *cmd, t_token *tk_first, t_token *tk_last)
-{
-	cmd->path = NULL;
-	cmd->input_file = NULL;
-	cmd->output_file = NULL;
-	cmd->next = NULL;
-	cmd->nargs = 0;
-	while (tk_first != tk_last)
-	{
-		if (tk_first->type == WORD || tk_first->type == SPC)
-			cmd->nargs++;
-		tk_first = tk_first->next;
-	}
-	cmd->args = malloc(sizeof(char *) * (cmd->nargs + 1));
-}
 
 // TODO: Save the path of the executable
 char *search_cmd_path(t_data *data, char *content)

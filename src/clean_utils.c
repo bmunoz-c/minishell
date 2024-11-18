@@ -3,37 +3,68 @@
 /*                                                        :::      ::::::::   */
 /*   clean_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:20:51 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/17 23:26:57 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/18 19:15:28 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+void	free_data(t_data *data, int env_flag)
+{
+	if (!data)
+		return ;
+	if (data->prompt)
+	{
+		free_ptr(data->prompt);
+		data->prompt = NULL;
+	}
+	if (data->env && env_flag)
+	{
+		free_env(data->env);
+		data->env = NULL;
+	}
+	if (data->token_list)
+	{
+		free_tokens(data->token_list);
+		data->token_list = NULL;
+	}
+	if (data->cmd_list)
+	{
+		free_cmds(data->cmd_list);
+		data->cmd_list = NULL;
+	}
+}
+
 void	free_cmds(t_cmd *cmd_list)
 {
-	t_cmd	*tmp;
+    t_cmd *tmp_lst;
+    t_cmd *tmp_cmd;
 
-	while (cmd_list)
-	{
-		tmp = cmd_list;
-		cmd_list = cmd_list->next;
-		free_cmd(tmp);
-	}
+    tmp_lst = cmd_list;
+    while (tmp_lst)
+    {
+        tmp_cmd = tmp_lst;
+        tmp_lst = tmp_lst->next;
+        free_cmd(tmp_cmd);
+        tmp_cmd = NULL;
+    }
 }
 
 void	*free_cmd(t_cmd *cmd)
 {
+	int i;
 	if (!cmd)
 		return (NULL);
 	if (cmd->path)
 		free(cmd->path);
 	if (cmd->args)
 	{
-		for (int i = 0; cmd->args[i]; i++)
-			free(cmd->args[i]);
+		i = 0;
+		while(cmd->args[i])
+			free(cmd->args[i++]);
 		free(cmd->args);
 	}
 	if (cmd->input_file)
@@ -44,19 +75,27 @@ void	*free_cmd(t_cmd *cmd)
 	return (NULL);
 }
 
-//TODO checkear si se libera bien
 void	free_env(t_env *env)
 {
-	t_env	*tmp;
+    t_env	*tmp;
 
-	while (env)
-	{
-		tmp = env;
-		free(tmp->key);
-		free(tmp->value);
-		free(tmp);
-		env = env->next;
-	}
+    while (env)
+    {
+        tmp = env;
+        env = env->next;
+        if (tmp->key)
+        {
+            free(tmp->key);
+            tmp->key = NULL;
+        }
+        if (tmp->value)
+        {
+            free(tmp->value);
+            tmp->value = NULL;
+        }
+        free(tmp);
+        tmp = NULL;
+    }
 }
 
 void	free_tokens(t_token *token_list)
@@ -73,9 +112,8 @@ void	free_tokens(t_token *token_list)
 
 void	free_token(t_token *token)
 {
-	if (!token)
-		return ;
 	if (token->content)
 		free(token->content);
+	token->content = NULL;
 	free(token);
 }

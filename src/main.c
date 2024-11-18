@@ -3,49 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/17 23:50:12 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/18 19:10:48 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+#include <minishell.h>
 
-/*int			main(int ac, char **av, char **env)
-{
-	t_data data;
-	
-	(void)av;
-	(void)ac;
-	if(ac != 1)
-	{
-		printf("No args are allowed\n");
-		exit(1);
-	}
-	data.env = NULL;
-	copy_env(env, &data);
-	//print_env(data.env);
-	while(42)
-	{
-		data.prompt = readline(PROMPT);
-		if (!data.prompt)
-			continue ; 
-		data.token_list = NULL;
-	//	write(1,"HOLAM\n", 6);
-		if(!ft_strncmp(data.prompt, "exit", 4))
-			exit(0);
-
-
-		tokenizer(&data, 0);
-		//print_token_list(data.token_list);
-		//if(!ft_strncmp(data.prompt, "printenv", 8))
-		//	print_env(data.env);
-		//printf("getenvvalue(%s) |%s| \n", data.prompt, get_env_value(data.env, data.prompt));
-		free(data.prompt);
-	}
-	printf("%s\n", env[0]);
-}*/
 
 //HERE_DOC > 16 mensaje de error (BASH) en el main.
 int	here_doc_error(t_data *data)
@@ -74,36 +41,30 @@ int			main(int ac, char **av, char **env)
 	t_data	data;
 
 	(void)av;
-	(void)ac;
 	if (ac != 1)
 	{
 		printf("No args are allowed\n");
 		exit(1);
 	}
-	data.env = NULL;
+	init_data(&data);
 	copy_env(env, &data);
-	//print_env(data.env);
 	while (42)
 	{
 		data.prompt = readline(PROMPT);
 		if (!data.prompt)
 			continue ;
-		data.token_list = NULL;
-		//write(1,"HOLAM\n", 6);
 		if (!ft_strncmp(data.prompt, "exit", 4))
-			exit(0);
+			break ;
 		if (!ft_strncmp(data.prompt, "printenv", 8))
 			print_env(data.env);
 		tokenizer(&data, 0);
 		print_token_list(data.token_list);
 		expansor(&data.token_list, &data);
+		print_token_list(data.token_list);
 		if (here_doc_error(&data))
 			continue ;
-		print_token_list(data.token_list);
 		execute(&data);
-		free_ptr(data.prompt);
-		free_tokens(data.token_list);
+		free_data(&data, 0);
 	}
-	printf("%s\n", env[0]);
-	free_env(data.env);
+	free_data(&data, 1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:32:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/17 23:20:30 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/18 19:11:14 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,16 @@ typedef enum e_token_type
 	APPEND,
 }	t_token_type;
 
+typedef struct s_cmd {
+    char *path;          // Path to the executable or built-in command
+    int  nargs;
+    char **args;         // Array of arguments for the command, including the command name
+    char *input_file;    // File for input redirection, or NULL if not used
+    char *output_file;   // File for output redirection, or NULL if not used
+    //int append_output;   // Flag for >> redirection)
+    struct s_cmd *next;
+} t_cmd;
+
 //_____TOKEN_STRUCT_____//
 typedef struct s_token
 {
@@ -69,6 +79,7 @@ typedef struct s_data
 	char		*prompt;
 	int			err_code;
 	char		*err_msg;
+	t_cmd		*cmd_list;
 
 }	t_data;
 
