@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:22:37 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/17 20:30:06 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/18 20:59:40 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*expand_str(t_data *data, char *str, int i)
 		{
 			value = value_search(data, str, &i);
 			if (value)
-				newcont = ft_strjoin(newcont, value);
+				newcont = ft_strjoin_f(newcont, value);
 		}
 		else
 		{

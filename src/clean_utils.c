@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:20:51 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/18 19:15:28 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/18 19:54:54 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,10 @@ void	free_tokens(t_token *token_list)
 
 void	free_token(t_token *token)
 {
+	printf("%s\n, TOKEN TOKEN TOKEN\n", token->content);
 	if (token->content)
 		free(token->content);
 	token->content = NULL;
 	free(token);
+	token = NULL;
 }

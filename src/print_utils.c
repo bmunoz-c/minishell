@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:50:47 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/18 19:13:01 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/18 19:19:16 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	print_env(t_env *env)
 {
 	printf(BLUE "---------- PRINTING ENV -----------" RESET "\n");
-	if(!env)
+	if (!env)
 		printf("env is empty\n");
 	while (env)
 	{
@@ -30,7 +30,7 @@ void	print_cmd(t_cmd *cmd)
 	int	i;
 
 	printf(MAGENTA "---------- PRINTING CMDs -----------" RESET "\n");
-	if(!cmd)
+	if (!cmd)
 		printf("cmd is empty\n");
 	while (cmd)
 	{
@@ -48,9 +48,7 @@ void	print_cmd(t_cmd *cmd)
 			}
 		}
 		else
-		{
 			printf(CYAN "args: undefined\n" RESET);
-		}
 		if (cmd->input_file)
 			printf(RED "\n in: %s" RESET, cmd->input_file);
 		else
@@ -81,7 +79,7 @@ char *get_tokentype(int n)
 	return (NULL);
 }
 
-void print_token(t_token *token)
+void	print_token(t_token *token)
 {
 	printf(BLUE "Token_Dir %p\n" RESET, token);
 	printf(GREEN "Type: %s\n" RESET, get_tokentype(token->type));

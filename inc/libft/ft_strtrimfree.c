@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrimfree.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 18:45:36 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/18 19:16:06 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/18 19:41:17 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ char	*ft_strtrimfree(char *s1, char const *set, int free_s1)
 	if (!res)
 		return (NULL);
 	if (free_s1)
+	{
 		free(s1);
+		s1 = NULL;
+	}
 	return (res);
 }
 
