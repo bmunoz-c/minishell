@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 20:47:49 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/18 13:13:22 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/19 00:54:50 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,16 @@ void add_env(t_env **env_list, t_env *new_env)
 		tmp = tmp->next;
 	tmp->next = new_env;
 }
+
 char	*get_env_value(t_env *env, char *key)
 {
-		if (ft_strlen(env->key) == ft_strlen(key) && ft_strncmp(env->key, key, ft_strlen(key)) == 0)
+	while (env)
 	{
-		if (ft_strncmp(env->key, key, ft_strlen(key)) == 0)
-			return (env->value);
+		if (ft_strlen(env->key) == ft_strlen(key))
+		{
+			if (ft_strncmp(env->key, key, ft_strlen(key)) == 0)
+				return (env->value);
+		}
 		env = env->next;
 	}
 	return (NULL);

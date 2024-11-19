@@ -6,34 +6,12 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/18 19:12:34 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/19 00:49:01 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-// TODO: Save the path of the executable
-char	*search_cmd_path(t_data *data, char *content)
-{
-	(void)data;
-	(void)content;
-	if (content)
-		return (ft_strdup(content));
-	else
-		return (NULL);
-}
-
-// Handles the command path search and returns whether it was successful
-int	handle_command_path(t_data *data, t_cmd *cmd, char *content)
-{
-	cmd->path = search_cmd_path(data, content);
-	if (!cmd->path)
-	{
-		free_cmd(cmd);
-		return (0);
-	}
-	return (1);
-}
 
 // Fills the command arguments array
 int	populate_args(t_cmd *cmd, t_token *tk_list, t_token *tk_last)

@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:50:26 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/18 19:10:36 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/19 00:42:15 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,9 @@ t_token	*remove_empty_tk(t_token *tk_list)
 
 void execute(t_data *data)
 {
+    remove_empty_tk(data->token_list);
     data->cmd_list = group_cmd(data, data->token_list);
+    
     //if(!cmd_list->next)
     //    run_sigle(cmd_list);
     //else

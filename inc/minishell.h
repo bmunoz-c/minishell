@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/18 19:08:47 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/19 00:52:04 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 #include "tokenizer.h"
 #include "error.h"
 #include "executor.h"
-
+#include <string.h>
+#include <sys/stat.h>
 // COLOR MACROS
 # define RESET "\033[0m"
 # define RED "\033[0;31m"
