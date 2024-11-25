@@ -6,7 +6,7 @@
 /*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:19:03 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/25 19:35:02 by borjamc          ###   ########.fr       */
+/*   Updated: 2024/11/25 21:37:51 by borjamc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ void quote_type(t_token **token)
             *token = tmp;
             *token = (*token)->next;
             tmp = *token;
+            //TODO *token = tmp->next; esto es lo mismo que lo anterior,
+            //eliminando tmp = NULL ??
+            //Parece mas sencillo
         }
     }
     //Después de recorrer la lista, retrocede al primer token utilizando (*token)->prev.
@@ -66,7 +69,7 @@ void    update_list(t_token **token, t_token *new_t, t_token *tmp, t_token *old_
     else
         *token = new_t;
     //Liberar old_t
-    free_token(&old_t);    
+    free_token(old_t);    
 }
 
 /*
@@ -75,16 +78,18 @@ void update_list(t_token **token, t_token *new_t, t_token *old_t)
     if (!old_t || !new_t)
         return;
 
+    t_token *tmp = old_t->next;
+
     new_t->prev = old_t->prev;
-    new_t->next = old_t->next;
+    new_t->next = tmp;
 
     if (old_t->prev)
         old_t->prev->next = new_t;
     else
         *token = new_t;
 
-    if (old_t->next)
-        old_t->next->prev = new_t;
+    if (tmp)
+        tmp->prev = new_t;
 
     free_token(old_t);
 }
@@ -102,6 +107,8 @@ t_token *merge_token(t_token **token)
     trim = *token;
     tmp = *token;
     newcontent = ft_strdup("");
+    if (!newcontent)
+        return (NULL);
     while (tmp && (tmp->type == WORD || tmp->type == SQ_STR || tmp->type == DQ_STR))
     {
         //Si el contenido de tmp existe, lo agrega a newcontent usando ft_strjoin_f.
@@ -115,6 +122,8 @@ t_token *merge_token(t_token **token)
         newtoken = new_token(newcontent, (*token)->type);
         update_list(token, newtoken, tmp, trim);
     }
+    else
+        free(newcontent);
     //Si el nuevo token tiene un siguiente nodo (newtoken->next), devuelve ese nodo.
     if (newtoken && newtoken->next)
         return (newtoken->next);

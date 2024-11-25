@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/18 19:46:29 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/25 21:34:46 by borjamc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int			main(int ac, char **av, char **env)
 			print_env(data.env);
 		tokenizer(&data, 0);
 		print_token_list(data.token_list);
+		merge_token(&data.token_list);
 		expansor(&data.token_list, &data);
 		print_token_list(data.token_list);
 		if (here_doc_error(&data))
