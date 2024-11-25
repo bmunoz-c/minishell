@@ -6,7 +6,7 @@
 /*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:19:03 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/20 00:26:39 by borjamc          ###   ########.fr       */
+/*   Updated: 2024/11/25 19:35:02 by borjamc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,19 @@ void quote_type(t_token **token)
     tmp = NULL;
     while (*token)
     {
-        if ((*token)->type = WORD || (*token)->type == SQ_STR || (*token)->type == DQ_STR)
-        {
+        if ((*token)->type == WORD
+            || (*token)->type == SQ_STR || (*token)->type == DQ_STR)
             tmp = merge_token(token);
-        }
-        //If tmp = SPC, break.
+        //Si merge_token devuelve un nuevo token combinado (almacenado en tmp)
         if (!tmp)
             break;
-        //If tmp is not exist, and the next one is SPC, break.
+        //Si tmp->next es NULL, no hay más tokens y se actualiza *token. Termina el bucle.
         else if (!tmp->next)
         {
             *token = tmp;
-            break;
+            break ;
         }
-        // If tmp ve another token
+        //Si tmp->next existe, avanza al siguiente token (*token = (*token)->next).
         else
         {
             *token = tmp;
@@ -41,28 +40,33 @@ void quote_type(t_token **token)
             tmp = *token;
         }
     }
-    // Go to the beginning of the list.
+    //Después de recorrer la lista, retrocede al primer token utilizando (*token)->prev.
     while ((*token) && (*token)->prev)
         *token = (*token)->prev;
 }
 
-// Update the list of tokens.
-// AFTER: A = token - B = old_t - C = tmp - X = new_t.
+// Actualiza la lista de tokens.
+// AFTER: A = &token_list / B = old_t / C = B->next (tmp) / X = new_t.
 // ANTES: A <-> B <-> C || DESPUES: A <-> X <-> C
-void    update_list(t_token **token, t_token *new_t, t_token *old_t, t_token *tmp)
+
+void    update_list(t_token **token, t_token *new_t, t_token *tmp, t_token *old_t)
 {
+    //Actualizar new_t
     new_t->prev = old_t->prev;
     new_t->next = tmp;
-    if (old_t->prev)
-        old_t->prev->next = new_t;
+    //Actualizar C (tmp) para conectar con X (new_t)
     if (tmp)
     {
         tmp->prev->next = NULL;
-        tmp->next->prev = new_t;
+        tmp->prev = new_t;
     }
+    //Actualizar A (token) para conectar con X (new_t)
+    if (old_t->prev)
+        old_t->prev->next = new_t;
     else
         *token = new_t;
-    free_token(old_t);    
+    //Liberar old_t
+    free_token(&old_t);    
 }
 
 /*
@@ -90,24 +94,28 @@ t_token *merge_token(t_token **token)
 {
     t_token *tmp;
     t_token *newtoken;
+    //trim para marcar el inicio del rango de tokens que se combinarán.
     t_token *trim;
     char *newcontent;
 
-    tmp = *token;
     newtoken = NULL;
     trim = *token;
+    tmp = *token;
     newcontent = ft_strdup("");
     while (tmp && (tmp->type == WORD || tmp->type == SQ_STR || tmp->type == DQ_STR))
     {
+        //Si el contenido de tmp existe, lo agrega a newcontent usando ft_strjoin_f.
         if (tmp->content)
             newcontent = ft_strjoin_f(newcontent, tmp->content);
         tmp = tmp->next;
     }
+    //Si su longitud es > 0, crea un nuevo token con el contenido combinado.
     if (ft_strlen(newcontent) > 0)
     {
         newtoken = new_token(newcontent, (*token)->type);
         update_list(token, newtoken, tmp, trim);
     }
+    //Si el nuevo token tiene un siguiente nodo (newtoken->next), devuelve ese nodo.
     if (newtoken && newtoken->next)
         return (newtoken->next);
     return (newtoken);  
