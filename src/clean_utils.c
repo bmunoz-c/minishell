@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:20:51 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/19 00:38:51 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/19 12:17:58 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,22 @@ void	free_cmds(t_cmd *cmd_list)
 
 void	*free_cmd(t_cmd *cmd)
 {
-	int i;
+	//int i;
 	if (!cmd)
 		return (NULL);
 	if (cmd->path)
 		free(cmd->path);
 	if (cmd->args)
 	{
-		i = 0;
-		while(cmd->args[i])
-			free(cmd->args[i++]);
+		//i = 0;
+		// BUG: Al crear los argumentos de los comandos, 
+		// se debe tener en cuenta que tienen que 
+		// acabar en null para poder iterarlos
+		//while (cmd->args[i]){
+			printf("hola\n");
+			//free_ptr(cmd->args[i]);
+			//i++;
+		//}
 		free(cmd->args);
 	}
 	if (cmd->input_file)

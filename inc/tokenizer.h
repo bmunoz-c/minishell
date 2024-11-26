@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:32:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/19 00:37:58 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/19 12:16:53 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,15 @@ typedef enum e_token_type
 	APPEND,
 }	t_token_type;
 
+
+
 typedef struct s_cmd {
-    char *path;          // Path to the executable or built-in command
+    char *path;
     int  nargs;
-    char **args;         // Array of arguments for the command, including the command name
-    char *input_file;    // File for input redirection, or NULL if not used
-    char *output_file;   // File for output redirection, or NULL if not used
-    int append_output;   // Flag for >> redirection)
+    char **args;
+    char *input_file;
+    char *output_file;
+    int append_output;
     struct s_cmd *next;
 } t_cmd;
 

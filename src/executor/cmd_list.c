@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/19 00:49:01 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/19 12:20:51 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 			tk_list = tk_list->next;
 		}
 		
-		// TODO: Handle other redirection types like REDIR and HERE_DOC
+		// TODO: HERE_DOC
 		tk_list = tk_list->next;
 	}
 	if (tk_list != tk_last) // We broke the loop so it's malloc failure

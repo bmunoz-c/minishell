@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 15:46:15 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/17 20:22:36 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/19 12:07:50 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int		ft_is_space(char c);
 int		ft_search_ch(char *str, char c);
 int		ft_index_ch(char *str, char c);
 int		ft_is_metachar(char m);
-char	*ft_strjoin_f(char *s1, char *s2);
+char	*ft_strjoin_f(char *s1, char *s2, char *s1_f, char *s2_f);
 void	*free_ptr(void *ptr);
 
 #endif
