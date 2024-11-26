@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:32:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/25 19:37:20 by borjamc          ###   ########.fr       */
+/*   Updated: 2024/11/26 19:31:32 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,8 @@ char		*value_search(t_data *data, char *str, int *index);
 char		*expand_str(t_data *data, char *str, int i);
 
 //_____PREP_EXEC_____//
-void 		quote_type(t_token **token);
-void    	update_list(t_token **token, t_token *new_t, t_token *tmp, t_token *old_t);
-t_token 	*merge_token(t_token **token);
+void		merge_tokens(t_token **token);
+t_token		*merge_token(t_token *token, t_token **merge_last_t);
 
 
 #endif

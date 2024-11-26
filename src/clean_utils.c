@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:20:51 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/25 21:10:26 by borjamc          ###   ########.fr       */
+/*   Updated: 2024/11/26 17:45:18 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,23 @@ void	free_data(t_data *data, int env_flag)
 
 void	free_cmds(t_cmd *cmd_list)
 {
-    t_cmd *tmp_lst;
-    t_cmd *tmp_cmd;
+	t_cmd	*tmp_lst;
+	t_cmd	*tmp_cmd;
 
-    tmp_lst = cmd_list;
-    while (tmp_lst)
-    {
-        tmp_cmd = tmp_lst;
-        tmp_lst = tmp_lst->next;
-        free_cmd(tmp_cmd);
-        tmp_cmd = NULL;
-    }
+	tmp_lst = cmd_list;
+	while (tmp_lst)
+	{
+		tmp_cmd = tmp_lst;
+		tmp_lst = tmp_lst->next;
+		free_cmd(tmp_cmd);
+		tmp_cmd = NULL;
+	}
 }
 
 void	*free_cmd(t_cmd *cmd)
 {
-	int i;
+	int	i;
+
 	if (!cmd)
 		return (NULL);
 	if (cmd->path)
@@ -63,7 +64,7 @@ void	*free_cmd(t_cmd *cmd)
 	if (cmd->args)
 	{
 		i = 0;
-		while(cmd->args[i])
+		while (cmd->args[i])
 			free(cmd->args[i++]);
 		free(cmd->args);
 	}
@@ -77,25 +78,25 @@ void	*free_cmd(t_cmd *cmd)
 
 void	free_env(t_env *env)
 {
-    t_env	*tmp;
+	t_env	*tmp;
 
-    while (env)
-    {
-        tmp = env;
-        env = env->next;
-        if (tmp->key)
-        {
-            free(tmp->key);
-            tmp->key = NULL;
-        }
-        if (tmp->value)
-        {
-            free(tmp->value);
-            tmp->value = NULL;
-        }
-        free(tmp);
-        tmp = NULL;
-    }
+	while (env)
+	{
+		tmp = env;
+		env = env->next;
+		if (tmp->key)
+		{
+			free(tmp->key);
+			tmp->key = NULL;
+		}
+		if (tmp->value)
+		{
+			free(tmp->value);
+			tmp->value = NULL;
+		}
+		free(tmp);
+		tmp = NULL;
+	}
 }
 
 void	free_tokens(t_token *token_list)
@@ -113,7 +114,7 @@ void	free_tokens(t_token *token_list)
 void	free_token(t_token *token)
 {
 	printf("%s\n, TOKEN TOKEN TOKEN\n", token->content);
-	if (token->content)
+	if (token && token->content)
 		free(token->content);
 	token->content = NULL;
 	free(token);

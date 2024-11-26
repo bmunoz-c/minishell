@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:22:37 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/18 21:03:02 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/26 19:26:18 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	expand_var(int *i, char **newcont, char *str)
 	while (str[*i + 1] && str[*i + 1] != '$')
 		*i += 1;
 	var = ft_substr(str, start, *i - start + 1);
-	*newcont = ft_strjoin_f(*newcont, var);
+	*newcont = ft_strjoin_f(*newcont, var, 3);
 }
 
 char	*expand_str(t_data *data, char *str, int i)
@@ -61,7 +61,7 @@ char	*expand_str(t_data *data, char *str, int i)
 		{
 			value = value_search(data, str, &i);
 			if (value)
-				newcont = ft_strjoin_f(newcont, value);
+				newcont = ft_strjoin_f(newcont, value, 3);
 		}
 		else
 		{
