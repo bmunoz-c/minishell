@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   merge_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:19:03 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/26 20:05:20 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/26 22:37:49 by borjamc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,17 @@ void	clear_list(t_token **token_list)
 	token = *token_list;
 	while (token)
 	{
-	if (token->type == SPC || ft_strlen(token->content) == 0)
-	{
-		if (token->prev)
-		{
-			token->prev->next = token->next;
-		}
-		if (token->next)
-		{
-			token->next->prev = token->prev;
-		}
-		tmp = token;
-		free_token(tmp);
-		
-	}
-	
-	//checkear TODO
-	token = token->next;
+        tmp = token->next;
+	    if (token->type == SPC || ft_strlen(token->content) == 0)
+	    {
+		    if (token->prev)
+		    	token->prev->next = token->next;
+		    if (token->next)
+		    	token->next->prev = token->prev;
+		    free_token(token);
+	    }
+        token = tmp;
+    }
 }
 
 void	update_list(t_token **token_list, t_token **tmp,
