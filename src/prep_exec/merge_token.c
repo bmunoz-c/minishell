@@ -6,11 +6,39 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:19:03 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/26 19:36:41 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/11/26 20:05:20 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+//Limpia espacions y tokens vacios
+void	clear_list(t_token **token_list)
+{
+	t_token	*token;
+	t_token	*tmp;
+
+	token = *token_list;
+	while (token)
+	{
+	if (token->type == SPC || ft_strlen(token->content) == 0)
+	{
+		if (token->prev)
+		{
+			token->prev->next = token->next;
+		}
+		if (token->next)
+		{
+			token->next->prev = token->prev;
+		}
+		tmp = token;
+		free_token(tmp);
+		
+	}
+	
+	//checkear TODO
+	token = token->next;
+}
 
 void	update_list(t_token **token_list, t_token **tmp,
 		t_token **merge_last_t, t_token **token)
@@ -53,6 +81,7 @@ void	merge_tokens(t_token **token_list)
 		}
 		token = token->next;
 	}
+	clear_list(token_list);
 }
 
 t_token	*merge_token(t_token *token, t_token **merge_last_t)
