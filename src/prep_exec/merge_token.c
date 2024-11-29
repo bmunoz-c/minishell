@@ -6,7 +6,7 @@
 /*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:19:03 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/26 22:37:49 by borjamc          ###   ########.fr       */
+/*   Updated: 2024/11/29 02:12:59 by borjamc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	clear_list(t_token **token_list)
     }
 }
 
+// Actualiza la lista de tokens
 void	update_list(t_token **token_list, t_token **tmp,
 		t_token **merge_last_t, t_token **token)
 {
@@ -100,5 +101,5 @@ t_token	*merge_token(t_token *token, t_token **merge_last_t)
 	}
 	return (newtoken);
 }
-// Quitar espacios y tokens vacios.
+
 // Check sintax errors.
