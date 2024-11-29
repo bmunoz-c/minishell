@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_search.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lua <lua@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 00:49:05 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/19 12:12:21 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/29 20:30:37 by lua              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,17 @@ static char *join_path(char *dir, char *cmd)
     return (full_path);
 }
 
-char *search_absolute()
+char *search_absolute(t_data *data, char *cmd)
 {
+    (void)data;
+    (void)cmd;
     return (NULL);
 }
 
-char *search_in_cwd()
+char *search_in_cwd(t_data *data, char *cmd)
 {
+    (void)data;
+    (void)cmd;
     return (NULL);
 }
 
@@ -90,17 +94,20 @@ char *search_in_env(t_data *data, char *cmd)
 }
 
 // Handles the command path search and returns whether it was successful
+// TODO: implementar las funciones de search_in_cmd and search_absolte
 int	handle_command_path(t_data *data, t_cmd *cmd, char *content)
 {
     cmd->path = search_in_cwd(data, content);
 	if(!cmd->path)
-        cmd->path = search_absolute(content);
+        cmd->path = search_absolute(data, content);
     if(!cmd->path)
         cmd->path = search_in_env(data, content); 
     if (!cmd->path)
 	{
+        // FIX: deberia liberar no se porque hay un heap-use-after-free
 		//free_cmd(cmd);
 		return (0);
+        // FIX: if this func returns 0 and it's not a builtin throw cmd not found
 	}
 	return (1);
 }

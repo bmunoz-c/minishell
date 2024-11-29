@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lua <lua@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/19 00:39:23 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/29 20:25:11 by lua              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int			main(int ac, char **av, char **env)
 			print_env(data.env);
 		tokenizer(&data, 0);
 		expansor(&data.token_list, &data);
+		print_token_list(data.token_list);
 		if (here_doc_error(&data))
 			continue ;
 		execute(&data);
