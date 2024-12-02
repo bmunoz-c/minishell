@@ -6,7 +6,7 @@
 /*   By: lua <lua@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 00:49:05 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/29 20:30:37 by lua              ###   ########.fr       */
+/*   Updated: 2024/11/30 11:45:51 by lua              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,16 @@ char *search_in_env(t_data *data, char *cmd)
     return (NULL); // Not found
 }
 
+int search_builtin(t_data *data, char *content){
+    if()
+}
+
 // Handles the command path search and returns whether it was successful
 // TODO: implementar las funciones de search_in_cmd and search_absolte
 int	handle_command_path(t_data *data, t_cmd *cmd, char *content)
 {
+    if(search_builtin(data, content))
+        return 1;
     cmd->path = search_in_cwd(data, content);
 	if(!cmd->path)
         cmd->path = search_absolute(data, content);
