@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:32:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/05 15:22:11 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/05 17:26:23 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@
 //ESTRUCTURA ENUMERACION TIPO DE TOKEN
 typedef enum e_token_type
 {
-	WORD,
 	SPC,
-	PIPE,
+	WORD,
 	REDIR,
 	SQ_STR,
 	DQ_STR,
+	PIPE,
 	ENV_VAR,
 	//____Redirections__t_cmd		*cmd_list;___//
 	HERE_DOC,
@@ -115,5 +115,10 @@ void		expansor(t_token **token, t_data *data);
 //_____expansor_utils_____//
 char		*value_search(t_data *data, char *str, int *index);
 char		*expand_str(t_data *data, char *str, int i);
+
+//_____PREP_EXEC_____//
+void		merge_tokens(t_token **token);
+t_token		*merge_token(t_token *token, t_token **merge_last_t);
+
 
 #endif

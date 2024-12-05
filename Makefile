@@ -6,7 +6,7 @@
 #    By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
-#    Updated: 2024/11/19 11:58:56 by ltrevin-         ###   ########.fr        #
+#    Updated: 2024/12/05 17:21:55 by bmunoz-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,13 +20,13 @@ HEADER			= inc/minishell.h
 
 SRC_DIR 		= src/
 OBJ_DIR 		= obj/
-SRC 			:=	main.c clean_utils.c env.c\
-					builtins/echo.c \
-					tokenizer/tokenizer.c tokenizer/token_type.c tokenizer/error_mng.c\
+SRC 			:=	main.c clean_utils.c env.c error_mng.c\
+					builtins/echo.c\
+					tokenizer/tokenizer.c tokenizer/token_type.c\
 					executor/executor.c executor/cmd_list.c executor/path_search.c\
 					expansor/expansor.c expansor/expansor_utils.c\
-					init_data.c	print_utils.c \
-					#prep_exec/prep_exec.c					
+					prep_exec/merge_token.c\
+					init_data.c	print_utils.c					
 SRC				:= $(addprefix $(SRC_DIR), $(SRC))
 OBJ				= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 

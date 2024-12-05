@@ -40,22 +40,23 @@ void	free_data(t_data *data, int env_flag)
 
 void	free_cmds(t_cmd *cmd_list)
 {
-    t_cmd *tmp_lst;
-    t_cmd *tmp_cmd;
+	t_cmd	*tmp_lst;
+	t_cmd	*tmp_cmd;
 
-    tmp_lst = cmd_list;
-    while (tmp_lst)
-    {
-        tmp_cmd = tmp_lst;
-        tmp_lst = tmp_lst->next;
-        free_cmd(tmp_cmd);
-        tmp_cmd = NULL;
-    }
+	tmp_lst = cmd_list;
+	while (tmp_lst)
+	{
+		tmp_cmd = tmp_lst;
+		tmp_lst = tmp_lst->next;
+		free_cmd(tmp_cmd);
+		tmp_cmd = NULL;
+	}
 }
 
 void	*free_cmd(t_cmd *cmd)
 {
-	int i;
+	int	i;
+
 	if (!cmd)
 		return (NULL);
 	if (cmd->path)
@@ -83,25 +84,25 @@ void	*free_cmd(t_cmd *cmd)
 
 void	free_env(t_env *env)
 {
-    t_env	*tmp;
+	t_env	*tmp;
 
-    while (env)
-    {
-        tmp = env;
-        env = env->next;
-        if (tmp->key)
-        {
-            free(tmp->key);
-            tmp->key = NULL;
-        }
-        if (tmp->value)
-        {
-            free(tmp->value);
-            tmp->value = NULL;
-        }
-        free(tmp);
-        tmp = NULL;
-    }
+	while (env)
+	{
+		tmp = env;
+		env = env->next;
+		if (tmp->key)
+		{
+			free(tmp->key);
+			tmp->key = NULL;
+		}
+		if (tmp->value)
+		{
+			free(tmp->value);
+			tmp->value = NULL;
+		}
+		free(tmp);
+		tmp = NULL;
+	}
 }
 
 void	free_tokens(t_token *token_list)

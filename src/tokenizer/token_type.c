@@ -72,23 +72,11 @@ t_token	*quote_token(char *prompt, int *index, t_token_type type)
 		return (new_token(strdup(""), type));
 	while (prompt[i] && prompt[i] != prompt[*index])
 		i++;
-	if (prompt[i] == '\'')
-	{
-		content = ft_substr(prompt, *index + 1, i - *index - 1);
-		if (!content)
-			return (NULL);
-		*index = i;
-		return (new_token(content, SQ_STR));
-	}
-	else if (prompt[i] == '"')
-	{
-		content = ft_substr(prompt, *index + 1, (i - *index - 1));
-		if (!content)
-			return (NULL);
-		*index = i;
-		return (new_token(content, DQ_STR));
-	}
-	return (NULL);
+	content = ft_substr(prompt, *index + 1, i - *index - 1);
+	if (!content)
+		return (NULL);
+	*index = i;
+	return (new_token(content, type));
 }
 
 t_token	*word_token(char *prompt, int *index)
