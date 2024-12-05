@@ -25,6 +25,8 @@
 
 void	copy_env(char **org_env, t_data *data);
 
+#include <string.h>
+#include <sys/stat.h>
 // COLOR MACROS
 # define RESET "\033[0m"
 # define RED "\033[0;31m"
@@ -36,6 +38,12 @@ void	copy_env(char **org_env, t_data *data);
 # define WHITE "\033[0;37m"
 
 #define PROMPT MAGENTA "dancingShell🩰🦦" BLUE "> " RESET 
+
+
+///////////// INIT STRUCTS
+void    init_data(t_data *data);
+void	init_cmd_data(t_cmd *cmd, t_token *tk_first, t_token *tk_last);
+
 
 ///////////// ENVIROMENT
 void	copy_env(char **org_env, t_data *data);

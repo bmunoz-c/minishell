@@ -26,14 +26,6 @@
 # define REDIR_APPEND		8 // RedirAppend >>
 */
 
-//_____ENVIRONMENT_STRUCT_____//
-typedef struct s_env
-{
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-}	t_env;
-
 //ESTRUCTURA ENUMERACION TIPO DE TOKEN
 typedef enum e_token_type
 {
@@ -44,20 +36,23 @@ typedef enum e_token_type
 	DQ_STR,
 	PIPE,
 	ENV_VAR,
-	//____Redirections_____//
+	//____Redirections__t_cmd		*cmd_list;___//
 	HERE_DOC,
 	INPUT,
 	OUTPUT,
 	APPEND,
 }	t_token_type;
 
+
+
 typedef struct s_cmd {
-    char *path;          // Path to the executable or built-in command
+    char *path;
     int  nargs;
-    char **args;         // Array of arguments for the command, including the command name
-    char *input_file;    // File for input redirection, or NULL if not used
-    char *output_file;   // File for output redirection, or NULL if not used
-    //int append_output;   // Flag for >> redirection)
+    char **args;
+    char *input_file;
+    char *output_file;
+    int append_output;
+	int builtin;
     struct s_cmd *next;
 } t_cmd;
 
@@ -71,9 +66,20 @@ typedef struct s_token
 
 }	t_token;
 
+//_____ENVIRONMENT_STRUCT_____//
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
+
+
+
+//_____DATA_______STRUCT_____//
 typedef struct s_data
 {
-	t_token		*token_list;		//Puntero a una lista de tokens
+	t_token		*token_list;
 	t_env		*env;
 	char		**path;
 	char		*prompt;
@@ -82,6 +88,7 @@ typedef struct s_data
 	t_cmd		*cmd_list;
 
 }	t_data;
+
 
 //_____SYNTAX_____//
 int			check_quotes(t_data *data);

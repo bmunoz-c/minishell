@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+         #
+#    By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
 #    Updated: 2024/12/05 17:21:55 by bmunoz-c         ###   ########.fr        #
@@ -23,7 +23,7 @@ OBJ_DIR 		= obj/
 SRC 			:=	main.c clean_utils.c env.c error_mng.c\
 					builtins/echo.c\
 					tokenizer/tokenizer.c tokenizer/token_type.c\
-					executor/executor.c executor/cmd_list.c\
+					executor/executor.c executor/cmd_list.c executor/path_search.c\
 					expansor/expansor.c expansor/expansor_utils.c\
 					prep_exec/merge_token.c\
 					init_data.c	print_utils.c					

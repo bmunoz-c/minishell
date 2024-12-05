@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   expansor_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:22:37 by bmunoz-c          #+#    #+#             */
 /*   Updated: 2024/11/26 19:26:18 by bmunoz-c         ###   ########.fr       */

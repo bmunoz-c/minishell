@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:20:51 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/26 17:45:18 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/05 17:23:52 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,14 @@ void	*free_cmd(t_cmd *cmd)
 	if (cmd->args)
 	{
 		i = 0;
-		while (cmd->args[i])
-			free(cmd->args[i++]);
+		// BUG: Al crear los argumentos de los comandos, 
+		// se debe tener en cuenta que tienen que 
+		// acabar en null para poder iterarlos
+		while (i < cmd->nargs)
+		{
+			free_ptr(cmd->args[i]);
+			i++;
+		}
 		free(cmd->args);
 	}
 	if (cmd->input_file)
@@ -113,8 +119,8 @@ void	free_tokens(t_token *token_list)
 
 void	free_token(t_token *token)
 {
-	printf("%s\n, TOKEN TOKEN TOKEN\n", token->content);
-	if (token && token->content)
+	//printf("%s\n, TOKEN TOKEN TOKEN\n", token->content);
+	if (token->content)
 		free(token->content);
 	token->content = NULL;
 	free(token);

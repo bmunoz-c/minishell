@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 20:47:49 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/11 13:01:33 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/19 00:54:50 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ t_env *new_env(char *key)
 		return (free_ptr(env));
 	env->key = key;
 	env->value = ft_strdup(getenv(key));
+	if (!env->value)
+		env->value = ft_strdup("");
 	env->next = NULL;
-	//if(env)
-		//printf("Created %s=%s\n", env->key, env->value);
 	return (env);
 }
 
@@ -41,12 +41,16 @@ void add_env(t_env **env_list, t_env *new_env)
 		tmp = tmp->next;
 	tmp->next = new_env;
 }
+
 char	*get_env_value(t_env *env, char *key)
 {
 	while (env)
 	{
-		if (ft_strncmp(env->key, key, ft_strlen(key)) == 0)
-			return (env->value);
+		if (ft_strlen(env->key) == ft_strlen(key))
+		{
+			if (ft_strncmp(env->key, key, ft_strlen(key)) == 0)
+				return (env->value);
+		}
 		env = env->next;
 	}
 	return (NULL);
@@ -62,8 +66,13 @@ void copy_env(char **org_env, t_data *data)
 	while(org_env[i])
 	{
 		key = ft_substr(org_env[i], 0, ft_index_ch(org_env[i], '='));
+		if(!key)
+			return free_env(data->env);
 		tmp_env = new_env(key);
+		if(!tmp_env)
+			return free_env(data->env);
 		add_env(&(data->env), tmp_env);
+		tmp_env = NULL;
 		i++;
 	}
 }
