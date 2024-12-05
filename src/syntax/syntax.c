@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 01:47:22 by borjamc           #+#    #+#             */
-/*   Updated: 2024/12/03 00:14:37 by borjamc          ###   ########.fr       */
+/*   Updated: 2024/12/05 17:08:44 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	syntax_error_msg(t_data *data, t_token *tmp, int error, int exit)
 	ft_putstr_fd("\'\n", 2);
     //Anadir exit en la estructura data.
     //Actualizar data->exit con el valor de `exit`.
-	data->exit = exit;
+	data->err_code = exit;
 	return (0);
 }
 

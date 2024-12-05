@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:32:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/26 19:31:32 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/05 17:26:23 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ typedef struct s_env
 //ESTRUCTURA ENUMERACION TIPO DE TOKEN
 typedef enum e_token_type
 {
-	WORD,
 	SPC,
-	PIPE,
+	WORD,
 	REDIR,
 	SQ_STR,
 	DQ_STR,
+	PIPE,
 	ENV_VAR,
 	//____Redirections_____//
 	HERE_DOC,
