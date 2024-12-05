@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   merge_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:19:03 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/29 02:12:59 by borjamc          ###   ########.fr       */
+/*   Updated: 2024/12/05 20:09:03 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	clear_list(t_token **token_list)
 	while (token)
 	{
         tmp = token->next;
-	    if (token->type == SPC || ft_strlen(token->content) == 0)
+	    if (token->type == SPC || (token->content && ft_strlen(token->content) == 0))
 	    {
 		    if (token->prev)
 		    	token->prev->next = token->next;

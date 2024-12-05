@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:28:00 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/18 19:42:42 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/05 19:08:43 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	tokenizer(t_data *data, int i)
 			token = sp_token(data->prompt, &i);
 		else if (data->prompt[i] == '<' || data->prompt[i] == '>'
 			|| data->prompt[i] == '|')
-			token = meta_token(data->prompt, &i);
+			token = meta_token(data, data->prompt, &i);
 		else if (data->prompt[i] == '"')
 			token = quote_token(data->prompt, &i, DQ_STR);
 		else if (data->prompt[i] == '\'')

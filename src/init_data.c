@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:07:10 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/05 15:49:25 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/05 19:22:30 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,6 @@ void    init_data(t_data *data)
     data->token_list = NULL;
     data->cmd_list = NULL;
 	data->path = NULL;
+	data->err_msg = NULL;
+	data->err_code = 0;
 }

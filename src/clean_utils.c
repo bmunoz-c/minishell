@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:20:51 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/05 17:23:52 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/05 19:23:55 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,7 @@ void	free_data(t_data *data, int env_flag)
 {
 	if (!data)
 		return ;
-	if (data->prompt)
-	{
-		free_ptr(data->prompt);
-		data->prompt = NULL;
-	}
+	free_ptr(data->prompt);
 	if (data->env && env_flag)
 	{
 		free_env(data->env);
@@ -36,6 +32,9 @@ void	free_data(t_data *data, int env_flag)
 		free_cmds(data->cmd_list);
 		data->cmd_list = NULL;
 	}
+	if (data->err_code)
+		free_ptr(data->err_msg);
+	data->err_code = 0;
 }
 
 void	free_cmds(t_cmd *cmd_list)
@@ -60,25 +59,22 @@ void	*free_cmd(t_cmd *cmd)
 	if (!cmd)
 		return (NULL);
 	if (cmd->path)
-		free(cmd->path);
+		free_ptr(cmd->path);
 	if (cmd->args)
 	{
 		i = 0;
-		// BUG: Al crear los argumentos de los comandos, 
-		// se debe tener en cuenta que tienen que 
-		// acabar en null para poder iterarlos
 		while (i < cmd->nargs)
 		{
 			free_ptr(cmd->args[i]);
 			i++;
 		}
-		free(cmd->args);
+		free_ptr(cmd->args);
 	}
 	if (cmd->input_file)
-		free(cmd->input_file);
+		free_ptr(cmd->input_file);
 	if (cmd->output_file)
-		free(cmd->output_file);
-	free(cmd);
+		free_ptr(cmd->output_file);
+	free_ptr(cmd);
 	return (NULL);
 }
 
@@ -92,15 +88,15 @@ void	free_env(t_env *env)
 		env = env->next;
 		if (tmp->key)
 		{
-			free(tmp->key);
+			free_ptr(tmp->key);
 			tmp->key = NULL;
 		}
 		if (tmp->value)
 		{
-			free(tmp->value);
+			free_ptr(tmp->value);
 			tmp->value = NULL;
 		}
-		free(tmp);
+		free_ptr(tmp);
 		tmp = NULL;
 	}
 }
@@ -121,8 +117,8 @@ void	free_token(t_token *token)
 {
 	//printf("%s\n, TOKEN TOKEN TOKEN\n", token->content);
 	if (token->content)
-		free(token->content);
+		free_ptr(token->content);
 	token->content = NULL;
-	free(token);
+	free_ptr(token);
 	token = NULL;
 }

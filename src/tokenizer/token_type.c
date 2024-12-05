@@ -37,13 +37,17 @@ t_token	*sp_token(char *prompt, int	*index)
 }
 
 //Tokens: | > < >> <<
-t_token	*meta_token(char *prompt, int *index)
+t_token	*meta_token(t_data *data, char *prompt, int *index)
 {
 	int		i;
 
 	i = *index;
 	if (prompt[i] == '|')
-		return (new_token(NULL, PIPE));
+	{
+		if (prompt[i + 1] != '|')
+			return (new_token(NULL, PIPE));
+		syntax_error_msg(data, "||");
+	}
 	else if (prompt[i] == '>' && prompt[i + 1] == '>')
 	{
 		*index += 1;
