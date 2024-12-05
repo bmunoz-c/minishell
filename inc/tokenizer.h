@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:32:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/19 12:16:53 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/05 15:22:11 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_cmd {
     char *input_file;
     char *output_file;
     int append_output;
+	int builtin;
     struct s_cmd *next;
 } t_cmd;
 
