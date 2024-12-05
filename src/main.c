@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lua <lua@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/26 19:22:17 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/05 17:33:44 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ int	main(int ac, char **av, char **env)
 		if (!ft_strncmp(data.prompt, "printenv", 8))
 			print_env(data.env);
 		tokenizer(&data, 0);
-		//print_token_list(data.token_list);
+		print_token_list(data.token_list);
 		expansor(&data.token_list, &data);
 		merge_tokens(&data.token_list);
-		//print_token_list(data.token_list);
+		print_token_list(data.token_list);
 		if (here_doc_error(&data))
 			continue ;
 		execute(&data);
