@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/19 12:20:51 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/09 21:07:37 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,25 @@ int	populate_args(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 {
 	int	i_args;
 
+	printf("populate_args\n");
 	i_args = 0;
+	cmd->args = malloc(sizeof(char *) * (cmd->nargs + 1));
+	if (!cmd->args)
+		return 0;
 	while (tk_list != tk_last)
 	{
-		if (tk_list->type == WORD || tk_list->type == SPC)
+		if (tk_list->type == WORD || tk_list->type == SQ_STR || tk_list->type == DQ_STR)
 		{
 			cmd->args[i_args] = ft_strdup(tk_list->content);
 			if (!cmd->args[i_args])
 			{
 				free_cmd(cmd);
-				return (0); // Memory allocation failed
+				return (0);
 			}
 			i_args++;
 		}
+		else
+			break;
 		tk_list = tk_list->next;
 	}
 	cmd->args[i_args] = NULL; // Null-terminate the array
@@ -47,32 +53,21 @@ int	search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 			cmd->input_file = ft_strdup(tk_list->next->content);
 			if (!cmd->input_file)
 				break ;
-			tk_list = tk_list->next;
 		}
-		else if (tk_list->type == OUTPUT)
+		else if (tk_list->type == OUTPUT || tk_list->type == APPEND)
 		{
 			cmd->output_file = ft_strdup(tk_list->next->content);
 			if (!cmd->output_file)
 				break ;
-			tk_list = tk_list->next;
 		}
-		else if (tk_list->type == APPEND)
-		{
-			cmd->output_file = ft_strdup(tk_list->next->content);
+		if (tk_list->type == APPEND)
 			cmd->append_output = 1;
-			if (!cmd->output_file)
-				break ;
+		if(tk_list->type == INPUT || tk_list->type == OUTPUT || tk_list->type == APPEND)
 			tk_list = tk_list->next;
-		}
-		
-		// TODO: HERE_DOC
 		tk_list = tk_list->next;
 	}
 	if (tk_list != tk_last) // We broke the loop so it's malloc failure
-	{
-		free_cmd(cmd);
 		return (0);
-	}
 	return (1);
 }
 
@@ -85,11 +80,9 @@ t_cmd	*build_cmd(t_data *data, t_token *tk_list, t_token *tk_last)
 	if (!cmd)
 		return (NULL);
 	init_cmd_data(cmd, tk_list->next, tk_last);
-	if (!cmd->args)
-		return (free_cmd(cmd));
 	if (!handle_command_path(data, cmd, tk_list->content))
 		return (free_cmd(cmd));
-	if (!populate_args(cmd, tk_list->next, tk_last))
+	if (!populate_args(cmd, tk_list->next, tk_last) || !cmd->args)
 		return (free_cmd(cmd));
 	if (!search_redirs(cmd, tk_list->next, tk_last))
 		return (free_cmd(cmd));

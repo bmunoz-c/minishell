@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/26 17:45:03 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/09 20:49:11 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	free_env(t_env *env);
 void	free_tokens(t_token *token_list);
 void	free_token(t_token *token);
 void	free_data(t_data *data, int env_flag);
+void    ft_free_split(char **split);
 #endif
 
 

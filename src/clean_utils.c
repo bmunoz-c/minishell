@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:20:51 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/05 17:23:52 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/09 20:48:57 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,14 @@ void	*free_cmd(t_cmd *cmd)
 	if (cmd->args)
 	{
 		i = 0;
-		// BUG: Al crear los argumentos de los comandos, 
-		// se debe tener en cuenta que tienen que 
-		// acabar en null para poder iterarlos
-		while (i < cmd->nargs)
+		while (cmd->args && cmd->args[i])
 		{
-			free_ptr(cmd->args[i]);
+			if(cmd->args[i])
+				free_ptr(cmd->args[i]);
 			i++;
 		}
 		free(cmd->args);
+		cmd->args = NULL;
 	}
 	if (cmd->input_file)
 		free(cmd->input_file);
@@ -125,4 +124,17 @@ void	free_token(t_token *token)
 	token->content = NULL;
 	free(token);
 	token = NULL;
+}
+
+void    ft_free_split(char **split)
+{
+    int i;
+
+    i = 0;
+    while (split[i])
+    {
+        free(split[i]);
+        i++;
+    }
+    free(split);
 }

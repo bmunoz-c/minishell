@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:07:10 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/05 15:49:25 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/09 20:35:31 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,15 @@ void	init_cmd_data(t_cmd *cmd, t_token *tk_first, t_token *tk_last)
 	cmd->output_file = NULL;
 	cmd->next = NULL;
 	cmd->nargs = 0;
+	cmd->args = NULL;
 	while (tk_first != tk_last)
 	{
-		if (tk_first->type == WORD || tk_first->type == SPC)
+		if (tk_first->type == WORD || tk_first->type == DQ_STR || tk_first->type == SQ_STR)
 			cmd->nargs++;
+		else
+			break;
 		tk_first = tk_first->next;
 	}
-	cmd->args = malloc(sizeof(char *) * (cmd->nargs + 1));
 }
 
 // Initializes the t_data structure
