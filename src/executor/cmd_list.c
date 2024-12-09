@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/09 21:07:37 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/09 21:51:45 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	populate_args(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 {
 	int	i_args;
 
-	printf("populate_args\n");
 	i_args = 0;
 	cmd->args = malloc(sizeof(char *) * (cmd->nargs + 1));
 	if (!cmd->args)
@@ -86,7 +85,7 @@ t_cmd	*build_cmd(t_data *data, t_token *tk_list, t_token *tk_last)
 		return (free_cmd(cmd));
 	if (!search_redirs(cmd, tk_list->next, tk_last))
 		return (free_cmd(cmd));
-	printf("cmd builded!\n\n");
+	//printf("cmd builded!\n\n");
 	return (cmd);
 }
 void	add_cmd(t_cmd **cmd_list, t_cmd *cmd)

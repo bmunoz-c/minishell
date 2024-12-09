@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/09 20:49:11 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/09 21:43:44 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ void	copy_env(char **org_env, t_data *data);
 # define CYAN "\033[0;36m"
 # define WHITE "\033[0;37m"
 
+# define IS_DIR 2
+# define IS_F_EXEC 1
+# define NOT_FOUND 0
+
 #define PROMPT MAGENTA "dancingShell🩰🦦" BLUE "> " RESET 
 
 
@@ -64,6 +68,11 @@ void	free_tokens(t_token *token_list);
 void	free_token(t_token *token);
 void	free_data(t_data *data, int env_flag);
 void    ft_free_split(char **split);
+
+
+///////////// BUILTINS
+int	run_echo(char **args);
+
 #endif
 
 
