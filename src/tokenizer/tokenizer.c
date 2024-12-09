@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:28:00 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/07 15:14:22 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/18 19:42:42 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	tokenizer(t_data *data, int i)
 {
 	t_token	*token;
 
-	data->prompt = ft_strtrimfree(data->prompt, " ", 1);
+	//data->prompt = ft_strtrimfree(data->prompt, " ", 1);
 	while (data->prompt[i])
 	{
 		if (data->prompt[i] == ' ')
@@ -70,52 +70,4 @@ void	add_token(t_token **token_list, t_token *new_token)
 		tmp = tmp->next;
 	tmp->next = new_token;
 	new_token->prev = tmp;
-}
-
-//********** HASTA AQUIIIII **********
-
-
-char *get_tokentype(int n)
-{
-	switch (n)
-	{
-		case WORD: return "WORD";
-		case SPC: return "SPC";
-		case PIPE: return "PIPE";
-		case SQ_STR: return "SQ_STR";
-		case DQ_STR: return "DQ_STR";
-		case ENV_VAR: return "ENV_VAR";
-		case HERE_DOC: return "HERE_DOC";
-		case INPUT: return "INPUT";
-		case OUTPUT: return "OUTPUT";
-		case APPEND: return "APPEND";
-	}
-	return (NULL);
-}
-
-void	print_token(t_token *token)
-{
-	printf("Token_Dir %p\n", token);
-	printf("Type: %s\n", get_tokentype(token->type));
-	printf("Content: ~%s~\n", token->content);
-	//printf("Next dir: %p\n", token->next);
-	//printf("Prev dir: %p\n", token->prev);
-	printf("**********************************\n");
-}
-
-void	print_token_list(t_token *token_list)
-{
-	t_token	*tmp;
-	int i;
-
-	i = 0;
-	tmp = token_list;
-	while (tmp)
-	{
-		print_token(tmp);
-		tmp = tmp->next;
-		i++;
-	}
-	printf("Tkn count: %d\n", i);
-	printf("******** END PRINT TOKEN ********\n");
 }

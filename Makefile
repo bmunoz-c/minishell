@@ -6,7 +6,7 @@
 #    By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
-#    Updated: 2024/11/10 22:00:39 by ltrevin-         ###   ########.fr        #
+#    Updated: 2024/12/05 17:21:55 by bmunoz-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,13 @@ HEADER			= inc/minishell.h
 
 SRC_DIR 		= src/
 OBJ_DIR 		= obj/
-SRC 			:=	main.c clean_utils.c env.c env_utils.c\
-					builtins/echo.c \
-					tokenizer/tokenizer.c tokenizer/token_type.c tokenizer/error_mng.c\
-					executor/executor.c executor/cmd_list.c \ executor/checksc.c
-					#expansor/expansor.c expansor/expansor_utils.c					
+SRC 			:=	main.c clean_utils.c env.c error_mng.c\
+					builtins/echo.c\
+					tokenizer/tokenizer.c tokenizer/token_type.c\
+					executor/executor.c executor/cmd_list.c executor/path_search.c\
+					expansor/expansor.c expansor/expansor_utils.c\
+					prep_exec/merge_token.c\
+					init_data.c	print_utils.c					
 SRC				:= $(addprefix $(SRC_DIR), $(SRC))
 OBJ				= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
@@ -40,7 +42,8 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c  $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(OBJ_DIR):
-	mkdir -p $(OBJ_DIR) $(OBJ_DIR)/builtins $(OBJ_DIR)/tokenizer $(OBJ_DIR)/expansor $(OBJ_DIR)/executor
+	mkdir -p $(OBJ_DIR) $(OBJ_DIR)/builtins $(OBJ_DIR)/tokenizer \
+	$(OBJ_DIR)/expansor $(OBJ_DIR)/executor $(OBJ_DIR)/prep_exec
 
 libft:
 	@$(MAKE) -C inc/libft --no-print-directory

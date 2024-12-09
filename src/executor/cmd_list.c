@@ -6,40 +6,12 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/11 03:33:35 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/11/19 12:20:51 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-// Initializes the t_cmd structure and counts the number of arguments
-void	init_cmd_data(t_cmd *cmd, t_token *tk_first, t_token *tk_last)
-{
-	cmd->path = NULL;
-	cmd->input_file = NULL;
-	cmd->output_file = NULL;
-	cmd->next = NULL;
-	cmd->nargs = 0;
-	while (tk_first != tk_last)
-	{
-		if (tk_first->type == WORD || tk_first->type == SPC)
-			cmd->nargs++;
-		tk_first = tk_first->next;
-	}
-	cmd->args = malloc(sizeof(char *) * (cmd->nargs + 1));
-}
-
-// Handles the command path search and returns whether it was successful
-int	handle_command_path(t_cmd *cmd, char *content)
-{
-	cmd->path = search_cmd_path(content);
-	if (!cmd->path)
-	{
-		free_cmd(cmd);
-		return (0);
-	}
-	return (1);
-}
 
 // Fills the command arguments array
 int	populate_args(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
@@ -84,7 +56,16 @@ int	search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 				break ;
 			tk_list = tk_list->next;
 		}
-		// TODO: Handle other redirection types like REDIR and HERE_DOC
+		else if (tk_list->type == APPEND)
+		{
+			cmd->output_file = ft_strdup(tk_list->next->content);
+			cmd->append_output = 1;
+			if (!cmd->output_file)
+				break ;
+			tk_list = tk_list->next;
+		}
+		
+		// TODO: HERE_DOC
 		tk_list = tk_list->next;
 	}
 	if (tk_list != tk_last) // We broke the loop so it's malloc failure
@@ -106,19 +87,20 @@ t_cmd	*build_cmd(t_data *data, t_token *tk_list, t_token *tk_last)
 	init_cmd_data(cmd, tk_list->next, tk_last);
 	if (!cmd->args)
 		return (free_cmd(cmd));
-	if (!handle_command_path(cmd, tk_list->content))
+	if (!handle_command_path(data, cmd, tk_list->content))
 		return (free_cmd(cmd));
 	if (!populate_args(cmd, tk_list->next, tk_last))
 		return (free_cmd(cmd));
 	if (!search_redirs(cmd, tk_list->next, tk_last))
 		return (free_cmd(cmd));
+	printf("cmd builded!\n\n");
 	return (cmd);
 }
 void	add_cmd(t_cmd **cmd_list, t_cmd *cmd)
 {
 	t_cmd	*tmp;
 
-	if (!cmd_list)
+	if (!*cmd_list)
 	{
 		*cmd_list = cmd;
 		return ;
@@ -129,30 +111,37 @@ void	add_cmd(t_cmd **cmd_list, t_cmd *cmd)
 	tmp->next = cmd;
 }
 
-// Takes the tk_list and creates a cmd_list,
+// Takes the token list and creates a command list.
+// This function iterates through the token list, grouping tokens into commands
+// based on the PIPE token. It initializes each command with its arguments,
+// input/output redirections, and executable path.
+
 // Basically it's a list with all cmds in the prompt
 // and it's necessary info to execute them
 t_cmd	*group_cmd(t_data *data, t_token *tk_list)
 {
-	t_token	*tk;
-	t_cmd	*cmd;
-	t_cmd	*cmd_list;
+	t_token *tk;
+	t_cmd *cmd;
+	t_cmd *cmd_list;
 
 	tk = tk_list;
-	while (tk) // Create a cmd for each pipe
+	cmd_list = NULL;
+	while (tk)
 	{
 		if (tk->type == PIPE)
 		{
 			cmd = build_cmd(data, tk_list, tk);
-			add_cmd(&cmd_list, cmd);
+			if (cmd)
+				add_cmd(&cmd_list, cmd);
+			tk_list = tk->next;
 		}
 		tk = tk->next;
 	}
-	// There is no pipes so it's only one command
-	if (!cmd_list)
+	if (tk_list)
 	{
-		cmd = build_cmd(data, tk_list, tk);
-		add_cmd(&cmd_list, cmd);
+		cmd = build_cmd(data, tk_list, NULL);
+		if (cmd)
+			add_cmd(&cmd_list, cmd);
 	}
 	return (cmd_list);
 }
