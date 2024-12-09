@@ -6,7 +6,7 @@
 #    By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
-#    Updated: 2024/12/05 17:21:55 by bmunoz-c         ###   ########.fr        #
+#    Updated: 2024/12/09 19:53:34 by ltrevin-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,20 +30,31 @@ SRC 			:=	main.c clean_utils.c env.c error_mng.c\
 SRC				:= $(addprefix $(SRC_DIR), $(SRC))
 OBJ				= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
+#_____Colors_____#
+DEF_COLOR	=	\033[1;39m
+WHITE_BOLD	=	\033[1m
+RED			=	\033[1;31m
+GREEN		=	\033[1;32m
+YELLOW		=	\033[1;33m
+BLUE		=	\033[1;34m
+CIAN		=	\033[1;36m
+
 all : $(NAME)
 
 re : fclean all
 
 $(NAME) : $(OBJ) | libft
-	echo $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBS)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBS)
+	@echo "$(RED)$(NAME) $(BLUE)is ready to work!$(DEF_COLOR)"
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c  $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADER) | $(OBJ_DIR) libft
+	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+	@echo "$(WHITE_BOLD)Object$(YELLOW) $@ $(GREEN)compiled!$(DEF_COLOR)"
 
 $(OBJ_DIR):
-	mkdir -p $(OBJ_DIR) $(OBJ_DIR)/builtins $(OBJ_DIR)/tokenizer \
-	$(OBJ_DIR)/expansor $(OBJ_DIR)/executor $(OBJ_DIR)/prep_exec
+	@mkdir -p $(OBJ_DIR) $(OBJ_DIR)builtins $(OBJ_DIR)tokenizer
+	@mkdir -p $(OBJ_DIR)expansor $(OBJ_DIR)executor $(OBJ_DIR)prep_exec
+	@echo "$(WHITE_BOLD)Created obj dir!$(DEF_COLOR)"
 
 libft:
 	@$(MAKE) -C inc/libft --no-print-directory
