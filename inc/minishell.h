@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/09 19:28:26 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/09 22:00:33 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 #include "error.h"
 #include "executor.h"
 #include <signal.h>
+
+extern int     sig_exit_status;
 
 void	copy_env(char **org_env, t_data *data);
 
@@ -64,6 +66,15 @@ void	free_env(t_env *env);
 void	free_tokens(t_token *token_list);
 void	free_token(t_token *token);
 void	free_data(t_data *data, int env_flag);
+
+//////////// SIGNALS
+int init_signals(int mode);
+void set_sig_ignore(int signum);
+void	ctrlc_handler(int sig);
+void exit_signal_handler(int sig);
+
+
+
 #endif
 
 

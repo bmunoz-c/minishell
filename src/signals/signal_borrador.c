@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/05 20:29:28 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/09 21:55:40 by bmunoz-c         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <minishell.h>
 #include <signal.h>
 
@@ -36,40 +24,31 @@ sin interrupción.
 
 int init_signals(int mode)
 {
-    //Modo interactivo.
+    struct sigaction signal;
+
+    signal.sa_flags = SA_RESTART | SA_SIGINFO;
+    sigemptyset(&signal.sa_mask);
     if (mode == 1)
-    {
         signal(SIGINT, ctrlc_handler);
-        signal(SIGQUIT, SIG_IGN); // Ignorar SIGQUIT en modo interactivo
-    }
-    //Modo no interactivo.
     else if (mode == 2)
-    {
-        signal(SIGINT, exit_signal_handler);
-        signal(SIGQUIT, exit_signal_handler);
-    }
+        signal.sa_sigaction = &exit_signal_handler;
     //HERE_DOC HANDLER
     /* else if (mode == 3)
     {
         
     } */
+    sigaction(SIGINT, &signal, NULL);
+	sigaction(SIGQUIT, &signal, NULL);
     return (0);
-}
-//Ignorar señales.
-/*signal() devuelve SIG_ERR si ocurre un error al intentar
-configurar el manejador. En ese caso, se llama a exit(1).*/
-void set_sig_ignore(int signum)
-{
-    if (signal(signum, SIG_IGN) == SIG_ERR)
-    {
-        exit(1);
-    }
 }
 
 //Mantener el control de la línea de comandos tras Ctrl + C.
-void	ctrlc_handler(int sig)
+
+void	ctrlc_handler(int sig, siginfo_t *data, void *non_used_data)
 {
-	(void)sig;
+	(void) data;
+	(void) non_used_data;
+	if (sig == SIGINT)
 	{
         //El cursor pasa a una nueva línea en la terminal.
 		ft_putstr_fd("\n", 1);
@@ -83,6 +62,7 @@ void	ctrlc_handler(int sig)
 		sig_exit_status = 1;
 	}
 }
+
 
 /*
 La función maneja dos señales específicas:
@@ -98,8 +78,10 @@ pero también termina el proceso con el código 130.
 
 /* Se utiliza cuando el programa debe finalizar inmediatamente tras recibir SIGINT o SIGQUIT,
 estableciendo códigos de salida (130 o 131) antes de salir. */
-void exit_signal_handler(int sig)
+void exit_signal_handler(int sig, siginfo_t *data, void *unused_data)
 {
+    (void)data;
+    (void)unused_data;
     //CTRL + C
     if (sig == SIGINT)
     {
@@ -112,5 +94,6 @@ void exit_signal_handler(int sig)
         sig_exit_status = 131;
         exit(130);
     }
+    return (0);
 }
 

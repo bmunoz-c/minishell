@@ -6,11 +6,7 @@
 #    By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2024/12/05 19:11:58 by bmunoz-c         ###   ########.fr        #
-=======
-#    Updated: 2024/12/09 19:53:34 by ltrevin-         ###   ########.fr        #
->>>>>>> executor
+#    Updated: 2024/12/09 21:57:48 by bmunoz-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +27,7 @@ SRC 			:=	main.c clean_utils.c env.c\
 					expansor/expansor.c expansor/expansor_utils.c\
 					prep_exec/merge_token.c\
 					syntax/syntax.c\
+					signals/signals.c\
 					init_data.c	print_utils.c					
 SRC				:= $(addprefix $(SRC_DIR), $(SRC))
 OBJ				= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
@@ -57,15 +54,10 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADER) | $(OBJ_DIR) libft
 	@echo "$(WHITE_BOLD)Object$(YELLOW) $@ $(GREEN)compiled!$(DEF_COLOR)"
 
 $(OBJ_DIR):
-<<<<<<< HEAD
-	mkdir -p $(OBJ_DIR) $(OBJ_DIR)/builtins $(OBJ_DIR)/tokenizer \
-	$(OBJ_DIR)/expansor $(OBJ_DIR)/executor $(OBJ_DIR)/prep_exec \
-	$(OBJ_DIR)/syntax
-=======
 	@mkdir -p $(OBJ_DIR) $(OBJ_DIR)builtins $(OBJ_DIR)tokenizer
 	@mkdir -p $(OBJ_DIR)expansor $(OBJ_DIR)executor $(OBJ_DIR)prep_exec
+	@mkdir -p $(OBJ_DIR)syntax  $(OBJ_DIR)signals
 	@echo "$(WHITE_BOLD)Created obj dir!$(DEF_COLOR)"
->>>>>>> executor
 
 libft:
 	@$(MAKE) -C inc/libft --no-print-directory
