@@ -6,27 +6,11 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 20:29:28 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/09 21:55:40 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/09 22:55:29 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-#include <signal.h>
-
-/* 
-- Inicializa una estructura sigaction.
-- Configura los flags y la máscara de señales.
-- Selecciona el manejador de señales según mode.
-- Aplica la configuración para SIGINT y SIGQUIT.
-- Devuelve 0. */
-
-/* 
-- sa_flags: Opciones para configurar el comportamiento del manejador.
-- sa_mask: Especifica señales que deben bloquearse durante la ejecución del manejador.
-- sa_sigaction: Puntero a la función que manejará la señal. 
-     void (*sa_sigaction)(int, siginfo_t *, void *);
-
-*/
 
 /* If mode == 1, recibe SIGINT:
 - Limpia la línea actual y pasa a una nueva línea.
@@ -51,7 +35,8 @@ int init_signals(int mode)
     //HERE_DOC HANDLER
     /* else if (mode == 3)
     {
-        
+        signal(SIGINT, heredoc_handler);
+        signal(SIGQUIT, heredoc_handler);
     } */
     return (0);
 }
@@ -61,9 +46,7 @@ configurar el manejador. En ese caso, se llama a exit(1).*/
 void set_sig_ignore(int signum)
 {
     if (signal(signum, SIG_IGN) == SIG_ERR)
-    {
         exit(1);
-    }
 }
 
 //Mantener el control de la línea de comandos tras Ctrl + C.
@@ -81,6 +64,33 @@ void	ctrlc_handler(int sig)
 		rl_redisplay();
         //Detecta que el usuario presionó CTRL + C
 		sig_exit_status = 1;
+	}
+}
+/* 
+Interrumpe el proceso de heredoc:
+- Detecta cuando el usuario presiona CTRL + C (que genera la señal SIGINT).
+- Limpia la línea actual con rl_replace_line("", 1), la entrada del usuario no se queda visible en la terminal.
+
+Restablece el prompt:
+- rl_on_new_line() indica que comienza una nueva línea.
+- rl_redisplay() redibuja el prompt limpio; se interrumpió el heredoc.
+
+Notifica al programa del evento:
+- sig_exit_status = 1 -> la señal SIGINT interrumpió el proceso.
+
+Finaliza el heredoc:
+- Llama a exit(1) para salir del proceso actual, cancelando efectivamente el heredoc.
+*/
+void	heredoc_handler(int sig)
+{
+	if (sig == SIGINT)
+	{
+		rl_replace_line("", 1);
+		rl_on_new_line();
+		rl_redisplay();
+		ft_putstr_fd("\n", 1);
+		sig_exit_status = 1;
+		exit (1);
 	}
 }
 
