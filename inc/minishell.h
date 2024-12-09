@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/26 17:45:03 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/09 19:28:26 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include "tokenizer.h"
 #include "error.h"
 #include "executor.h"
+#include <signal.h>
 
 void	copy_env(char **org_env, t_data *data);
 
