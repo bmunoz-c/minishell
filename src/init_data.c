@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:07:10 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/10 11:53:42 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/10 14:13:07 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	init_cmd_data(t_cmd *cmd, t_token *tk_first, t_token *tk_last)
 			break;
 		tk_first = tk_first->next;
 	}
+	cmd->args = ft_calloc(sizeof(char *) * (cmd->nargs + 1), 1);
 }
 
 // Initializes the t_data structure

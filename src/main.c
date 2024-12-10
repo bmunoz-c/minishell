@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/09 21:47:44 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:20:47 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	main(int ac, char **av, char **env)
 		dirty_prompt = readline(PROMPT);
 		data.prompt = ft_strtrim(dirty_prompt, " ");
 		free(dirty_prompt);
+		dirty_prompt = NULL;
 		if (!data.prompt)
 			continue ;
 		if (!ft_strncmp(data.prompt, "exit", 4))
@@ -64,7 +65,7 @@ int	main(int ac, char **av, char **env)
 		//print_token_list(data.token_list);
 		expansor(&data.token_list, &data);
 		merge_tokens(&data.token_list);
-		//print_token_list(data.token_list);
+		print_token_list(data.token_list);
 		if (here_doc_error(&data))
 			continue ;
 		execute(&data);

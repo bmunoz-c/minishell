@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/10 11:06:41 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/10 14:18:42 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,18 @@ int	populate_args(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 	int	i_args;
 
 	i_args = 0;
-	cmd->args = malloc(sizeof(char *) * (cmd->nargs + 1));
 	if (!cmd->args)
 		return 0;
+	if(cmd->args && cmd->args[0]) 
+	{
+		i_args = 1;
+		tk_list = tk_list->next;
+	}
 	while (tk_list != tk_last)
 	{
 		if (tk_list->type == WORD || tk_list->type == SQ_STR || tk_list->type == DQ_STR)
 		{
+			printf("Saving *%s* in [%d]\n", tk_list->content, i_args);
 			cmd->args[i_args] = ft_strdup(tk_list->content);
 			if (!cmd->args[i_args])
 			{
@@ -67,6 +72,7 @@ int search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 		}
 		tk_list = tk_list->next;
 	}
+	printf("redirs handled\n");
 	return (0);
 }
 
@@ -78,12 +84,12 @@ t_cmd	*build_cmd(t_data *data, t_token *tk_list, t_token *tk_last)
 	cmd = malloc(sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
-	init_cmd_data(cmd, tk_list->next, tk_last);
+	init_cmd_data(cmd, tk_list, tk_last);
 	if (!handle_command_path(data, cmd, tk_list->content))
 		return (free_cmd(cmd));
-	if (!populate_args(cmd, tk_list->next, tk_last) || !cmd->args)
+	if (!populate_args(cmd, tk_list, tk_last) || !cmd->args)
 		return (free_cmd(cmd));
-	if (!search_redirs(cmd, tk_list->next, tk_last))
+	if (search_redirs(cmd, tk_list->next, tk_last))
 		return (free_cmd(cmd));
 	//printf("cmd builded!\n\n");
 	return (cmd);

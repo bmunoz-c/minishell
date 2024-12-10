@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 00:49:05 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/09 21:18:55 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:47:28 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,12 @@ int	handle_command_path(t_data *data, t_cmd *cmd, char *content)
 	if (verify_path(content) == IS_F_EXEC)
 		cmd->path = ft_strdup(content);
 	if (!cmd->path)
+    {
 		cmd->path = search_in_env(data, content);
-	if (!cmd->path)
+        cmd->args[0] = ft_strdup(cmd->path);
+        cmd->args[1] = NULL;
+    }
+    if (!cmd->path)
 		return (0);
 	return (1);
 }

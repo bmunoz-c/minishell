@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:20:51 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/09 20:48:57 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:41:45 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,14 @@ void	*free_cmd(t_cmd *cmd)
 		i = 0;
 		while (cmd->args && cmd->args[i])
 		{
-			if(cmd->args[i])
-				free_ptr(cmd->args[i]);
+			free_ptr(cmd->args[i]);
 			i++;
 		}
 		free(cmd->args);
 		cmd->args = NULL;
 	}
-	if (cmd->input_file)
-		free(cmd->input_file);
-	if (cmd->output_file)
-		free(cmd->output_file);
+	//close(cmd->in_fd);
+	//close(cmd->out_fd);
 	free(cmd);
 	return (NULL);
 }
