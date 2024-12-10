@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/09 21:51:45 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/10 11:06:41 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,31 +43,31 @@ int	populate_args(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 }
 
 // Handles input and output redirections
-int	search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
+// Function to handle input and output redirections
+int search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 {
 	while (tk_list != tk_last)
 	{
 		if (tk_list->type == INPUT)
 		{
-			cmd->input_file = ft_strdup(tk_list->next->content);
-			if (!cmd->input_file)
-				break ;
+			cmd->in_fd = open(tk_list->next->content, O_RDONLY);
+			if (cmd->in_fd < 0)
+				return (1);
+			tk_list = tk_list->next;
 		}
 		else if (tk_list->type == OUTPUT || tk_list->type == APPEND)
 		{
-			cmd->output_file = ft_strdup(tk_list->next->content);
-			if (!cmd->output_file)
-				break ;
-		}
-		if (tk_list->type == APPEND)
-			cmd->append_output = 1;
-		if(tk_list->type == INPUT || tk_list->type == OUTPUT || tk_list->type == APPEND)
+			if (tk_list->type == OUTPUT)
+				cmd->out_fd = open(tk_list->next->content, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			else
+				cmd->out_fd = open(tk_list->next->content, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			if (cmd->out_fd < 0)
+				return (1);
 			tk_list = tk_list->next;
+		}
 		tk_list = tk_list->next;
 	}
-	if (tk_list != tk_last) // We broke the loop so it's malloc failure
-		return (0);
-	return (1);
+	return (0);
 }
 
 // Main function to build the command structure

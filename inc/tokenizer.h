@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:32:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/05 17:26:23 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/10 11:53:47 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ typedef struct s_cmd {
     char *path;
     int  nargs;
     char **args;
-    char *input_file;
-    char *output_file;
+    int in_fd;
+    int out_fd;
     int append_output;
 	int builtin;
     struct s_cmd *next;

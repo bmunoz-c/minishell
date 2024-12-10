@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/09 21:43:44 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/10 10:57:26 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@
 #include "tokenizer.h"
 #include "error.h"
 #include "executor.h"
+#include <string.h>
+#include <fcntl.h>
+#include <sys/stat.h>
 
 void	copy_env(char **org_env, t_data *data);
 
-#include <string.h>
-#include <sys/stat.h>
 // COLOR MACROS
 # define RESET "\033[0m"
 # define RED "\033[0;31m"
