@@ -6,7 +6,7 @@
 /*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:00:32 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/10 21:58:01 by borjamc          ###   ########.fr       */
+/*   Updated: 2024/12/10 22:35:08 by borjamc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 # define SYNTAX_ERROR 2
 
 //_____BUILDING_ERRORS_____//
-# define PATH_NULL "cd: Path is NULL"
-# define INV_PATH "cd: Invalid path"
-# define NOFILEDIR "cd: No such file or directory"
-# define NOTDIR "cd: Not a directory"
-# define PERM_DENIED "cd: Permission denied"
+# define PATH_NULL "Path is NULL"
+# define INV_PATH "Invalid path"
+# define NOFILEDIR "No such file or directory"
+# define NOTDIR "Not a directory"
+# define PERM_DENIED "Permission denied"
 
 //_____CMD_ERRORS_____//
 # define CMDNOTFND "Command not found"

@@ -52,7 +52,7 @@ char	*ft_getcwd(void)
 	{
 		ft_putstr_fd("cd: error retrieving current directory: ", 2);
 		ft_putstr_fd("getcwd: cannot access parent directories: ", 2);
-		ft_putstr_fd("No such file or directory\n", 2);
+		ft_putstr_fd(NOFILEDIR, 2);
 		return (NULL);
 	}
 	return (res);
