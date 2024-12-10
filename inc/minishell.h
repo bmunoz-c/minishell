@@ -6,7 +6,7 @@
 /*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/10 22:10:11 by borjamc          ###   ########.fr       */
+/*   Updated: 2024/12/10 22:12:33 by borjamc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include <stdlib.h>
+#include <sys/errno.h>
 #include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 #include <signal.h>
 #include "libft/libft.h"
 #include "tokenizer.h"
