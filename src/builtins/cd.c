@@ -34,6 +34,23 @@ int cd_access(t_data *data, char *path)
     // Comprobar permisos de ejecución
     if (access(path, X_OK) == -1)
         return (set_error(data, PERM_DENIED, 126), 1);
-    return (set_error(data, NULL, 0), 0);
     // Todo está bien
+    return (set_error(data, NULL, 0), 0);
+}
+
+// Obtener el directorio de trabajo (gwd) actual
+// como una cadena de caracteres dinámica.
+char	*ft_getcwd(void)
+{
+	char	*res;
+
+	res = getcwd(NULL, 0);
+	if (!res)
+	{
+		ft_putstr_fd("cd: error retrieving current directory: ", 2);
+		ft_putstr_fd("getcwd: cannot access parent directories: ", 2);
+		ft_putstr_fd("No such file or directory\n", 2);
+		return (NULL);
+	}
+	return (res);
 }
