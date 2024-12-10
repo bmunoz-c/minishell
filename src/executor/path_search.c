@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 00:49:05 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/05 17:23:09 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/10 11:52:11 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,6 @@ int verify_path(char *path)
     return 0;
 }
 
-char *search_in_cwd(t_data *data, char *cmd)
-{
-    
-    if (verify_path(cmd))
-    {
-        return (ft_strdup(cmd));
-    }
-    (void)data;
-    (void)cmd;
-    return (NULL);
-}
 
 char *search_in_env(t_data *data, char *cmd)
 {
