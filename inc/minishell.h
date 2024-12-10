@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/09 22:00:33 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/10 22:10:11 by borjamc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include <stdlib.h>
+#include <sys/stat.h>
+#include <signal.h>
 #include "libft/libft.h"
 #include "tokenizer.h"
 #include "error.h"
 #include "executor.h"
-#include <signal.h>
 
 extern int     sig_exit_status;
 
