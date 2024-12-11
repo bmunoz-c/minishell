@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 22:04:56 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/09 21:46:54 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/11 19:06:02 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	run_echo(char **args)
 		ft_putchar_fd('\n', 1);
 		return (0);
 	}
-	i = 0;
+	i = 1;
 	while (args[i] && check_option(args[i], &new_line))
 		i++;
 	first_print = i;

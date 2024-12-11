@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:20:51 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/10 12:41:45 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/11 19:07:01 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	free_data(t_data *data, int env_flag)
 	if (data->env && env_flag)
 	{
 		free_env(data->env);
+		ft_free_split(data->env_matrix);
 		data->env = NULL;
 	}
 	if (data->token_list)

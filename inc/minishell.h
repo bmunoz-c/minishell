@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/10 10:57:26 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/11 18:35:22 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	free_token(t_token *token);
 void	free_data(t_data *data, int env_flag);
 void    ft_free_split(char **split);
 
+char	**env_as_matrix(t_env *env);
 
 ///////////// BUILTINS
 int	run_echo(char **args);

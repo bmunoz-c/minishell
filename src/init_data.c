@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:07:10 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/10 14:13:07 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/11 19:03:00 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,7 @@ void    init_data(t_data *data)
     data->token_list = NULL;
     data->cmd_list = NULL;
 	data->path = NULL;
+	data->env_matrix = NULL;
+	data->err_code = 0;
+	data->err_msg = NULL;
 }

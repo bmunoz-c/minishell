@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 00:49:05 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/10 12:47:28 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/11 19:21:59 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ int	handle_command_path(t_data *data, t_cmd *cmd, char *content)
         cmd->args[0] = ft_strdup(cmd->path);
         cmd->args[1] = NULL;
     }
+	cmd->builtin = 0;
     if (!cmd->path)
 		return (0);
 	return (1);

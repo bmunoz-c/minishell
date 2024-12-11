@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:32:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/10 11:53:47 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/11 19:05:39 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ typedef struct s_data
 	int			err_code;
 	char		*err_msg;
 	t_cmd		*cmd_list;
-
+	char **env_matrix;
 }	t_data;
 
 

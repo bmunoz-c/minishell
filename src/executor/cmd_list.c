@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/10 14:18:42 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/11 18:24:06 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	populate_args(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 	{
 		if (tk_list->type == WORD || tk_list->type == SQ_STR || tk_list->type == DQ_STR)
 		{
-			printf("Saving *%s* in [%d]\n", tk_list->content, i_args);
 			cmd->args[i_args] = ft_strdup(tk_list->content);
 			if (!cmd->args[i_args])
 			{
