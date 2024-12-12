@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:20:51 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/05 19:23:55 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/12 19:42:27 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	free_data(t_data *data, int env_flag)
 	if (data->env && env_flag)
 	{
 		free_env(data->env);
+		ft_free_split(data->env_matrix);
 		data->env = NULL;
 	}
 	if (data->token_list)
@@ -63,18 +64,17 @@ void	*free_cmd(t_cmd *cmd)
 	if (cmd->args)
 	{
 		i = 0;
-		while (i < cmd->nargs)
+		while (cmd->args && cmd->args[i])
 		{
 			free_ptr(cmd->args[i]);
 			i++;
 		}
-		free_ptr(cmd->args);
+		free(cmd->args);
+		cmd->args = NULL;
 	}
-	if (cmd->input_file)
-		free_ptr(cmd->input_file);
-	if (cmd->output_file)
-		free_ptr(cmd->output_file);
-	free_ptr(cmd);
+	//close(cmd->in_fd);
+	//close(cmd->out_fd);
+	free(cmd);
 	return (NULL);
 }
 
@@ -121,4 +121,17 @@ void	free_token(t_token *token)
 	token->content = NULL;
 	free_ptr(token);
 	token = NULL;
+}
+
+void    ft_free_split(char **split)
+{
+    int i;
+
+    i = 0;
+    while (split[i])
+    {
+        free(split[i]);
+        i++;
+    }
+    free(split);
 }

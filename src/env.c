@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 20:47:49 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/19 00:54:50 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/11 18:53:32 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,33 @@ char	*get_env_value(t_env *env, char *key)
 	}
 	return (NULL);
 }
+char	**env_as_matrix(t_env *env)
+{
+	char **data;
+	t_env *tmp;
+	int i;
+
+	i = 0;
+	tmp = env;
+	while (env){
+		i++;
+		env = env->next;
+	}
+	data = malloc(sizeof(char *) * (i + 1));
+	if (!data)
+		return (NULL);
+	i = 0;
+	env = tmp;
+	while (env)
+	{
+		data[i] = ft_strjoin(env->key, "=");
+		data[i] = ft_strjoin_f(data[i], env->value, 1);
+		i++;
+		env = env->next;
+	}
+	data[i] = NULL;
+	return (data);
+}
 
 void copy_env(char **org_env, t_data *data)
 {
@@ -75,6 +102,8 @@ void copy_env(char **org_env, t_data *data)
 		tmp_env = NULL;
 		i++;
 	}
+	data->env_matrix = env_as_matrix(data->env);
 }
+
 
 

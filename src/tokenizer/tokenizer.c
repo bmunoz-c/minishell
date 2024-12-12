@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:28:00 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/05 19:08:43 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/12 19:45:10 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	tokenizer(t_data *data, int i)
 {
 	t_token	*token;
 
-	//data->prompt = ft_strtrimfree(data->prompt, " ", 1);
 	while (data->prompt[i])
 	{
 		if (data->prompt[i] == ' ')

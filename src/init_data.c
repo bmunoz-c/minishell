@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:07:10 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/05 19:22:30 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/12 19:43:00 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,20 @@
 void	init_cmd_data(t_cmd *cmd, t_token *tk_first, t_token *tk_last)
 {
 	cmd->path = NULL;
-	cmd->input_file = NULL;
-	cmd->output_file = NULL;
+	cmd->in_fd = 0;
+	cmd->out_fd = 0;
 	cmd->next = NULL;
 	cmd->nargs = 0;
+	cmd->args = NULL;
 	while (tk_first != tk_last)
 	{
-		if (tk_first->type == WORD || tk_first->type == SPC)
+		if (tk_first->type == WORD || tk_first->type == DQ_STR || tk_first->type == SQ_STR)
 			cmd->nargs++;
+		else
+			break;
 		tk_first = tk_first->next;
 	}
-	cmd->args = malloc(sizeof(char *) * (cmd->nargs + 1));
+	cmd->args = ft_calloc(sizeof(char *) * (cmd->nargs + 1), 1);
 }
 
 // Initializes the t_data structure
@@ -37,6 +40,7 @@ void    init_data(t_data *data)
     data->token_list = NULL;
     data->cmd_list = NULL;
 	data->path = NULL;
-	data->err_msg = NULL;
+	data->env_matrix = NULL;
 	data->err_code = 0;
+	data->err_msg = NULL;
 }

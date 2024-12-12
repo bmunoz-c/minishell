@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/12 16:47:30 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/12 19:41:12 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,13 @@
 #include "error.h"
 #include "executor.h"
 
-extern int     sig_exit_status;
+#include <string.h>
+#include <fcntl.h>
+#include <sys/stat.h>
 
+extern int     sig_exit_status;
 void	copy_env(char **org_env, t_data *data);
 
-#include <string.h>
-#include <sys/stat.h>
 // COLOR MACROS
 # define RESET "\033[0m"
 # define RED "\033[0;31m"
@@ -43,6 +44,10 @@ void	copy_env(char **org_env, t_data *data);
 # define MAGENTA "\033[0;35m"
 # define CYAN "\033[0;36m"
 # define WHITE "\033[0;37m"
+
+# define IS_DIR 2
+# define IS_F_EXEC 1
+# define NOT_FOUND 0
 
 #define PROMPT MAGENTA "dancingShell🩰🦦" BLUE "> " RESET 
 
@@ -82,6 +87,13 @@ void    ctrlc_handler(int sig);
 void    exit_signal_handler(int sig);
 
 
+
+void    ft_free_split(char **split);
+
+char	**env_as_matrix(t_env *env);
+
+///////////// BUILTINS
+int	run_echo(char **args);
 
 #endif
 

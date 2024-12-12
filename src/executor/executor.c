@@ -6,68 +6,95 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:50:26 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/05 17:32:15 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/12 19:56:39 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 
-
-
-// // Case when it's only one command in prompt
-// void run_sigle(t_cmd *cmd)
-// {
-
-// }
-
-// // Case when there are multiple commnads in prompt
-// void run_pipeline(t_cmd *cmd_list)
-// {
-
-// }
-
-// // Run a builtin cmd
-// void hanlde_builtin(t_cmd *cmd) 
-// {
-	
-// }
-
-
-t_token	*remove_empty_tk(t_token *tk_list)
+// Run a builtin cmd
+void handle_builtin(t_data *data, t_cmd *cmd) 
 {
-	t_token	*tmp_list;
-	t_token *tmp_tk;
-
-	tmp_list = tk_list;
-	while (tmp_list)
-	{
-		if (tmp_list->type == SPC)
-		{
-			if (tmp_list->prev)
-				tmp_list->prev->next = tmp_list->next;
-			if (tmp_list->next)
-				tmp_list->next->prev = tmp_list->prev;
-			if (tmp_list == tk_list)
-				tk_list = tmp_list->next;
-			tmp_tk = tmp_list;
-			tmp_list = tmp_list->next;
-			free_token(tmp_tk);
-		}
-		else
-			tmp_list = tmp_list->next;
-	}
-	return (tk_list);
+	(void)data;
+	(void)cmd;
+	if (ft_strncmp(cmd->path, "echo", 5) == 0)
+		run_echo(cmd->args);
+	// else if (ft_strncmp(cmd->path, "cd", 3) == 0)
+	else if (ft_strncmp(cmd->path, "pwd", 4) == 0)
+        pwd(data);
+	// else if (ft_strncmp(cmd->path, "export", 7) == 0)
+	// else if (ft_strncmp(cmd->path, "unset", 6) == 0)
+	// else if (ft_strncmp(cmd->path, "env", 4) == 0)
+	// else if (ft_strncmp(cmd->path, "exit", 5) == 0))
 }
+
+#include <sys/wait.h>
+// Case when it's only one command in prompt
+// TODO: kill the child
+void run_single(t_data *data, t_cmd *cmd)
+{
+    pid_t pid;
+    int status;
+
+    pid = fork();
+    if (pid == 0)
+    {
+        // Child process
+        if (cmd->in_fd >= 0)
+        {
+            dup2(cmd->in_fd, STDIN_FILENO);
+            close(cmd->in_fd);
+        }
+
+        if (cmd->out_fd >= 0)
+        {
+            dup2(cmd->out_fd, STDOUT_FILENO);
+            close(cmd->out_fd);
+        }
+
+        if (cmd->builtin)
+        {
+            handle_builtin(data, cmd);
+            exit(EXIT_SUCCESS); // Exit after running the built-in command
+        }
+        else if (execve(cmd->path, cmd->args, data->env_matrix) == -1)
+        {
+            perror("execve");
+            exit(EXIT_FAILURE);
+        }
+    }
+    else if (pid < 0)
+    {
+        // Fork failed
+        perror("fork");
+        exit(EXIT_FAILURE);
+    }
+    else
+    {
+        // Parent process
+        waitpid(pid, &status, 0);
+    }
+}
+
+// Case when there are multiple commnads in prompt
+void run_pipeline(t_data *data, t_cmd *cmd)
+{
+	(void)data;
+	(void)cmd;	
+}
+
+
+
 
 void execute(t_data *data)
 {
-    //remove_empty_tk(data->token_list);
     data->cmd_list = group_cmd(data, data->token_list);
-    
-    //if(!cmd_list->next)
-    //    run_sigle(cmd_list);
-    //else
-    //    run_pipeline(cmd_list);
-    print_cmd(data->cmd_list);
+	print_cmd(data->cmd_list);
+	if(!data->cmd_list)
+		return ;
+	if(!data->cmd_list->next)
+		run_single(data, data->cmd_list);
+    else
+		run_pipeline(data, data->cmd_list);
 }

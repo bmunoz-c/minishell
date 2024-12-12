@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:50:47 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/18 19:19:16 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/11 19:20:54 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	print_cmd(t_cmd *cmd)
 	while (cmd)
 	{
 		if (cmd->path)
-			printf(YELLOW "path: %s\n [%d] -" RESET, cmd->path, cmd->nargs);
+			printf(YELLOW "path {%d}: %s\n [%d] -" RESET, cmd->builtin, cmd->path, cmd->nargs);
 		else
-			printf(YELLOW "path: undefined\n [%d] -" RESET, cmd->nargs);
+				printf(YELLOW "path: undefined\n [%d] -" RESET, cmd->nargs);
 		i = 0;
 		if (cmd->args)
 		{ // Check if cmd->args is valid
@@ -49,14 +49,8 @@ void	print_cmd(t_cmd *cmd)
 		}
 		else
 			printf(CYAN "args: undefined\n" RESET);
-		if (cmd->input_file)
-			printf(RED "\n in: %s" RESET, cmd->input_file);
-		else
-			printf(RED "\n in: undefined" RESET);
-		if (cmd->output_file)
-			printf(RED " out: %s\n" RESET, cmd->output_file);
-		else
-			printf(RED " out: undefined\n" RESET);
+		printf(RED "\n in: %d" RESET, cmd->in_fd);
+		printf(RED " out: %d\n" RESET, cmd->out_fd);
 		cmd = cmd->next;
 	}
 	printf(MAGENTA "--------- END PRINT CMDs -----------" RESET "\n");

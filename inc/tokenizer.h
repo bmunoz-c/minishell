@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:32:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/12 15:37:54 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/12 19:41:46 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ typedef struct s_cmd
 	char			*path;
 	int				nargs;
 	char			**args;
-	char			*input_file;
-	char			*output_file;
+	int 			in_fd;
+    int 			out_fd;
 	int				append_output;
 	int				builtin;
 	struct s_cmd	*next;
@@ -86,7 +86,7 @@ typedef struct s_data
 	int			err_code;
 	char		*err_msg;
 	t_cmd		*cmd_list;
-
+	char **env_matrix;
 }	t_data;
 
 

@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/19 12:20:51 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/11 18:24:06 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,27 @@ int	populate_args(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 	int	i_args;
 
 	i_args = 0;
+	if (!cmd->args)
+		return 0;
+	if(cmd->args && cmd->args[0]) 
+	{
+		i_args = 1;
+		tk_list = tk_list->next;
+	}
 	while (tk_list != tk_last)
 	{
-		if (tk_list->type == WORD || tk_list->type == SPC)
+		if (tk_list->type == WORD || tk_list->type == SQ_STR || tk_list->type == DQ_STR)
 		{
 			cmd->args[i_args] = ft_strdup(tk_list->content);
 			if (!cmd->args[i_args])
 			{
 				free_cmd(cmd);
-				return (0); // Memory allocation failed
+				return (0);
 			}
 			i_args++;
 		}
+		else
+			break;
 		tk_list = tk_list->next;
 	}
 	cmd->args[i_args] = NULL; // Null-terminate the array
@@ -38,42 +47,32 @@ int	populate_args(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 }
 
 // Handles input and output redirections
-int	search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
+// Function to handle input and output redirections
+int search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 {
 	while (tk_list != tk_last)
 	{
 		if (tk_list->type == INPUT)
 		{
-			cmd->input_file = ft_strdup(tk_list->next->content);
-			if (!cmd->input_file)
-				break ;
+			cmd->in_fd = open(tk_list->next->content, O_RDONLY);
+			if (cmd->in_fd < 0)
+				return (1);
 			tk_list = tk_list->next;
 		}
-		else if (tk_list->type == OUTPUT)
+		else if (tk_list->type == OUTPUT || tk_list->type == APPEND)
 		{
-			cmd->output_file = ft_strdup(tk_list->next->content);
-			if (!cmd->output_file)
-				break ;
+			if (tk_list->type == OUTPUT)
+				cmd->out_fd = open(tk_list->next->content, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			else
+				cmd->out_fd = open(tk_list->next->content, O_WRONLY | O_CREAT | O_APPEND, 0644);
+			if (cmd->out_fd < 0)
+				return (1);
 			tk_list = tk_list->next;
 		}
-		else if (tk_list->type == APPEND)
-		{
-			cmd->output_file = ft_strdup(tk_list->next->content);
-			cmd->append_output = 1;
-			if (!cmd->output_file)
-				break ;
-			tk_list = tk_list->next;
-		}
-		
-		// TODO: HERE_DOC
 		tk_list = tk_list->next;
 	}
-	if (tk_list != tk_last) // We broke the loop so it's malloc failure
-	{
-		free_cmd(cmd);
-		return (0);
-	}
-	return (1);
+	printf("redirs handled\n");
+	return (0);
 }
 
 // Main function to build the command structure
@@ -84,16 +83,14 @@ t_cmd	*build_cmd(t_data *data, t_token *tk_list, t_token *tk_last)
 	cmd = malloc(sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
-	init_cmd_data(cmd, tk_list->next, tk_last);
-	if (!cmd->args)
-		return (free_cmd(cmd));
+	init_cmd_data(cmd, tk_list, tk_last);
 	if (!handle_command_path(data, cmd, tk_list->content))
 		return (free_cmd(cmd));
-	if (!populate_args(cmd, tk_list->next, tk_last))
+	if (!populate_args(cmd, tk_list, tk_last) || !cmd->args)
 		return (free_cmd(cmd));
-	if (!search_redirs(cmd, tk_list->next, tk_last))
+	if (search_redirs(cmd, tk_list->next, tk_last))
 		return (free_cmd(cmd));
-	printf("cmd builded!\n\n");
+	//printf("cmd builded!\n\n");
 	return (cmd);
 }
 void	add_cmd(t_cmd **cmd_list, t_cmd *cmd)
