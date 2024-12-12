@@ -6,13 +6,13 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:20:01 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/12 17:55:24 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/12 18:15:08 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-//Returns 1 if the string is a valid number and 0 if it is not.
+//Returns 0 if the string is a valid number and 1 if it is not.
 int	check_llong(const char *str)
 {
 	int	i;
@@ -31,6 +31,11 @@ int	check_llong(const char *str)
 	return (0);
 }
 
+/*
+    Receives a str and checks that it is,
+    converted to a number, within the long long int limits
+    (LLONG MIN - LLONG MAX).
+*/
 char    check_ll_max_min(const char *str)
 {
     int     i; 
@@ -98,6 +103,7 @@ int	run_exit(char **cmd, t_data *data)
 	int	ac;
 
 	ac = 0;
+    data->err_code = 0;
 	while (cmd && cmd[ac])
 		ac++;
 /* Si la entrada estándar (STDIN_FILENO) está conectada 

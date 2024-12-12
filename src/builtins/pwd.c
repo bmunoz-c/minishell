@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:24:43 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/12 16:56:43 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/12 18:16:30 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ void    pwd(t_data *data)
         //Se obtiene el valor de la variable de entorno PWD.
         get_env_value(data->env, "PWD");
         if (!pwd)
-        {
             ft_putstr_fd(NOFILEDIR, 2);
-            return ;
-        }
     }
     ft_putstr_fd(pwd, 1);
     ft_putstr_fd("\n", 1);
