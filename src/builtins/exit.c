@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:20:01 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/12 23:00:18 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/12 23:04:13 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,6 @@ se imprime "exit" en la salida de error estándar. */
 		{
 			printf("1- EXIT\n");
 			print_err_num_arg(data, cmd[1]);
-			printf("%d\n", data->err_code);
             exit(data->err_code);
 		}
 	}

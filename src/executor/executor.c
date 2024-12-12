@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:50:26 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/12 22:47:23 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/12 23:03:19 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void run_single(t_data *data, t_cmd *cmd)
 {
     pid_t pid;
     int status;
-//HE ANADIDO ESTO!!!!!!!!!!
+//HE ANADIDO ESTO PARA SALIR CON EXIT!!!!!!!!!!
+//Cundo esta el builtin solo, lo ejecuta el padre.
     if (cmd->builtin)
     {
         handle_builtin(data, cmd);
