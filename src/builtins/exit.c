@@ -6,29 +6,29 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:20:01 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/12 18:15:08 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/12 20:18:58 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-//Returns 0 if the string is a valid number and 1 if it is not.
+//Returns 1 if the string is a valid number and 0 if it is not.
 int	check_llong(const char *str)
 {
 	int	i;
 
 	i = 0;
 	if (!str || !str[i])
-		return (1);
+		return (0);
 	if (str[0] == '-' || str[0] == '+')
 		i++;
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
-			return (1);
+			return (0);
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
 /*
@@ -46,20 +46,20 @@ char    check_ll_max_min(const char *str)
         i++;
     len = ft_strlen(str);
     if (len > 19)
-        return (1);
-    if (len < 19)
         return (0);
+    if (len < 19)
+        return (1);
     if (str[0] == '-')
     {
         if (ft_strncmp("9223372036854775808", &str[i], len) < 0)
-            return (1);
+            return (0);
     }
     else
     {
         if (ft_strncmp("9223372036854775807", &str[i], len) < 0)
-            return (1);
+            return (0);
     }
-    return (0);    
+    return (1);    
 }
 
 /* 
@@ -117,8 +117,9 @@ se imprime "exit" en la salida de error estándar. */
 	{
         /* Comprueba si el av es un numero valido 
         y si esta dentro de rango. */
-		if (check_llong(cmd[1]) && check_max_min_llong(cmd[1]))
+		if (check_llong(cmd[1]) && check_ll_max_min(cmd[1]))
 		{
+			// Should be okk
 			data->err_code = ft_atoll(cmd[1]);
            /*  Si el número está fuera del rango permitido
             para un código de salida (0-255), 
@@ -131,7 +132,6 @@ se imprime "exit" en la salida de error estándar. */
 	}
 	if (ac > 2)
 		return (/* ft_PRINT_ERR_MANY_AVS_EXIT */);
-	free_ptr(data);
 	exit(data->err_code);
 	return (EXIT_SUCCESS);
 }

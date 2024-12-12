@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/12 19:53:13 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/12 20:05:24 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,5 @@ int	main(int ac, char **av, char **env)
 		free_data(&data, 0);
 	}
 	free_data(&data, 1);
+	return (EXIT_SUCCESS);
 }
