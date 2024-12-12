@@ -6,14 +6,14 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/12 20:05:24 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/12 21:17:02 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <minishell.h>
 
-int sig_exit_status = 0;
+int g_sig_exit_status = 0;
 
 
 
@@ -42,8 +42,8 @@ int	main(int ac, char **av, char **env)
 		dirty_prompt = NULL;
 		if (!data.prompt)
 			continue ;
-		if (!ft_strncmp(data.prompt, "exit", 4))
-			break ;
+		// if (!ft_strncmp(data.prompt, "exit", 4))
+		// 	break ;
 		if (!ft_strncmp(data.prompt, "printenv", 8))
 			print_env(data.env);
 		printf("prompt: %s\n", data.prompt);

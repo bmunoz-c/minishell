@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/12 19:41:12 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/12 20:56:45 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 
-extern int     sig_exit_status;
+extern int     g_sig_exit_status;
 void	copy_env(char **org_env, t_data *data);
 
 // COLOR MACROS
@@ -67,10 +67,6 @@ char	*get_env_value(t_env *env, char *key);
 void	init_cmd_data(t_cmd *cmd, t_token *tk_first, t_token *tk_last);
 void	init_data(t_data *data);
 
-///////////// BUILDINS
-void    pwd(t_data *data);
-
-
 //////////// FREE utils
 void	*free_ptr(void *ptr);
 void	*free_cmd(t_cmd *cmd);
@@ -94,6 +90,9 @@ char	**env_as_matrix(t_env *env);
 
 ///////////// BUILTINS
 int	run_echo(char **args);
+void    pwd(t_data *data);
+int	run_exit(char **cmd, t_data *data);
+
 
 #endif
 

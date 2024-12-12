@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:50:26 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/12 19:56:39 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/12 22:47:23 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ void handle_builtin(t_data *data, t_cmd *cmd)
 	// else if (ft_strncmp(cmd->path, "export", 7) == 0)
 	// else if (ft_strncmp(cmd->path, "unset", 6) == 0)
 	// else if (ft_strncmp(cmd->path, "env", 4) == 0)
-	// else if (ft_strncmp(cmd->path, "exit", 5) == 0))
+	else if (ft_strncmp(cmd->path, "exit", 5) == 0)
+    {
+        run_exit(cmd->args, data);
+    }
+        
 }
 
 #include <sys/wait.h>
@@ -36,7 +40,12 @@ void run_single(t_data *data, t_cmd *cmd)
 {
     pid_t pid;
     int status;
-
+//HE ANADIDO ESTO!!!!!!!!!!
+    if (cmd->builtin)
+    {
+        handle_builtin(data, cmd);
+        return ;
+    }
     pid = fork();
     if (pid == 0)
     {

@@ -6,7 +6,7 @@
 #    By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
-#    Updated: 2024/12/12 16:47:51 by bmunoz-c         ###   ########.fr        #
+#    Updated: 2024/12/12 20:57:51 by bmunoz-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ HEADER			= inc/minishell.h
 SRC_DIR 		= src/
 OBJ_DIR 		= obj/
 SRC 			:=	main.c clean_utils.c env.c\
-					builtins/echo.c builtins/pwd.c\
+					builtins/echo.c builtins/pwd.c builtins/exit.c\
 					tokenizer/tokenizer.c tokenizer/token_type.c\
 					executor/executor.c executor/cmd_list.c executor/path_search.c\
 					expansor/expansor.c expansor/expansor_utils.c\

@@ -6,11 +6,29 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:20:01 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/12 20:18:58 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/12 23:00:18 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+int	print_err_many_args_exit(t_data *data)
+{
+	ft_putstr_fd(PROGRAM_NAME, STDERR_FILENO);
+	ft_putendl_fd(" exit: too many arguments", STDERR_FILENO);
+	data->err_code = 1;
+	return (data->err_code);
+}
+
+int	print_err_num_arg(t_data *data, char *cmd)
+{
+	ft_putstr_fd(PROGRAM_NAME, STDERR_FILENO);
+	ft_putstr_fd(" exit: ", STDERR_FILENO);
+	ft_putstr_fd(cmd, STDERR_FILENO);
+	ft_putendl_fd(": numeric argument required", STDERR_FILENO);
+	data->err_code = 2;
+	return (data->err_code);
+}
 
 //Returns 1 if the string is a valid number and 0 if it is not.
 int	check_llong(const char *str)
@@ -18,7 +36,7 @@ int	check_llong(const char *str)
 	int	i;
 
 	i = 0;
-	if (!str || !str[i])
+	if (!str || !*str)
 		return (0);
 	if (str[0] == '-' || str[0] == '+')
 		i++;
@@ -41,7 +59,7 @@ char    check_ll_max_min(const char *str)
     int     i; 
     int    len;
 
-    i - 0;
+    i = 0;
     if (str[i] == '-' || str[i] == '+')
         i++;
     len = ft_strlen(str);
@@ -51,12 +69,12 @@ char    check_ll_max_min(const char *str)
         return (1);
     if (str[0] == '-')
     {
-        if (ft_strncmp("9223372036854775808", &str[i], len) < 0)
+        if (ft_strncmp("9223372036854775808", &(str[i]), len) < 0)
             return (0);
     }
     else
     {
-        if (ft_strncmp("9223372036854775807", &str[i], len) < 0)
+        if (ft_strncmp("9223372036854775807", &(str[i]), len) < 0)
             return (0);
     }
     return (1);    
@@ -104,13 +122,14 @@ int	run_exit(char **cmd, t_data *data)
 
 	ac = 0;
     data->err_code = 0;
+	//printf("EXIT\n");
 	while (cmd && cmd[ac])
 		ac++;
 /* Si la entrada estándar (STDIN_FILENO) está conectada 
 a un terminal interactivo (isatty) y el proceso no es un 
 proceso hijo (!data->is_child), 
 se imprime "exit" en la salida de error estándar. */
-	if (isatty(STDIN_FILENO) && !data->/*ft_eshijo*/)
+	if (isatty(STDIN_FILENO))
 		ft_putendl_fd("exit", STDERR_FILENO);
     //Si hay 1 argumento, posible codigo de salida.
 	if (cmd[1])
@@ -124,14 +143,26 @@ se imprime "exit" en la salida de error estándar. */
            /*  Si el número está fuera del rango permitido
             para un código de salida (0-255), 
             se ajusta con data->err_code % 256. */
-			if (data->err_code > 255 || data->err_code < 0)
-				data->err_code = data->err_code % 256;
+
+			//FUNCIONA IGUAL SIN ESTO.
+		//	if (data->err_code > 255 || data->err_code < 0)
+		//		data->err_code = data->err_code % 256;
 		}
 		else
-            return(/* ft_PRINT_ERR_NUM_AVS */);
+		{
+			printf("1- EXIT\n");
+			print_err_num_arg(data, cmd[1]);
+			printf("%d\n", data->err_code);
+            exit(data->err_code);
+		}
 	}
 	if (ac > 2)
-		return (/* ft_PRINT_ERR_MANY_AVS_EXIT */);
+	{
+		printf("2- EXIT\n");
+		printf("%d\n", data->err_code);
+		return (print_err_many_args_exit(data));
+	}
+	printf("3- EXIT\n");
 	exit(data->err_code);
 	return (EXIT_SUCCESS);
 }
