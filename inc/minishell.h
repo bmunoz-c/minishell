@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/10 22:12:33 by borjamc          ###   ########.fr       */
+/*   Updated: 2024/12/12 16:47:30 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,10 @@ char	*get_env_value(t_env *env, char *key);
 void	init_cmd_data(t_cmd *cmd, t_token *tk_first, t_token *tk_last);
 void	init_data(t_data *data);
 
+///////////// BUILDINS
+void    pwd(t_data *data);
+
+
 //////////// FREE utils
 void	*free_ptr(void *ptr);
 void	*free_cmd(t_cmd *cmd);
@@ -72,10 +76,10 @@ void	free_token(t_token *token);
 void	free_data(t_data *data, int env_flag);
 
 //////////// SIGNALS
-int init_signals(int mode);
-void set_sig_ignore(int signum);
-void	ctrlc_handler(int sig);
-void exit_signal_handler(int sig);
+int     init_signals(int mode);
+void    set_sig_ignore(int signum);
+void    ctrlc_handler(int sig);
+void    exit_signal_handler(int sig);
 
 
 

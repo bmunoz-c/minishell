@@ -1,3 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/12 16:14:51 by bmunoz-c          #+#    #+#             */
+/*   Updated: 2024/12/12 16:23:08 by bmunoz-c         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
+
 #include <minishell.h>
 
 void set_error(t_data *data, const char *msg, int err_code, int cd_print)
@@ -56,4 +70,29 @@ char	*ft_getcwd(void)
 		return (NULL);
 	}
 	return (res);
+}
+//TODO: Implementar la función cd_path
+int cd_path(t_data *data, t_cmd *cmd)
+{
+    char    *path;
+    char    *oldpwd;
+
+    path = cmd->args[1];
+    oldpwd = ft_getcwd();
+    if (oldpwd == NULL)
+        return (1);
+    
+}
+//TODO: Implementar la función cd_home
+int run_cd(t_data *data, t_env *env, t_cmd *cmd)
+{
+    char    *home;
+    char    *oldpwd;
+
+    home = get_env_value(env, "HOME");
+    oldpwd = ft_getcwd();
+    if (oldpwd == NULL)
+        return (1);
+    
+   
 }

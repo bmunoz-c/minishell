@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 20:29:28 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/09 22:55:29 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/12 15:28:04 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,13 +113,13 @@ void exit_signal_handler(int sig)
     //CTRL + C
     if (sig == SIGINT)
     {
-        sig_exit_status = 130;
+        sig_exit_status = 128 + sig;
         exit(130);
     }
     //CTRL + \.
     else if (sig == SIGQUIT)
     {
-        sig_exit_status = 131;
+        sig_exit_status = 128 + sig;
         exit(130);
     }
 }

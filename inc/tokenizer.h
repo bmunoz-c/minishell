@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:32:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/05 20:05:22 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/12 15:37:54 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ char		*expand_str(t_data *data, char *str, int i);
 void		merge_tokens(t_token **token);
 t_token		*merge_token(t_token *token, t_token **merge_last_t);
 //_____SYNTAX_____//
-int	syntax_error_msg(t_data *data, char *ch_err);
-int	syntax_error(t_data *data, t_token **token);
+int			syntax_error_msg(t_data *data, char *ch_err);
+int			syntax_error(t_data *data, t_token **token);
 
 #endif
