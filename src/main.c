@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/12 21:17:02 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/17 13:05:49 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-#include <minishell.h>
 
 int g_sig_exit_status = 0;
-
 
 
 int	main(int ac, char **av, char **env)
@@ -32,6 +30,7 @@ int	main(int ac, char **av, char **env)
 	copy_env(env, &data);
 	while (42)
 	{
+		printf(RED "$?: %d\n" RESET, data.err_code);
 		init_signals(1);
 		set_sig_ignore(SIGQUIT);
 		dirty_prompt = readline(PROMPT);
@@ -52,7 +51,7 @@ int	main(int ac, char **av, char **env)
 		//print_token_list(data.token_list);
 		expansor(&data.token_list, &data);
 		merge_tokens(&data.token_list);
-		print_token_list(data.token_list);
+		//print_token_list(data.token_list);
 		syntax_error(&data, &data.token_list);		
 		execute(&data);
 		//ft_free_split(array);

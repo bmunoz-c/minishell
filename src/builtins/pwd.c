@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:24:43 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/12 18:16:30 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/17 10:29:43 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void    pwd(t_data *data)
+void    run_pwd(t_data *data)
 {
     char    *pwd;
     

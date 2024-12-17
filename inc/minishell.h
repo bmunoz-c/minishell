@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/12 20:56:45 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/17 13:08:39 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
 
 #include <readline/readline.h>
 #include <stdio.h>
@@ -89,9 +90,9 @@ void    ft_free_split(char **split);
 char	**env_as_matrix(t_env *env);
 
 ///////////// BUILTINS
-int	run_echo(char **args);
-void    pwd(t_data *data);
-int	run_exit(char **cmd, t_data *data);
+int     run_echo(char **args);
+void    run_pwd(t_data *data);
+int     run_exit(t_cmd *cmd, t_data *data);
 
 
 #endif

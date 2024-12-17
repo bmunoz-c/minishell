@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:20:51 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/12 19:42:27 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/17 13:07:07 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	free_data(t_data *data, int env_flag)
 	}
 	if (data->err_code)
 		free_ptr(data->err_msg);
-	data->err_code = 0;
 }
 
 void	free_cmds(t_cmd *cmd_list)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:20:01 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/12 23:04:13 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/17 13:08:30 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,52 +116,25 @@ long long   ft_atoll(const char *str)
 -Manejar avs de entrada para establecer un buen código de salida.
 -Validar errores específicos, como avs no num o demasiados avs.
 */
-int	run_exit(char **cmd, t_data *data)
+int	run_exit(t_cmd *cmd, t_data *data)
 {
-	int	ac;
-
-	ac = 0;
-    data->err_code = 0;
-	//printf("EXIT\n");
-	while (cmd && cmd[ac])
-		ac++;
-/* Si la entrada estándar (STDIN_FILENO) está conectada 
-a un terminal interactivo (isatty) y el proceso no es un 
-proceso hijo (!data->is_child), 
-se imprime "exit" en la salida de error estándar. */
-	if (isatty(STDIN_FILENO))
+	if (isatty(STDIN_FILENO) )
 		ft_putendl_fd("exit", STDERR_FILENO);
-    //Si hay 1 argumento, posible codigo de salida.
-	if (cmd[1])
+	if (cmd && cmd->args && cmd->args[1])
 	{
-        /* Comprueba si el av es un numero valido 
-        y si esta dentro de rango. */
-		if (check_llong(cmd[1]) && check_ll_max_min(cmd[1]))
-		{
-			// Should be okk
-			data->err_code = ft_atoll(cmd[1]);
-           /*  Si el número está fuera del rango permitido
-            para un código de salida (0-255), 
-            se ajusta con data->err_code % 256. */
 
-			//FUNCIONA IGUAL SIN ESTO.
-		//	if (data->err_code > 255 || data->err_code < 0)
-		//		data->err_code = data->err_code % 256;
-		}
+		if (check_llong(cmd->args[1]) && check_ll_max_min(cmd->args[1]))
+			data->err_code = ft_atoll(cmd->args[1]);
 		else
 		{
-			printf("1- EXIT\n");
-			print_err_num_arg(data, cmd[1]);
+			print_err_num_arg(data, cmd->args[1]);
             exit(data->err_code);
 		}
 	}
-	if (ac > 2)
-	{
-		printf("2- EXIT\n");
-		printf("%d\n", data->err_code);
+	if (cmd && cmd->nargs > 2)
 		return (print_err_many_args_exit(data));
-	}
-	printf("3- EXIT\n");
+	if(!cmd)
+		data->err_code = 1;
 	exit(data->err_code);
 	return (EXIT_SUCCESS);
 }
