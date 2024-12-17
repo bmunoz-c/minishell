@@ -6,7 +6,7 @@
 #    By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
-#    Updated: 2024/12/12 20:57:51 by bmunoz-c         ###   ########.fr        #
+#    Updated: 2024/12/17 13:31:49 by bmunoz-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,11 +64,11 @@ libft:
 
 
 clean :
-	rm -rf $(OBJ_DIR)
+	@rm -rf $(OBJ_DIR)
 
 fclean : clean 
 	@$(MAKE) -C inc/libft fclean --no-print-directory
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 test : 
 
