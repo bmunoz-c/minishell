@@ -6,7 +6,7 @@
 #    By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
-#    Updated: 2024/12/17 13:31:49 by bmunoz-c         ###   ########.fr        #
+#    Updated: 2024/12/17 13:45:26 by bmunoz-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC_DIR 		= src/
 OBJ_DIR 		= obj/
 SRC 			:=	main.c clean_utils.c env.c\
 					builtins/echo.c builtins/pwd.c builtins/exit.c\
+					builtins/env.c\
 					tokenizer/tokenizer.c tokenizer/token_type.c\
 					executor/executor.c executor/cmd_list.c executor/path_search.c\
 					expansor/expansor.c expansor/expansor_utils.c\

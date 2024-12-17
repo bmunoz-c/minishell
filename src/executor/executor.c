@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:50:26 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/17 13:09:41 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/17 13:49:35 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@ void handle_builtin(t_data *data, t_cmd *cmd)
         run_pwd(data);
 	// else if (ft_strncmp(cmd->path, "export", 7) == 0)
 	// else if (ft_strncmp(cmd->path, "unset", 6) == 0)
-	// else if (ft_strncmp(cmd->path, "env", 4) == 0)
+	else if (ft_strncmp(cmd->path, "env", 4) == 0)
+        run_env(data);
 	else if (ft_strncmp(cmd->path, "exit", 5) == 0)
     {
-        run_exit(cmd, data);
+        run_exit(cmd, data, 0);
         return ;
     }
-    run_exit(NULL, data);
+    run_exit(NULL, data, 1);
 }
 
 void dup_fds(int in, int out)
@@ -66,10 +67,10 @@ void run_single(t_data *data, t_cmd *cmd)
         if (cmd->builtin)
             handle_builtin(data, cmd);
         else if (execve(cmd->path, cmd->args, data->env_matrix) == -1)
-            run_exit(NULL, data);
+            run_exit(NULL, data, 1);
     }
     else if (pid < 0)
-        run_exit(NULL, data);
+        run_exit(NULL, data, 1);
     else 
         waitpid(pid, &status, 0);
 }

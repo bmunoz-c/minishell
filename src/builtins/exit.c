@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:20:01 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/17 13:08:30 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/17 13:47:43 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,9 @@ long long   ft_atoll(const char *str)
 -Manejar avs de entrada para establecer un buen código de salida.
 -Validar errores específicos, como avs no num o demasiados avs.
 */
-int	run_exit(t_cmd *cmd, t_data *data)
+int	run_exit(t_cmd *cmd, t_data *data, int is_child)
 {
-	if (isatty(STDIN_FILENO) )
+	if (isatty(STDIN_FILENO) && !is_child)
 		ft_putendl_fd("exit", STDERR_FILENO);
 	if (cmd && cmd->args && cmd->args[1])
 	{
