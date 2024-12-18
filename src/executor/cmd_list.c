@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lua <lua@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/12 21:18:27 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:58:17 by lua              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 		}
 		tk_list = tk_list->next;
 	}
-	printf("redirs handled\n");
+	//printf("redirs handled\n");
 	return (0);
 }
 

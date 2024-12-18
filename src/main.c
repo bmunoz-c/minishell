@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lua <lua@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/17 13:05:49 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/18 16:58:08 by lua              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	main(int ac, char **av, char **env)
 		// 	break ;
 		if (!ft_strncmp(data.prompt, "printenv", 8))
 			print_env(data.env);
-		printf("prompt: %s\n", data.prompt);
+		//printf("prompt: %s\n", data.prompt);
 		set_sig_ignore(SIGINT);
 		tokenizer(&data, 0);
 		//print_token_list(data.token_list);

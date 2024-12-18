@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lua <lua@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/17 13:47:55 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/18 17:15:07 by lua              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 # define MINISHELL_H
 
 
-#include <readline/readline.h>
 #include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 #include <stdlib.h>
 #include <stddef.h>
 #include <stdlib.h>
