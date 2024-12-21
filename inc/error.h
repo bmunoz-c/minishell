@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:00:32 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/10/17 19:16:54 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/12 20:51:15 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,27 @@
 # define NOFDIR_ERR 127
 # define SYNTAX_ERROR 2
 
-# define CMDNOTFND "command not found"
+//_____BUILDING_ERRORS_____//
+# define PATH_NULL "Path is NULL"
+# define INV_PATH "Invalid path"
 # define NOFILEDIR "No such file or directory"
-# define ISDIRECTORY "is a directory"
-# define NEAR_UN_TOKEN "near unexpexted token "
+# define NOTDIR "Not a directory"
+# define PERM_DENIED "Permission denied"
 
+//_____CMD_ERRORS_____//
+# define CMDNOTFND "Command not found"
+
+//_____TOKENIZER_ERRORS_____//
+# define NEAR_UN_TOKEN "near unexpexted token "
 # define QUOTE_FORMAT_ERROR	"quotes not closed correctly"
+
+# define PROGRAM_NAME "minishell:"
+# define ECHO "echo"
+# define CD "cd"
+# define PWD "pwd"
+# define EXPORT "export"
+# define UNSET "unset"
+# define ENV "env"
+# define EXIT "exit"
 
 #endif

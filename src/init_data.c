@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:07:10 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/11 19:03:00 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/17 12:22:18 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 void	init_cmd_data(t_cmd *cmd, t_token *tk_first, t_token *tk_last)
 {
 	cmd->path = NULL;
-	cmd->in_fd = 0;
-	cmd->out_fd = 0;
+	cmd->in_fd = STDIN_FILENO;
+	cmd->out_fd = STDOUT_FILENO;
 	cmd->next = NULL;
 	cmd->nargs = 0;
 	cmd->args = NULL;

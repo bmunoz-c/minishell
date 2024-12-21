@@ -3,29 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lua <lua@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/11 18:35:22 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/18 17:15:07 by lua              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include <readline/readline.h>
+
 #include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 #include <stdlib.h>
 #include <stddef.h>
 #include <stdlib.h>
+#include <sys/errno.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <signal.h>
 #include "libft/libft.h"
 #include "tokenizer.h"
 #include "error.h"
 #include "executor.h"
+
 #include <string.h>
 #include <fcntl.h>
 #include <sys/stat.h>
 
+extern int     g_sig_exit_status;
 void	copy_env(char **org_env, t_data *data);
 
 // COLOR MACROS
@@ -68,12 +77,25 @@ void	free_env(t_env *env);
 void	free_tokens(t_token *token_list);
 void	free_token(t_token *token);
 void	free_data(t_data *data, int env_flag);
+
+//////////// SIGNALS
+int     init_signals(int mode);
+void    set_sig_ignore(int signum);
+void    ctrlc_handler(int sig);
+void    exit_signal_handler(int sig);
+
+
+
 void    ft_free_split(char **split);
 
 char	**env_as_matrix(t_env *env);
 
 ///////////// BUILTINS
-int	run_echo(char **args);
+int     run_echo(char **args);
+void    run_pwd(t_data *data);
+int     run_exit(t_cmd *cmd, t_data *data, int is_child);
+void    run_env(t_data *data);
+
 
 #endif
 

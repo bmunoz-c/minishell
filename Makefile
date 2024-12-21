@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+         #
+#    By: lua <lua@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
-#    Updated: 2024/12/09 19:53:34 by ltrevin-         ###   ########.fr        #
+#    Updated: 2024/12/18 17:18:12 by lua              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,18 +14,32 @@ NAME 			= minishell
 CC				= gcc
 CFLAGS			= -Wall -Wextra -Werror -g -fsanitize=address
 
-LIBS 			= -lreadline -Linc/libft -lft
-INCLUDE 		= -Iinc 
+# Para trabajar con readline, instala con:
+#   > brew install readline
+# Y comenta y descomenta las variables de
+# LIBS e INCLUDE dependiendo del sistema en el que estes
+
+# LINUX
+#LIBS 			= -lreadline -Linc/libft -lft
+#INCLUDE 		= -Iinc 
+# MACOS
+LIBS 			= -L/usr/local/opt/readline/lib -lreadline -Linc/libft -lft
+INCLUDE 		= -Iinc -I/usr/local/opt/readline/include
+
+
 HEADER			= inc/minishell.h
 
 SRC_DIR 		= src/
 OBJ_DIR 		= obj/
-SRC 			:=	main.c clean_utils.c env.c error_mng.c\
-					builtins/echo.c\
+SRC 			:=	main.c clean_utils.c env.c\
+					builtins/echo.c builtins/pwd.c builtins/exit.c\
+					builtins/env.c\
 					tokenizer/tokenizer.c tokenizer/token_type.c\
 					executor/executor.c executor/cmd_list.c executor/path_search.c\
 					expansor/expansor.c expansor/expansor_utils.c\
 					prep_exec/merge_token.c\
+					syntax/syntax.c\
+					signals/signals.c\
 					init_data.c	print_utils.c					
 SRC				:= $(addprefix $(SRC_DIR), $(SRC))
 OBJ				= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
@@ -54,6 +68,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADER) | $(OBJ_DIR) libft
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR) $(OBJ_DIR)builtins $(OBJ_DIR)tokenizer
 	@mkdir -p $(OBJ_DIR)expansor $(OBJ_DIR)executor $(OBJ_DIR)prep_exec
+	@mkdir -p $(OBJ_DIR)syntax  $(OBJ_DIR)signals
 	@echo "$(WHITE_BOLD)Created obj dir!$(DEF_COLOR)"
 
 libft:
@@ -61,11 +76,11 @@ libft:
 
 
 clean :
-	rm -rf $(OBJ_DIR)
+	@rm -rf $(OBJ_DIR)
 
 fclean : clean 
 	@$(MAKE) -C inc/libft fclean --no-print-directory
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 test : 
 
