@@ -6,7 +6,7 @@
 /*   By: lua <lua@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/26 18:35:07 by lua              ###   ########.fr       */
+/*   Updated: 2024/12/26 18:43:17 by lua              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void heredoc(t_data data, const char *del, int expand)
 	int fd;
 	t_token *tk;
 
-	fd = open("/tmp/dancingshell_heredoc", O_WRONLY | O_CREAT , S_IRWXU);
+	fd = open(HEREDOC_NAME , O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
 	if(fd < 0)
 		return ;
 	while (42)
@@ -45,15 +45,6 @@ void heredoc(t_data data, const char *del, int expand)
 		free(line);
 	}
 	close(fd);
-	fd = open("/tmp/dancingshell_heredoc", O_RDONLY , S_IRWXU);
-	while(1)
-	{
-		char *line = get_next_line(fd);
-		if(!line)
-			break;
-		printf("%s", line);
-	}
-	close(fd);
 }
 
 int	main(int ac, char **av, char **env)
@@ -69,7 +60,7 @@ int	main(int ac, char **av, char **env)
 	}
 	init_data(&data);
 	copy_env(env, &data);
-	heredoc(data, "hola", 1);
+	heredoc(data, "hola", 0);
 	while (42)
 	{
 		printf(RED "$?: %d\n" RESET, data.err_code);
