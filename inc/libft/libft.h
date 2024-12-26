@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lua <lua@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 15:46:15 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/26 19:25:31 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/25 18:35:25 by lua              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include "get_next_line/get_next_line.h"
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);

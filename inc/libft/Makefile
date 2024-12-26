@@ -10,7 +10,8 @@ SRC			=	ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c\
 				ft_strmapi.c ft_striteri.c ft_itoa.c\
 				ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c\
 				ft_is_space.c ft_search_ch.c ft_index_ch.c\
-				ft_strtrimfree.c ft_is_metachar.c ft_strjoin_f.c ft_free_ptr.c
+				ft_strtrimfree.c ft_is_metachar.c ft_strjoin_f.c ft_free_ptr.c\
+				get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 
 
 #_____Colors_____#
@@ -53,7 +54,7 @@ $(NAME):	$(OBJS) $(INCLUDE)
 #			$(LIB) $(NAME) $(OBJ)
 
 $(BIN_DIR)%.o: %.c $(INCLUDE)
-			@mkdir -p $(BIN_DIR)
+			@mkdir -p $(BIN_DIR) $(BIN_DIR)get_next_line
 			@$(CC) $(CFLAGS) -c $< -o $@
 			@echo "$(WHITE_BOLD)Object$(YELLOW) $@ $(GREEN)compiled!$(DEF_COLOR)"
 

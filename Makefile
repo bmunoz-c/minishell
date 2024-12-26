@@ -6,7 +6,7 @@
 #    By: lua <lua@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
-#    Updated: 2024/12/18 17:18:12 by lua              ###   ########.fr        #
+#    Updated: 2024/12/21 20:46:14 by lua              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,15 +53,16 @@ YELLOW		=	\033[1;33m
 BLUE		=	\033[1;34m
 CIAN		=	\033[1;36m
 
+LIBFT_EXEC = inc/libft/libft.a
 all : $(NAME)
 
 re : fclean all
 
-$(NAME) : $(OBJ) | libft
+$(NAME) : $(OBJ) $(LIBFT_EXEC) | libft
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBS)
 	@echo "$(RED)$(NAME) $(BLUE)is ready to work!$(DEF_COLOR)"
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADER) | $(OBJ_DIR) libft
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADER) $(LIBFT_EXEC) | $(OBJ_DIR) libft
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 	@echo "$(WHITE_BOLD)Object$(YELLOW) $@ $(GREEN)compiled!$(DEF_COLOR)"
 
@@ -71,9 +72,10 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)syntax  $(OBJ_DIR)signals
 	@echo "$(WHITE_BOLD)Created obj dir!$(DEF_COLOR)"
 
-libft:
-	@$(MAKE) -C inc/libft --no-print-directory
+libft: $(LIBFT_EXEC)
 
+$(LIBFT_EXEC):
+	@$(MAKE) -C inc/libft --no-print-directory
 
 clean :
 	@rm -rf $(OBJ_DIR)
