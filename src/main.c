@@ -6,7 +6,7 @@
 /*   By: lua <lua@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/26 18:25:35 by lua              ###   ########.fr       */
+/*   Updated: 2024/12/26 18:35:07 by lua              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 int g_sig_exit_status = 0;
 
+
+// TODO: call it in main before expansor.
+// Add to the main data struct a fd to store the heredoc content
+// add the name of the file in the prompt
 void heredoc(t_data data, const char *del, int expand)
 {
 	char *line;
