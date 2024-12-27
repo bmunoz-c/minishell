@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lua <lua@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:42:34 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/26 18:21:20 by lua              ###   ########.fr       */
+/*   Updated: 2024/12/27 17:11:11 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	expansor(t_token **token, t_data *data)
 	char	*newcont;
 	t_token	*old_tmp;
 
+	if (!token || !*token)
+		return ;
 	tmp = *token;
 	while (tmp)
 	{
@@ -69,7 +71,7 @@ void	expansor(t_token **token, t_data *data)
 			newcont = expand_str(data, tmp->content, 0);
 			free(tmp->content);
 			tmp->content = newcont;
-			if (tmp->type == WORD && ft_strncmp(tmp->content, "", 1) == 0)
+			if (tmp->type == WORD && ft_strncmp(tmp->content, "", 1) && tmp->next)
 			{
 				old_tmp = tmp;
 				concat_tokens(&data->token_list, &tmp);
