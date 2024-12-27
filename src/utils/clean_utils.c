@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:20:51 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/17 13:07:07 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/27 16:58:43 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,8 @@ void	free_token(t_token *token)
 	if (token->content)
 		free_ptr(token->content);
 	token->content = NULL;
-	free_ptr(token);
+	if(token)
+		free_ptr(token);
 	token = NULL;
 }
 

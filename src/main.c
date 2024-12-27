@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/27 13:24:08 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/27 17:29:53 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void	heredoc(t_data data, const char *del, int expand)
 	t_token	*tk;
 
 	fd = open(HEREDOC_NAME, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
-	if (fd < 0)
-		return ;
 	while (42)
 	{
 		line = readline("> ");
@@ -75,7 +73,7 @@ int	main(int ac, char **av, char **env)
 	}
 	init_data(&data);
 	copy_env(env, &data);
-	heredoc(data, "hola", 0);
+	//heredoc(data, "hola", 1);
 	while (42)
 	{
 		init_signals(1);
@@ -84,10 +82,9 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		set_sig_ignore(SIGINT);
 		tokenizer(&data, 0);
-		// print_token_list(data.token_list);
 		expansor(&data.token_list, &data);
 		merge_tokens(&data.token_list);
-		print_token_list(data.token_list);
+		//print_token_list(data.token_list);
 		syntax_error(&data, &data.token_list);
 		execute(&data);
 		free_data(&data, 0);

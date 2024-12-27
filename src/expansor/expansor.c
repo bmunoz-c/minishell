@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:42:34 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/27 17:11:11 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/27 17:12:35 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ void	expansor(t_token **token, t_data *data)
 	char	*newcont;
 	t_token	*old_tmp;
 
-	if (!token || !*token)
-		return ;
 	tmp = *token;
 	while (tmp)
 	{

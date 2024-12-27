@@ -6,13 +6,13 @@
 #    By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
-#    Updated: 2024/12/27 13:32:03 by ltrevin-         ###   ########.fr        #
+#    Updated: 2024/12/27 17:32:09 by ltrevin-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 			= minishell
 CC				= gcc
-CFLAGS			= -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS			= -Wall -Wextra -Werror -g #-fsanitize=address
 
 # Para trabajar con readline, instala con:
 #   > brew install readline
