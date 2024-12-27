@@ -3,54 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lua <lua@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/26 18:43:17 by lua              ###   ########.fr       */
+/*   Updated: 2024/12/27 13:24:08 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int g_sig_exit_status = 0;
+int		g_sig_exit_status = 0;
 
 
 // TODO: call it in main before expansor.
 // Add to the main data struct a fd to store the heredoc content
 // add the name of the file in the prompt
-void heredoc(t_data data, const char *del, int expand)
+void	heredoc(t_data data, const char *del, int expand)
 {
-	char *line;
-	int fd;
-	t_token *tk;
+	char	*line;
+	int		fd;
+	t_token	*tk;
 
-	fd = open(HEREDOC_NAME , O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
-	if(fd < 0)
+	fd = open(HEREDOC_NAME, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
+	if (fd < 0)
 		return ;
 	while (42)
 	{
 		line = readline("> ");
 		if (ft_strncmp(line, del, ft_strlen(del) + 1) == 0)
-			break;
-		if(expand)
+			break ;
+		if (expand)
 		{
 			tk = new_token(ft_strdup(line), WORD);
 			expansor(&tk, &data);
-			free(line);
-			if(tk)
+			free_ptr(line);
+			if (tk)
 				line = ft_strdup(tk->content);
 			free_token(tk);
 		}
 		ft_putendl_fd(line, fd);
-		free(line);
+		free_ptr(line);
 	}
+	free_ptr(line);
 	close(fd);
+}
+
+void	read_prompt(t_data *data)
+{
+	char	*dirty_prompt;
+
+	printf(RED "$?: %d\n" RESET, data->err_code);
+	set_sig_ignore(SIGQUIT);
+	dirty_prompt = readline(PROMPT);
+	if (!dirty_prompt)
+		return ;
+	add_history(dirty_prompt);
+	data->prompt = ft_strtrim(dirty_prompt, " ");
+	free(dirty_prompt);
+	dirty_prompt = NULL;
 }
 
 int	main(int ac, char **av, char **env)
 {
 	t_data	data;
-	char	*dirty_prompt;
 
 	(void)av;
 	if (ac != 1)
@@ -63,25 +78,17 @@ int	main(int ac, char **av, char **env)
 	heredoc(data, "hola", 0);
 	while (42)
 	{
-		printf(RED "$?: %d\n" RESET, data.err_code);
 		init_signals(1);
-		set_sig_ignore(SIGQUIT);
-		dirty_prompt = readline(PROMPT);
-		if (!dirty_prompt)
-			continue ;
-		add_history(dirty_prompt);
-		data.prompt = ft_strtrim(dirty_prompt, " ");
-		free(dirty_prompt);
-		dirty_prompt = NULL;
-		if (!data.prompt)
+		read_prompt(&data);
+		if (!data.prompt || !*data.prompt)
 			continue ;
 		set_sig_ignore(SIGINT);
 		tokenizer(&data, 0);
-		//print_token_list(data.token_list);
+		// print_token_list(data.token_list);
 		expansor(&data.token_list, &data);
 		merge_tokens(&data.token_list);
 		print_token_list(data.token_list);
-		syntax_error(&data, &data.token_list);		
+		syntax_error(&data, &data.token_list);
 		execute(&data);
 		free_data(&data, 0);
 	}
