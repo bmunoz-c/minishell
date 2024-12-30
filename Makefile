@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+         #
+#    By: lua <lua@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
-#    Updated: 2024/12/27 17:32:09 by ltrevin-         ###   ########.fr        #
+#    Updated: 2024/12/29 17:20:14 by lua              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 			= minishell
 CC				= gcc
-CFLAGS			= -Wall -Wextra -Werror -g #-fsanitize=address
+CFLAGS			= -Wall -Wextra -Werror -g -fsanitize=address
 
 # Para trabajar con readline, instala con:
 #   > brew install readline
@@ -20,11 +20,11 @@ CFLAGS			= -Wall -Wextra -Werror -g #-fsanitize=address
 # LIBS e INCLUDE dependiendo del sistema en el que estes
 
 # LINUX
-LIBS 			= -lreadline -Linc/libft -lft
-INCLUDE 		= -Iinc 
+#LIBS 			= -lreadline -Linc/libft -lft
+#INCLUDE 		= -Iinc 
 # MACOS
-#LIBS 			= -L/usr/local/opt/readline/lib -lreadline -Linc/libft -lft
-#INCLUDE 		= -Iinc -I/usr/local/opt/readline/include
+LIBS 			= -L/usr/local/opt/readline/lib -lreadline -Linc/libft -lft
+INCLUDE 		= -Iinc -I/usr/local/opt/readline/include
 
 
 HEADER			= inc/minishell.h

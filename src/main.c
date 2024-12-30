@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lua <lua@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/27 17:29:53 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/29 17:38:57 by lua              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,31 @@ void	read_prompt(t_data *data)
 	dirty_prompt = NULL;
 }
 
+void check_heredoc(t_token *tk_lst, t_data *data)
+{
+	t_token	*tk;
+	t_token	*del;
+
+	tk = tk_lst;
+	while (tk)
+	{
+		if (tk->type == HERE_DOC)
+		{
+			del = tk->next;
+			while(del->type == SPC)
+				del = del->next;
+			if(!del)
+			{
+				printf("Syntax error: heredoc without delimiter\n");
+				exit(1);
+			}
+			printf("heredoc: |%s|\n", del->content);
+			heredoc(*data, del->content, tk->type == WORD);
+		}
+		tk = tk->next;
+	}
+}
+
 int	main(int ac, char **av, char **env)
 {
 	t_data	data;
@@ -73,7 +98,6 @@ int	main(int ac, char **av, char **env)
 	}
 	init_data(&data);
 	copy_env(env, &data);
-	//heredoc(data, "hola", 1);
 	while (42)
 	{
 		init_signals(1);
@@ -82,11 +106,15 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		set_sig_ignore(SIGINT);
 		tokenizer(&data, 0);
-		expansor(&data.token_list, &data);
-		merge_tokens(&data.token_list);
-		//print_token_list(data.token_list);
-		syntax_error(&data, &data.token_list);
-		execute(&data);
+		if(syntax_error(&data, &data.token_list, 0))
+		{
+			check_heredoc(data.token_list, &data);
+			expansor(&data.token_list, &data);
+			merge_tokens(&data.token_list);
+			//print_token_list(data.token_list);
+			if(syntax_error(&data, &data.token_list, 1))
+				execute(&data);
+		}
 		free_data(&data, 0);
 	}
 	free_data(&data, 1);

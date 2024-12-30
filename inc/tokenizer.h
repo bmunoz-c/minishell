@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lua <lua@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:32:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/27 14:11:14 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/29 17:40:00 by lua              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,6 @@ void		merge_tokens(t_token **token);
 t_token		*merge_token(t_token *token, t_token **merge_last_t);
 //_____SYNTAX_____//
 int			syntax_error_msg(t_data *data, char *ch_err);
-int			syntax_error(t_data *data, t_token **token);
+int			syntax_error(t_data *data, t_token **token, int before_heredoc);
 
 #endif
