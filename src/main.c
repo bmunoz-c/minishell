@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/30 16:19:42 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:39:32 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	read_prompt(t_data *data)
 	dirty_prompt = NULL;
 }
 
-void check_heredoc(t_token *tk_lst, t_data *data)
+int check_heredoc(t_token *tk_lst, t_data *data)
 {
 	t_token	*tk;
 	t_token	*del;
@@ -74,16 +74,17 @@ void check_heredoc(t_token *tk_lst, t_data *data)
 			del = tk->next;
 			while(del->type == SPC)
 				del = del->next;
-			if(!del)
+			if(del->type != WORD && del->type && DQ_STR && del->type != SQ_STR)
 			{
-				printf("Syntax error: heredoc without delimiter\n");
-				exit(1);
+				syntax_error_msg(data, "heredoc");
+				return 0;
 			}
 			printf("heredoc: |%s|\n", del->content);
 			heredoc(*data, del->content, tk->type == WORD);
 		}
 		tk = tk->next;
 	}
+	return 1;
 }
 
 int	main(int ac, char **av, char **env)
@@ -108,12 +109,14 @@ int	main(int ac, char **av, char **env)
 		tokenizer(&data, 0);
 		if(syntax_error(&data, &data.token_list, 0))
 		{
-			check_heredoc(data.token_list, &data);
-			expansor(&data.token_list, &data);
-			merge_tokens(&data.token_list);
-			//print_token_list(data.token_list);
-			if(syntax_error(&data, &data.token_list, 1))
-				execute(&data);
+			if(check_heredoc(data.token_list, &data))
+			{
+				expansor(&data.token_list, &data);
+				merge_tokens(&data.token_list);
+				//print_token_list(data.token_list);
+				if(syntax_error(&data, &data.token_list, 1))
+					execute(&data);
+			}
 		}
 		free_data(&data, 0);
 	}
