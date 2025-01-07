@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:20:51 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/30 17:40:56 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:45:27 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,11 @@ void	free_data(t_data *data, int env_flag)
 		free_cmds(data->cmd_list);
 		data->cmd_list = NULL;
 	}
-	if (data->err_code)
+	if (data->err_msg)
+	{
 		free_ptr(data->err_msg);
+		data->err_msg = NULL;
+	}
 	remove_file(HEREDOC_NAME);
 }
 

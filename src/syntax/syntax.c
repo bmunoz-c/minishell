@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 01:47:22 by borjamc           #+#    #+#             */
-/*   Updated: 2025/01/07 16:04:24 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:44:04 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	syntax_error_msg(t_data *data, char *ch_err)
     //Cerrar el mensaje con una comilla y salto de línea.
 	data->err_msg = ft_strjoin_f(data->err_msg, "\'\n", 1);
 	data->err_code = SYNTAX_ERROR;
-	printf("%s \n", data->err_msg);
+	printf("%s", data->err_msg);
 	return (0);
 }
 
