@@ -1,9 +1,0 @@
-inc
-ls_output.txt
-Makefile
-miau
-minishell
-obj
-README.md
-src
-test

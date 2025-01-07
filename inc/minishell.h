@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lua <lua@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/26 18:41:52 by lua              ###   ########.fr       */
+/*   Updated: 2025/01/07 17:24:22 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,13 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <signal.h>
-#include "libft/libft.h"
-#include "tokenizer.h"
-#include "error.h"
-#include "executor.h"
-
 #include <string.h>
 #include <fcntl.h>
 #include <sys/stat.h>
+
+#include <libft/libft.h>
+#include <tokenizer.h>
+#include <error.h>
 
 extern int     g_sig_exit_status;
 void	copy_env(char **org_env, t_data *data);
@@ -46,9 +45,6 @@ void	copy_env(char **org_env, t_data *data);
 # define MAGENTA "\033[0;35m"
 # define CYAN "\033[0;36m"
 # define WHITE "\033[0;37m"
-# define IS_DIR 2
-# define IS_F_EXEC 1
-# define NOT_FOUND 0
 # define HEREDOC_NAME "/tmp/dancingshell_heredoc"
 
 #define PROMPT MAGENTA "dancingShell🩰🦦" BLUE "> " RESET 
@@ -95,10 +91,18 @@ int     run_echo(char **args);
 void    run_pwd(t_data *data);
 int     run_exit(t_cmd *cmd, t_data *data, int is_child);
 void    run_env(t_data *data);
+int     run_unset(char **cmd, t_data *data);
 
+
+//////////// BUILTINS UTILS
+int search_flags(char **cmd, char *cmd_name);
+
+/////////// EXECUTION
+t_cmd	*group_cmd(t_data *data, t_token *tk_list);
+void execute(t_data *data);
+int	handle_command_path(t_data *data, t_cmd *cmd, char *content, t_token *tk);
 
 #endif
-
 
 ////////// BUG: Print utils, delete before submit
 void	print_env(t_env *env);

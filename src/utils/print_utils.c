@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:50:47 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/11 19:20:54 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:08:18 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	print_cmd(t_cmd *cmd)
 		if (cmd->path)
 			printf(YELLOW "path {%d}: %s\n [%d] -" RESET, cmd->builtin, cmd->path, cmd->nargs);
 		else
-				printf(YELLOW "path: undefined\n [%d] -" RESET, cmd->nargs);
+				printf(YELLOW "path {%d}: undefined\n [%d] -" RESET, cmd->builtin, cmd->nargs);
 		i = 0;
 		if (cmd->args)
 		{ // Check if cmd->args is valid

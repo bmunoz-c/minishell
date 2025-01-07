@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 12:45:29 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/18 14:20:51 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:13:23 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,26 +106,4 @@ void	prepare_join(t_data *data, char *join_var, int var_in_env)
 		data->env = add_to_array(&data->env, join_var);
 		malloc_protection(data->env, data);
 	}
-}
-
-/* 
-This function checks if with the built-in unset is passed 
-an option.
-
-Ret: 1 if it is a flag, 0 if it is not.
-*/
-int	is_flag(char *str)
-{
-	int	i;
-
-	i = 1;
-	if (str[i] != '-')
-		return (0);
-	if (str[i] == '-' && (str[i] + 1) == '\0')
-		return (0);
-	while (str[i] && ft_isalpha(str[i]))
-		i++;
-	if (str[i] != '\0')
-		return (0);
-	return (1);
 }

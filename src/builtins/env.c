@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 13:36:21 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/17 13:43:47 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:14:29 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void    run_env(t_data *data)
 {
     char    **tmp;
 
+    if(search_flags(data->cmd_list->args, "env"))
+        return ;
     tmp = data->env_matrix;
     while (*tmp)
     {

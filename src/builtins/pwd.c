@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:24:43 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/17 10:29:43 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:14:06 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void    run_pwd(t_data *data)
 {
     char    *pwd;
     
+    if(search_flags(data->cmd_list->args, "pwd"))
+        return ;
     //Ovtener el directorio actual de trabajo.
     pwd = getcwd(NULL, 0);
     //Si no se puede obtener el directorio actual de trabajo,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:04:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/18 13:55:04 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:13:14 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ void    run_export(t_data *data, t_cmd *cmd)
 {
     int     i;
 
+    if(search_flags(cmd->args, "export"))
+        return (2);
     data->err_code = EXIT_SUCCESS;
     if (!cmd->args[i])
         //print all env vars

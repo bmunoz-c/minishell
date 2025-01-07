@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:50:26 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/27 17:58:33 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:18:29 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	dup_fds(int new_in, int new_out, int old_in, int old_out)
 	if (new_in != old_in)
 	{
 		dup2(new_in, old_in);
-		close(new_in);
+		//close(new_in);
 	}
 	if (new_out != old_out)
 	{
 		dup2(new_out, old_out);
-		close(new_out);
+		//close(new_out);
 	}
 }
 
@@ -38,7 +38,8 @@ void	handle_builtin(t_data *data, t_cmd *cmd, int child)
 	else if (ft_strncmp(cmd->path, "pwd", 4) == 0)
 		run_pwd(data);
 	// else if (ft_strncmp(cmd->path, "export", 7) == 0)
-	// else if (ft_strncmp(cmd->path, "unset", 6) == 0)
+	else if (ft_strncmp(cmd->path, "unset", 6) == 0)
+        run_unset(cmd->args, data);
 	else if (ft_strncmp(cmd->path, "env", 4) == 0)
 		run_env(data);
 	else if (ft_strncmp(cmd->path, "exit", 5) == 0)
@@ -85,7 +86,7 @@ void run_pipeline(t_data *data, t_cmd *cmd_list)
             dup_fds(fd_in, pipefd[1], STDIN_FILENO, STDOUT_FILENO);
             if (cmd_list->builtin)
                 handle_builtin(data, cmd_list, 1);
-            else if (execve(cmd_list->path, cmd_list->args, data->env_matrix) == -1)
+            else if (cmd_list->path && execve(cmd_list->path, cmd_list->args, data->env_matrix) == -1)
             {
                 perror("execve");
                 exit(EXIT_FAILURE);
