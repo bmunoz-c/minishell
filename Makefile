@@ -6,7 +6,7 @@
 #    By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
-#    Updated: 2024/12/30 16:06:04 by ltrevin-         ###   ########.fr        #
+#    Updated: 2025/01/07 17:26:42 by ltrevin-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,20 +27,18 @@ INCLUDE 		= -Iinc
 #INCLUDE 		= -Iinc -I/usr/local/opt/readline/include
 
 
-HEADER			= inc/minishell.h
+HEADER			= inc/minishell.h inc/structs.h inc/error.h inc/tokenizer.h
 
 SRC_DIR 		= src/
 OBJ_DIR 		= obj/
-SRC 			:=	main.c utils/clean_utils.c utils/env.c\
+SRC 			:=	main.c \
 					builtins/echo.c builtins/pwd.c builtins/exit.c\
-					builtins/env.c\
-					tokenizer/tokenizer.c tokenizer/token_type.c\
+					builtins/env.c builtins/unset.c builtins/utils.c\
+					tokenizer/tokenizer.c tokenizer/token_type.c tokenizer/merge_token.c\
 					executor/executor.c executor/cmd_list.c executor/path_search.c\
 					expansor/expansor.c expansor/expansor_utils.c\
-					prep_exec/merge_token.c\
-					syntax/syntax.c\
-					signals/signals.c\
-					utils/init_data.c	utils/print_utils.c					
+					syntax/syntax.c signals/signals.c\
+					utils/init_data.c	utils/print_utils.c	utils/clean_utils.c utils/env_utils.c				
 SRC				:= $(addprefix $(SRC_DIR), $(SRC))
 OBJ				= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 

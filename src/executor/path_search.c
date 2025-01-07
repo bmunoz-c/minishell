@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_search.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lua <lua@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 00:49:05 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/21 20:30:50 by lua              ###   ########.fr       */
+/*   Updated: 2025/01/07 16:07:09 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,10 @@ char	*search_in_env(t_data *data, char *cmd)
 
 // Handles the command path search and returns whether it was successful
 // TODO: if this func returns 0 and it's not a builtin throw cmd not found
-int	handle_command_path(t_data *data, t_cmd *cmd, char *content)
+int	handle_command_path(t_data *data, t_cmd *cmd, char *content, t_token *tk)
 {
+	if(tk->type != WORD)
+		return (1);
 	if (ft_strncmp(content, "echo", 5) == 0
 		||ft_strncmp(content, "cd", 3) == 0
 		|| ft_strncmp(content, "pwd", 4) == 0

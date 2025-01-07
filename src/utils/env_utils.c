@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 20:47:49 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/18 13:40:08 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:35:07 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,14 @@ void add_env(t_env **env_list, t_env *new_env)
 	if (!env_list || !*env_list)
 	{
 		*env_list = new_env;
+		new_env->prev = NULL;
 		return ;
 	}
 	tmp = *env_list;
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new_env;
+	new_env->prev = tmp;
 }
 
 char	*get_env_value(t_env *env, char *key)

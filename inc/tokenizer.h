@@ -3,95 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lua <lua@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:32:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/29 17:40:00 by lua              ###   ########.fr       */
+/*   Updated: 2025/01/07 17:24:47 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENIZER_H
 # define TOKENIZER_H
 
-/*
-//_____DEFINES_____//
-# define SPACES				0 // Espacios
-# define STR				1 // Strinf sin comillas
-# define STRSQ				2 // String con comillas simples
-# define STRDQ				3 // String con comillas dobles
-# define MCH_PIPE			4 // Pipe |
-# define REDIR_HDOC			5 // Redir Heredoc <<
-# define REDIR_OUT			6 // Redir Output >
-# define REDIR_IN			7 // Redir Input <
-# define REDIR_APPEND		8 // RedirAppend >>
-*/
-
-//ESTRUCTURA ENUMERACION TIPO DE TOKEN
-typedef enum e_token_type
-{
-	SPC,
-	WORD,
-	SQ_STR,
-	DQ_STR,
-	PIPE,
-	//____Redirections_____//
-	INPUT,
-	OUTPUT,
-	APPEND,
-	HERE_DOC,
-	ENV_VAR,
-}	t_token_type;
-
-
-
-typedef struct s_cmd
-{
-	char			*path;
-	int				nargs;
-	char			**args;
-	int 			in_fd;
-    int 			out_fd;
-	int				append_output;
-	int				builtin;
-	struct s_cmd	*next;
-}	t_cmd;
-
-//_____TOKEN_STRUCT_____//
-typedef struct s_token
-{
-	enum e_token_type	type;
-	char				*content;
-	struct s_token		*next;
-	struct s_token		*prev;
-
-}	t_token;
-
-//_____ENVIRONMENT_STRUCT_____//
-typedef struct s_env
-{
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-	int				match;
-}	t_env;
-
-
-
-//_____DATA_______STRUCT_____//
-typedef struct s_data
-{
-	t_token		*token_list;
-	t_env		*env;
-	char		**path;
-	char		*prompt;
-	int			err_code;
-	char		*err_msg;
-	t_cmd		*cmd_list;
-	char **env_matrix;
-}	t_data;
-
-
-
+#include <structs.h>
 
 //_____TOKENIZER_____//
 //_____add_new_token_____//

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:00:32 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/12 20:51:15 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/07 17:22:43 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@
 # define NEAR_UN_TOKEN "near unexpexted token "
 # define QUOTE_FORMAT_ERROR	"quotes not closed correctly"
 
-# define PROGRAM_NAME "minishell:"
+# define FLAG_FOUND "%s %s: %c%c: options are not allowed\n"
+
+# define PROGRAM_NAME "dancingShell🩰🦦:"
 # define ECHO "echo"
 # define CD "cd"
 # define PWD "pwd"
@@ -38,5 +40,9 @@
 # define UNSET "unset"
 # define ENV "env"
 # define EXIT "exit"
+
+# define IS_DIR 2
+# define IS_F_EXEC 1
+# define NOT_FOUND 0
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lua <lua@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/29 17:37:17 by lua              ###   ########.fr       */
+/*   Updated: 2025/01/07 16:06:51 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,13 @@ t_cmd	*build_cmd(t_data *data, t_token *tk_list, t_token *tk_last)
 	if (!cmd)
 		return (NULL);
 	init_cmd_data(cmd, tk_list, tk_last);
-	if (!handle_command_path(data, cmd, tk_list->content))
+	if (!handle_command_path(data, cmd, tk_list->content, tk_list))
 		return (free_cmd(cmd));
 	if (!populate_args(cmd, tk_list, tk_last) || !cmd->args)
 		return (free_cmd(cmd));
 	if (search_redirs(cmd, tk_list->next, tk_last))
 		return (free_cmd(cmd));
-	//printf("cmd builded!\n\n");
+	printf("cmd builded!\n\n");
 	return (cmd);
 }
 void	add_cmd(t_cmd **cmd_list, t_cmd *cmd)

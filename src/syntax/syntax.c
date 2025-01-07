@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 01:47:22 by borjamc           #+#    #+#             */
-/*   Updated: 2024/12/30 16:08:17 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:04:24 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,9 @@ int	syntax_error(t_data *data, t_token **token, int after_heredoc)
 			if(tmp->next->type > 4 && tmp->next->type < 9)
 				return (syntax_error_msg(data, syntax_char(tmp->next)));
 			// OJO ESTIII
-			 
-			if(!tmp->prev && (tmp->type != HERE_DOC || after_heredoc ))
-				return (0);
+			 (void)after_heredoc;
+			//if(!tmp->prev && (tmp->type != HERE_DOC || after_heredoc ))
+			//	return (0);
 		}
 		if (tmp)
 			tmp = tmp->next;
