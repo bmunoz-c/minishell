@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path_search.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lua <lua@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 00:49:05 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/12 21:18:45 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/21 20:30:50 by lua              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*join_path(char *dir, char *cmd)
 	char	*full_path;
 	size_t	len;
 
-	len = strlen(dir) + strlen(cmd) + 2;
+	len = ft_strlen(dir) + ft_strlen(cmd) + 2;
 	full_path = malloc(len);
 	if (!full_path)
 		return (NULL);

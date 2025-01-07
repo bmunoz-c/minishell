@@ -6,7 +6,7 @@
 /*   By: lua <lua@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/18 17:15:07 by lua              ###   ########.fr       */
+/*   Updated: 2024/12/26 18:41:52 by lua              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ void	copy_env(char **org_env, t_data *data);
 # define MAGENTA "\033[0;35m"
 # define CYAN "\033[0;36m"
 # define WHITE "\033[0;37m"
-
 # define IS_DIR 2
 # define IS_F_EXEC 1
 # define NOT_FOUND 0
+# define HEREDOC_NAME "/tmp/dancingshell_heredoc"
 
 #define PROMPT MAGENTA "dancingShell🩰🦦" BLUE "> " RESET 
 

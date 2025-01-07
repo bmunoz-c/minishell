@@ -3,22 +3,92 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lua <lua@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/18 16:58:08 by lua              ###   ########.fr       */
+/*   Updated: 2024/12/30 16:19:42 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int g_sig_exit_status = 0;
+int		g_sig_exit_status = 0;
 
+
+// TODO: call it in main before expansor.
+// Add to the main data struct a fd to store the heredoc content
+// add the name of the file in the prompt
+void	heredoc(t_data data, const char *del, int expand)
+{
+	char	*line;
+	int		fd;
+	t_token	*tk;
+
+	fd = open(HEREDOC_NAME, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
+	while (42)
+	{
+		line = readline("> ");
+		if (ft_strncmp(line, del, ft_strlen(del) + 1) == 0)
+			break ;
+		if (expand)
+		{
+			tk = new_token(ft_strdup(line), WORD);
+			expansor(&tk, &data);
+			free_ptr(line);
+			if (tk)
+				line = ft_strdup(tk->content);
+			free_token(tk);
+		}
+		ft_putendl_fd(line, fd);
+		free_ptr(line);
+	}
+	free_ptr(line);
+	close(fd);
+}
+
+void	read_prompt(t_data *data)
+{
+	char	*dirty_prompt;
+
+	printf(RED "$?: %d\n" RESET, data->err_code);
+	set_sig_ignore(SIGQUIT);
+	dirty_prompt = readline(PROMPT);
+	if (!dirty_prompt)
+		return ;
+	add_history(dirty_prompt);
+	data->prompt = ft_strtrim(dirty_prompt, " ");
+	free(dirty_prompt);
+	dirty_prompt = NULL;
+}
+
+void check_heredoc(t_token *tk_lst, t_data *data)
+{
+	t_token	*tk;
+	t_token	*del;
+
+	tk = tk_lst;
+	while (tk)
+	{
+		if (tk->type == HERE_DOC)
+		{
+			del = tk->next;
+			while(del->type == SPC)
+				del = del->next;
+			if(!del)
+			{
+				printf("Syntax error: heredoc without delimiter\n");
+				exit(1);
+			}
+			printf("heredoc: |%s|\n", del->content);
+			heredoc(*data, del->content, tk->type == WORD);
+		}
+		tk = tk->next;
+	}
+}
 
 int	main(int ac, char **av, char **env)
 {
 	t_data	data;
-	char	*dirty_prompt;
 
 	(void)av;
 	if (ac != 1)
@@ -30,31 +100,21 @@ int	main(int ac, char **av, char **env)
 	copy_env(env, &data);
 	while (42)
 	{
-		printf(RED "$?: %d\n" RESET, data.err_code);
 		init_signals(1);
-		set_sig_ignore(SIGQUIT);
-		dirty_prompt = readline(PROMPT);
-		if (!dirty_prompt)
+		read_prompt(&data);
+		if (!data.prompt || !*data.prompt)
 			continue ;
-		data.prompt = ft_strtrim(dirty_prompt, " ");
-		free(dirty_prompt);
-		dirty_prompt = NULL;
-		if (!data.prompt)
-			continue ;
-		// if (!ft_strncmp(data.prompt, "exit", 4))
-		// 	break ;
-		if (!ft_strncmp(data.prompt, "printenv", 8))
-			print_env(data.env);
-		//printf("prompt: %s\n", data.prompt);
 		set_sig_ignore(SIGINT);
 		tokenizer(&data, 0);
-		//print_token_list(data.token_list);
-		expansor(&data.token_list, &data);
-		merge_tokens(&data.token_list);
-		//print_token_list(data.token_list);
-		syntax_error(&data, &data.token_list);		
-		execute(&data);
-		//ft_free_split(array);
+		if(syntax_error(&data, &data.token_list, 0))
+		{
+			check_heredoc(data.token_list, &data);
+			expansor(&data.token_list, &data);
+			merge_tokens(&data.token_list);
+			//print_token_list(data.token_list);
+			if(syntax_error(&data, &data.token_list, 1))
+				execute(&data);
+		}
 		free_data(&data, 0);
 	}
 	free_data(&data, 1);

@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:42:34 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/18 21:03:42 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2024/12/27 17:12:35 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	expansor(t_token **token, t_data *data)
 			newcont = expand_str(data, tmp->content, 0);
 			free(tmp->content);
 			tmp->content = newcont;
-			if (tmp->type == WORD && ft_strncmp(tmp->content, "", 1))
+			if (tmp->type == WORD && ft_strncmp(tmp->content, "", 1) && tmp->next)
 			{
 				old_tmp = tmp;
 				concat_tokens(&data->token_list, &tmp);

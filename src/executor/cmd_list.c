@@ -6,7 +6,7 @@
 /*   By: lua <lua@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/18 16:58:17 by lua              ###   ########.fr       */
+/*   Updated: 2024/12/29 17:37:17 by lua              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,12 @@ int search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 			if (cmd->out_fd < 0)
 				return (1);
 			tk_list = tk_list->next;
+		}
+		else if(tk_list->type == HERE_DOC)
+		{
+			cmd->in_fd = open(HEREDOC_NAME, O_RDONLY);
+			if (cmd->in_fd < 0)
+				return (1);
 		}
 		tk_list = tk_list->next;
 	}

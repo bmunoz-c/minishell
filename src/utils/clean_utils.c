@@ -6,11 +6,21 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:20:51 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/17 13:07:07 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:40:56 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+void	remove_file(const char *filename)
+{
+	// Check if file exists
+	if (access(filename, F_OK) != 0)
+		return ;
+	// Delete file
+	if (unlink(filename) != 0)
+		perror("unlink");
+}
 
 void	free_data(t_data *data, int env_flag)
 {
@@ -35,6 +45,7 @@ void	free_data(t_data *data, int env_flag)
 	}
 	if (data->err_code)
 		free_ptr(data->err_msg);
+	remove_file(HEREDOC_NAME);
 }
 
 void	free_cmds(t_cmd *cmd_list)
@@ -71,8 +82,8 @@ void	*free_cmd(t_cmd *cmd)
 		free(cmd->args);
 		cmd->args = NULL;
 	}
-	//close(cmd->in_fd);
-	//close(cmd->out_fd);
+	// close(cmd->in_fd);
+	// close(cmd->out_fd);
 	free(cmd);
 	return (NULL);
 }
@@ -114,23 +125,24 @@ void	free_tokens(t_token *token_list)
 
 void	free_token(t_token *token)
 {
-	//printf("%s\n, TOKEN TOKEN TOKEN\n", token->content);
+	// printf("%s\n, TOKEN TOKEN TOKEN\n", token->content);
 	if (token->content)
 		free_ptr(token->content);
 	token->content = NULL;
-	free_ptr(token);
+	if (token)
+		free_ptr(token);
 	token = NULL;
 }
 
-void    ft_free_split(char **split)
+void	ft_free_split(char **split)
 {
-    int i;
+	int i;
 
-    i = 0;
-    while (split[i])
-    {
-        free(split[i]);
-        i++;
-    }
-    free(split);
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lua <lua@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 20:29:28 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/19 17:40:17 by borjamc          ###   ########.fr       */
+/*   Updated: 2024/12/26 18:36:35 by lua              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	ctrlc_handler(int sig)
         //El cursor pasa a una nueva línea en la terminal.
 		ft_putstr_fd("\n", 1);
         //Borrar el contenido de la línea actual.
-		//rl_replace_line("", 1);
+		rl_replace_line("", 1);
         //Registrar que se inicia una nueva línea.
 		rl_on_new_line();
         //Redibujar el prompt en la nueva línea limpia.
@@ -85,7 +85,7 @@ void	heredoc_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		//rl_replace_line("", 1);
+		rl_replace_line("", 1);
 		rl_on_new_line();
 		rl_redisplay();
 		ft_putstr_fd("\n", 1);

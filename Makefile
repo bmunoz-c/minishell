@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lua <lua@student.42.fr>                    +#+  +:+       +#+         #
+#    By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
-#    Updated: 2024/12/18 17:18:12 by lua              ###   ########.fr        #
+#    Updated: 2024/12/30 16:06:04 by ltrevin-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,18 +20,18 @@ CFLAGS			= -Wall -Wextra -Werror -g -fsanitize=address
 # LIBS e INCLUDE dependiendo del sistema en el que estes
 
 # LINUX
-#LIBS 			= -lreadline -Linc/libft -lft
-#INCLUDE 		= -Iinc 
+LIBS 			= -lreadline -Linc/libft -lft
+INCLUDE 		= -Iinc 
 # MACOS
-LIBS 			= -L/usr/local/opt/readline/lib -lreadline -Linc/libft -lft
-INCLUDE 		= -Iinc -I/usr/local/opt/readline/include
+#LIBS 			= -L/usr/local/opt/readline/lib -lreadline -Linc/libft -lft
+#INCLUDE 		= -Iinc -I/usr/local/opt/readline/include
 
 
 HEADER			= inc/minishell.h
 
 SRC_DIR 		= src/
 OBJ_DIR 		= obj/
-SRC 			:=	main.c clean_utils.c env.c\
+SRC 			:=	main.c utils/clean_utils.c utils/env.c\
 					builtins/echo.c builtins/pwd.c builtins/exit.c\
 					builtins/env.c\
 					tokenizer/tokenizer.c tokenizer/token_type.c\
@@ -40,7 +40,7 @@ SRC 			:=	main.c clean_utils.c env.c\
 					prep_exec/merge_token.c\
 					syntax/syntax.c\
 					signals/signals.c\
-					init_data.c	print_utils.c					
+					utils/init_data.c	utils/print_utils.c					
 SRC				:= $(addprefix $(SRC_DIR), $(SRC))
 OBJ				= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
@@ -53,27 +53,29 @@ YELLOW		=	\033[1;33m
 BLUE		=	\033[1;34m
 CIAN		=	\033[1;36m
 
+LIBFT_EXEC = inc/libft/libft.a
 all : $(NAME)
 
 re : fclean all
 
-$(NAME) : $(OBJ) | libft
+$(NAME) : $(OBJ) $(LIBFT_EXEC) | libft
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LIBS)
 	@echo "$(RED)$(NAME) $(BLUE)is ready to work!$(DEF_COLOR)"
 
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADER) | $(OBJ_DIR) libft
+$(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADER) Makefile $(LIBFT_EXEC) | $(OBJ_DIR) libft
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 	@echo "$(WHITE_BOLD)Object$(YELLOW) $@ $(GREEN)compiled!$(DEF_COLOR)"
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR) $(OBJ_DIR)builtins $(OBJ_DIR)tokenizer
 	@mkdir -p $(OBJ_DIR)expansor $(OBJ_DIR)executor $(OBJ_DIR)prep_exec
-	@mkdir -p $(OBJ_DIR)syntax  $(OBJ_DIR)signals
+	@mkdir -p $(OBJ_DIR)syntax  $(OBJ_DIR)signals $(OBJ_DIR)utils
 	@echo "$(WHITE_BOLD)Created obj dir!$(DEF_COLOR)"
 
-libft:
-	@$(MAKE) -C inc/libft --no-print-directory
+libft: $(LIBFT_EXEC)
 
+$(LIBFT_EXEC):
+	@$(MAKE) -C inc/libft --no-print-directory
 
 clean :
 	@rm -rf $(OBJ_DIR)
