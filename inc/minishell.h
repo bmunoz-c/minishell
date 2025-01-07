@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/07 17:24:22 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/07 20:40:15 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ void	init_cmd_data(t_cmd *cmd, t_token *tk_first, t_token *tk_last);
 void	copy_env(char **org_env, t_data *data);
 void	free_env(t_env *env);
 char	*get_env_value(t_env *env, char *key);
+t_env	*get_env(t_env *env, char *key);
+t_env *new_env(char *key, char* value);
+void add_env(t_env **env_list, t_env *new_env);
 
 
 //////////// INIT STRUCTS
@@ -92,6 +95,7 @@ void    run_pwd(t_data *data);
 int     run_exit(t_cmd *cmd, t_data *data, int is_child);
 void    run_env(t_data *data);
 int     run_unset(char **cmd, t_data *data);
+void    run_export(t_data *data, t_cmd *cmd);
 
 
 //////////// BUILTINS UTILS

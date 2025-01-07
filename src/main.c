@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/07 17:39:32 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/07 18:57:24 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,13 @@ int	main(int ac, char **av, char **env)
 		{
 			if(check_heredoc(data.token_list, &data))
 			{
+				print_token_list(data.token_list);
+				printf("#################################\n");
 				expansor(&data.token_list, &data);
+				print_token_list(data.token_list);
+				printf("#################################\n");
 				merge_tokens(&data.token_list);
-				//print_token_list(data.token_list);
+				print_token_list(data.token_list);
 				if(syntax_error(&data, &data.token_list, 1))
 					execute(&data);
 			}

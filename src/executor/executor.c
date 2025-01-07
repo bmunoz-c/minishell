@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:50:26 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/07 16:18:29 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/07 20:38:25 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void	handle_builtin(t_data *data, t_cmd *cmd, int child)
 	// else if (ft_strncmp(cmd->path, "cd", 3) == 0)
 	else if (ft_strncmp(cmd->path, "pwd", 4) == 0)
 		run_pwd(data);
-	// else if (ft_strncmp(cmd->path, "export", 7) == 0)
+	else if (ft_strncmp(cmd->path, "export", 7) == 0)
+        run_export(data, cmd);
 	else if (ft_strncmp(cmd->path, "unset", 6) == 0)
         run_unset(cmd->args, data);
 	else if (ft_strncmp(cmd->path, "env", 4) == 0)

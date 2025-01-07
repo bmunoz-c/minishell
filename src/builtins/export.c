@@ -6,96 +6,116 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:04:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/07 17:13:14 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/07 20:48:09 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 /* 
-This function receives the variable to be exported and checks
-if it already exists in the data->env list.  
+This function receives a string to verify if it has
+a valid variable name to export. 
 
-Ret:    -1 if no matches are found.
-        || returns the position in the array in which it is found.
+Ret     0 if found invalid chars
+		1 if there is no operator, 
+		2 if the operator is "+=" and
+		3 if the operator is "=".
 */
-int	check_if_exist(char *var, t_data *data)
+int valid_varname(char *str)
 {
-    int i;
-    int var_len;
-    int env_key_len;
-    char *equal_pos_env;
-    char *equal_pos_var;
-    
-    i = 0;
-    equal_pos_var = ft_strchr(var, '=');
-    if (equal_pos_var)
-        var_len = equal_pos_var - var;
-    else
-        var_len = ft_strlen(var);
-    while (data->env && &data->env[i])
-    {
-        equal_pos_env = ft_strchr(&data->env[i], '=');
-        if (equal_pos_env)
-            env_key_len = ft_strchr(&data->env[i], '=') - &data->env[i];
-        else
-            env_key_len = ft_strlen(&data->env[i]);
-        if (var_len == env_key_len && ft_strncmp(&data->env[i], var, env_key_len) == 0)
-            return (1);
-        i++;
-    }
-    return (-1);
-}
+	int i;
 
-void	check_cmd(t_cmd *cmd, int *i, t_data *data)
-{
-	if (cmd->args[1] == '\0')
+	if (!str)
+		return (1);
+	if (str[0] == '_' || ft_isalnum(str[0]))
 	{
-		printf("%s: export: `': not a valid identifier\n", PROGRAM_NAME);
-		data->err_code = EXIT_FAILURE;
-		(*i)++;
+		i = 1;
+		while (str[i] == '_' || ft_isalnum(str[i]))
+			i++;
 	}
-	else if (is_flag(cmd->args[1]))
-	{
-		printf("%s export: %c%c: invalid option\n", PROGRAM_NAME,
-			cmd->args[1][0], cmd->args[1][1]);
-		printf("export: usage: export [no options admitted]");
-		printf(" [name[=value] ...]\n");
-		data->err_code = 2;
-		(*i)++;
-	}
+	else
+		return (0);
+	if (str[i] == '\0')
+		return (1);
+	if (str[i] == '+' && str[i + 1] && str[i + 1] == '=')
+		return (2);
+	if (str[i] == '+' && !str[i + 1])
+		return (0);
+	if (str[i] == '=')
+		return (3);
+	return (0);        
 }
 
 /* 
-It checks whether the built-in has any operators in its arguments,
-If yes, prepares to concatenate or substitute the value. 
-If not, an error message is printed. 
-*/
-void	export_actions(t_data *data, t_cmd *cmd)
-{
-    int     i;
-    int     operator_type;
-    int     var_in_env;
+This function receives a string and removes the "+" from
+the "+=" operator.
 
-    operator_type = valid_varname(cmd->args[i]);
-    if (operator_type)
-    {
-        if (operator_type == 2)
-            remove_plus(cmd->args[i]);
-        var_in_env = check_if_exist(data->env, cmd->args[i]);
-        if (operator_type == 1 || operator_type == 3)
-            export_var(data, cmd->args[i]);
-        else if (operator_type == 2)
-            prepare_to_join(data, cmd->args[i]);
-    }
-    else
-    {
-        if (cmd->args[i][0])
-			printf("%s export: ", PROGRAM_NAME);
-            printf("%s : not a valid identifier\n", cmd->args[i]);
-            data->err_code = EXIT_FAILURE;
-    }
+Ret: string to edit. 
+*/
+char	*rm_plus(char *str)
+{
+	int	i;
+	char *new_str;
+
+	i = 0;
+	if (!str)
+		return NULL;
+	while (str[i] && str[i] != '+')
+		i++;
+	new_str = ft_substr(str, 0, i);
+	if (!new_str)
+		return NULL;
+	new_str = ft_strjoin_f(new_str, ft_substr(str, i + 1, ft_strlen(str) - i - 1), 3);
+	//free_ptr(str);
+	/* while (str[i] && str[i + 1])
+	{
+		str[i] = str[i + 1];
+		i++;
+	} */
+	//str[i] = '\0';
+	return (new_str);
 }
+
+/*
+- If the variable already exists and there is no operator, it returns.
+- If the variable already exists and there is an operator of type 3,
+	substitute the VALUE.
+- If not, create the new environment variable and add it to the list.
+
+Ret     0 if the name of the variable is not valid,
+		1 if there is no operator, 
+		2 if the operator is "+=" and
+		3 if the operator is "=".
+
+*/
+char *export_var(t_env *env, char *arg, t_data *data, char *key)
+{
+	char *value;
+	char *old_value;
+	
+	value = ft_substr(arg, ft_index_ch(arg, '=') + 1, 
+		ft_strlen(arg) - ft_index_ch(arg, '=') - 1);	
+	if(env)
+	{
+		old_value = env->value;
+		if(value)
+			env->value = value;
+		else
+			env->value = ft_strdup("");
+		
+	}
+	else
+	{
+		env = new_env(key, value);
+		if(!env)
+			return NULL;
+		add_env(&data->env, env);
+		old_value = NULL;
+	}
+	free_ptr(value);
+	return (old_value);
+}
+
 
 /* 
 - add variable de entorno.
@@ -105,34 +125,38 @@ void	export_actions(t_data *data, t_cmd *cmd)
  */
 
 /* It checks whether the built-in has any operators in its arguments,
-    and if so, prepares to concatenate or substitute the value. 
-    If not, an error message is printed. 
+	and if so, prepares to concatenate or substitute the value. 
+	If not, an error message is printed. 
 
-    Return: int - Returns the value of the exit_status, which will depend on
-    each case. In case of success, the value is 0.
+	Return: int - Returns the value of the exit_status, which will depend on
+	each case. In case of success, the value is 0.
 */
-void    run_export(t_data *data, t_cmd *cmd)
+void   run_export(t_data *data, t_cmd *cmd)
 {
-    int     i;
+	char *key;
+	char *old;
+	t_env *env;
+	int  i;
 
-    if(search_flags(cmd->args, "export"))
-        return (2);
-    data->err_code = EXIT_SUCCESS;
-    if (!cmd->args[i])
-        //print all env vars
-        copy_env(data->env, data);
-    i = 0;
-    /*Checks if the command received as argument is an empty string or
- 	if it is a flag, to print the corresponding error messages.
-    */
-    check_cmd(cmd, i, data);
-    if (data->err_code == 2)
-        return (data->err_code);
-    while (cmd->args && cmd->args[i])
-    {
-        //add or update env var
-        export_action(data, cmd);
-        i++;
-    }
-    return (data->err_code);
+	data->err_code = EXIT_SUCCESS;
+	if(search_flags(cmd->args, "export"))
+		return ;
+	i = 0;
+	while (cmd->args[++i])
+	{
+		key = ft_substr(cmd->args[i], 0, ft_index_ch(cmd->args[i], '='));
+		printf("key: |%s|\n", key);
+		env = get_env(data->env, key);
+		if(valid_varname(cmd->args[i]) == 0)
+		{
+			printf("%s export: %s : not a valid identifier\n", PROGRAM_NAME, key);
+			data->err_code = EXIT_FAILURE;
+		}
+		else
+		{
+			old = export_var(env, rm_plus(cmd->args[i]), data, key);
+			if(old && valid_varname(cmd->args[i]) == 2)
+				env->value = ft_strjoin_f(old, env->value, 3);
+		}
+	}
 }

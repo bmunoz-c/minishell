@@ -6,7 +6,7 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:05:55 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/07 17:11:11 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/07 20:42:22 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,14 @@ int	is_flag(char *str)
 	return (1);
 }
 
+
+// TODO Add data to add the errror code
 int search_flags(char **cmd, char *name)
 {
     int i;
 
+    if(!cmd || !cmd[0])
+        return 0;
     i = 1;
     while(cmd[i])
     {

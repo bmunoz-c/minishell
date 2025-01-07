@@ -6,7 +6,7 @@
 #    By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
-#    Updated: 2025/01/07 17:26:42 by ltrevin-         ###   ########.fr        #
+#    Updated: 2025/01/07 20:37:10 by ltrevin-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ HEADER			= inc/minishell.h inc/structs.h inc/error.h inc/tokenizer.h
 SRC_DIR 		= src/
 OBJ_DIR 		= obj/
 SRC 			:=	main.c \
-					builtins/echo.c builtins/pwd.c builtins/exit.c\
+					builtins/echo.c builtins/pwd.c builtins/exit.c builtins/export.c\
 					builtins/env.c builtins/unset.c builtins/utils.c\
 					tokenizer/tokenizer.c tokenizer/token_type.c tokenizer/merge_token.c\
 					executor/executor.c executor/cmd_list.c executor/path_search.c\
