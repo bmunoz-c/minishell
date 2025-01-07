@@ -6,13 +6,13 @@
 /*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 20:47:49 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/07 16:35:07 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/07 20:17:16 by ltrevin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-t_env *new_env(char *key)
+t_env *new_env(char *key, char* value)
 {
 	t_env *env;
 
@@ -20,7 +20,7 @@ t_env *new_env(char *key)
 	if(!env)
 		return (free_ptr(env));
 	env->key = key;
-	env->value = ft_strdup(getenv(key));
+	env->value = ft_strdup(value);
 	if (!env->value)
 		env->value = ft_strdup("");
 	env->next = NULL;
@@ -57,6 +57,21 @@ char	*get_env_value(t_env *env, char *key)
 	}
 	return (NULL);
 }
+
+t_env	*get_env(t_env *env, char *key)
+{
+	while (env)
+	{
+		if (ft_strlen(env->key) == ft_strlen(key))
+		{
+			if (ft_strncmp(env->key, key, ft_strlen(key)) == 0)
+				return (env);
+		}
+		env = env->next;
+	}
+	return (NULL);
+}
+
 char	**env_as_matrix(t_env *env)
 {
 	char **data;
@@ -98,7 +113,7 @@ void copy_env(char **org_env, t_data *data)
 		key = ft_substr(org_env[i], 0, ft_index_ch(org_env[i], '='));
 		if(!key)
 			return free_env(data->env);
-		tmp_env = new_env(key);
+		tmp_env = new_env(key, getenv(key));
 		if(!tmp_env)
 			return free_env(data->env);
 		add_env(&(data->env), tmp_env);
