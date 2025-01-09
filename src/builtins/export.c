@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:04:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/07 20:48:09 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/09 19:53:50 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,18 @@ int valid_varname(char *str)
 
 	if (!str)
 		return (1);
-	if (str[0] == '_' || ft_isalnum(str[0]))
-	{
-		i = 1;
-		while (str[i] == '_' || ft_isalnum(str[i]))
-			i++;
-	}
-	else
-		return (0);
+	i = 0;
+	while (str[i] == '_' || ft_isalpha(str[i]))
+		i++;
 	if (str[i] == '\0')
-		return (1);
+		return (4);
 	if (str[i] == '+' && str[i + 1] && str[i + 1] == '=')
 		return (2);
-	if (str[i] == '+' && !str[i + 1])
+	if(str[i] == '+' && !str[i + 1])
 		return (0);
 	if (str[i] == '=')
 		return (3);
-	return (0);        
+	return (0);
 }
 
 /* 
@@ -62,17 +57,16 @@ char	*rm_plus(char *str)
 		return NULL;
 	while (str[i] && str[i] != '+')
 		i++;
-	new_str = ft_substr(str, 0, i);
-	if (!new_str)
-		return NULL;
-	new_str = ft_strjoin_f(new_str, ft_substr(str, i + 1, ft_strlen(str) - i - 1), 3);
-	//free_ptr(str);
-	/* while (str[i] && str[i + 1])
+	if (str[i] == '\0')
+		new_str = ft_strdup(str);
+	else
 	{
-		str[i] = str[i + 1];
-		i++;
-	} */
-	//str[i] = '\0';
+		new_str = ft_substr(str, 0, i);
+		if (!new_str)
+			return NULL;
+		new_str = ft_strjoin_f(new_str, ft_substr(str, i + 1, ft_strlen(str) - i - 1), 3);
+	}
+	free_ptr(str);
 	return (new_str);
 }
 
@@ -92,27 +86,28 @@ char *export_var(t_env *env, char *arg, t_data *data, char *key)
 {
 	char *value;
 	char *old_value;
-	
+
 	value = ft_substr(arg, ft_index_ch(arg, '=') + 1, 
-		ft_strlen(arg) - ft_index_ch(arg, '=') - 1);	
-	if(env)
+		ft_strlen(arg) - ft_index_ch(arg, '=') - 1);
+	if (env)
 	{
-		old_value = env->value;
+		old_value = ft_strdup(env->value);
+		free_ptr(env->value);
 		if(value)
-			env->value = value;
+			env->value = ft_strdup(value);
 		else
 			env->value = ft_strdup("");
-		
 	}
 	else
 	{
-		env = new_env(key, value);
+		env = new_env(ft_strdup(key), value);
 		if(!env)
 			return NULL;
 		add_env(&data->env, env);
 		old_value = NULL;
 	}
 	free_ptr(value);
+	free_ptr(arg);
 	return (old_value);
 }
 
@@ -136,27 +131,46 @@ void   run_export(t_data *data, t_cmd *cmd)
 	char *key;
 	char *old;
 	t_env *env;
+	int export_code;
 	int  i;
 
 	data->err_code = EXIT_SUCCESS;
 	if(search_flags(cmd->args, "export"))
 		return ;
 	i = 0;
+	if (!cmd->args[1])
+	{
+		print_env(data->env);
+		return ;
+	}
 	while (cmd->args[++i])
 	{
-		key = ft_substr(cmd->args[i], 0, ft_index_ch(cmd->args[i], '='));
+		if (!ft_search_ch(cmd->args[i], '='))
+			key = ft_strdup(cmd->args[i]);
+		else
+			key = ft_substr(cmd->args[i], 0, ft_index_ch(cmd->args[i], '='));
+		if (ft_search_ch(key, '+'))
+			key = rm_plus(key);
+		printf("index =: |%d|\n",  ft_index_ch(cmd->args[i], '='));
 		printf("key: |%s|\n", key);
 		env = get_env(data->env, key);
-		if(valid_varname(cmd->args[i]) == 0)
+		
+		export_code = valid_varname(cmd->args[i]);
+		if(export_code == 0)
 		{
 			printf("%s export: %s : not a valid identifier\n", PROGRAM_NAME, key);
 			data->err_code = EXIT_FAILURE;
 		}
 		else
 		{
-			old = export_var(env, rm_plus(cmd->args[i]), data, key);
-			if(old && valid_varname(cmd->args[i]) == 2)
-				env->value = ft_strjoin_f(old, env->value, 3);
+			old = export_var(env, rm_plus(ft_strdup(cmd->args[i])), data, key);
+			if (export_code == 1)
+				print_env(data->env);
+			if(old && export_code == 2)
+				env->value = ft_strjoin_f(old, env->value, 2);
+			free_ptr(old);
 		}
+		free_ptr(key);
+		data->env_matrix = env_as_matrix(data->env, data->env_matrix);
 	}
 }

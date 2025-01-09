@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 17:16:40 by borjamc           #+#    #+#             */
-/*   Updated: 2025/01/07 17:14:19 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/09 19:54:06 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void remove_var(t_data *data, t_env *current)
     free_env(current);
     print_env(data->env);
     ft_free_split(data->env_matrix);
-    data->env_matrix = env_as_matrix(data->env);
+    data->env_matrix = env_as_matrix(data->env, data->env_matrix);
 }
 
 // Removes the environment variables with the given keys.

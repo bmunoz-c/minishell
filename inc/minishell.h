@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/07 20:40:15 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/09 19:52:10 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void    exit_signal_handler(int sig);
 
 void    ft_free_split(char **split);
 
-char	**env_as_matrix(t_env *env);
+char	**env_as_matrix(t_env *env, char **arr);
 
 ///////////// BUILTINS
 int     run_echo(char **args);
