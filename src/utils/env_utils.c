@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 20:47:49 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/07 20:17:16 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/09 20:06:30 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_env	*get_env(t_env *env, char *key)
 	return (NULL);
 }
 
-char	**env_as_matrix(t_env *env)
+char	**env_as_matrix(t_env *env, char **arr)
 {
 	char **data;
 	t_env *tmp;
@@ -82,8 +82,8 @@ char	**env_as_matrix(t_env *env)
 	tmp = env;
 	while (env)
 	{
-		i++;
 		env = env->next;
+		i++;
 	}
 	data = malloc(sizeof(char *) * (i + 1));
 	if (!data)
@@ -92,12 +92,12 @@ char	**env_as_matrix(t_env *env)
 	env = tmp;
 	while (env)
 	{
-		data[i] = ft_strjoin(env->key, "=");
-		data[i] = ft_strjoin_f(data[i], env->value, 1);
-		i++;
+		data[i] = ft_strjoin_f(ft_strjoin(env->key, "="), env->value, 1);
 		env = env->next;
+		i++;
 	}
 	data[i] = NULL;
+	ft_free_split(arr);
 	return (data);
 }
 
@@ -120,7 +120,7 @@ void copy_env(char **org_env, t_data *data)
 		tmp_env = NULL;
 		i++;
 	}
-	data->env_matrix = env_as_matrix(data->env);
+	data->env_matrix = env_as_matrix(data->env, data->env_matrix);
 }
 
 

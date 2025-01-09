@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 12:45:29 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/07 20:36:41 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/09 19:52:13 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,10 @@ int valid_varname(char *str)
     int i;
 
     if (!str)
-        return (1);
-    if (str[0] == '_' || ft_isalnum(str[0]))
-    {
-        i = 1;
-        while (str[i] == '_' || ft_isalnum(str[i]))
-            i++;
-    }
-    else
-        return (0);
+        return (-1);
+	i = 0;
+    while (str[i] == '_' || ft_isalpha(str[i]))
+        i++;
     if (str[i] == '\0')
         return (1);
     if (str[i] == '+' && str[i + 1] && str[i + 1] == '=')
@@ -43,7 +38,7 @@ int valid_varname(char *str)
 		return (0);
     if (str[i] == '=')
         return (3);
-    return (0);        
+    return (0);
 }
 
 /* 
@@ -59,14 +54,13 @@ char	*rm_plus(char *str)
 
 	i = 0;
 	if (!str)
-		return ;
+		return (NULL);
 	while (str[i] && str[i] != '+')
 		i++;
 	new_str = ft_substr(str, 0, i);
 	if (!new_str)
 		return NULL;
 	new_str = ft_strjoin_f(new_str, ft_substr(str, i + 1, ft_strlen(str) - i - 1), 3);
-	free_ptr(str);
 	/* while (str[i] && str[i + 1])
 	{
 		str[i] = str[i + 1];
@@ -93,6 +87,8 @@ char *export_var(t_env *env, char *arg, t_data *data)
 	char *value;
 	char *old_value;
 	
+	if (arg == NULL)
+		return (NULL);
 	value = ft_substr(arg, ft_index_ch(arg, '=') + 1, 
 		ft_strlen(arg) - ft_index_ch(arg, '=') - 1);	
 	if(env)
@@ -102,7 +98,6 @@ char *export_var(t_env *env, char *arg, t_data *data)
 			env->value = value;
 		else
 			env->value = ft_strdup("");
-		
 	}
 	else
 	{

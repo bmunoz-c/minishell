@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:16:51 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/07 17:17:42 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:39:12 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ typedef struct s_data
 	int			err_code;
 	char		*err_msg;
 	t_cmd		*cmd_list;
-	char **env_matrix;
+	char		**env_matrix;
 }	t_data;
 
 #endif
