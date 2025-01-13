@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:50:26 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/13 20:27:06 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/13 22:05:11 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	handle_builtin(t_data *data, t_cmd *cmd, int child)
 	if (ft_strncmp(cmd->path, "echo", 5) == 0)
 		err_code = run_echo(cmd->args);
 	else if (ft_strncmp(cmd->path, "cd", 3) == 0)
-        err_code = run_cd(data, data->env, cmd);
+        err_code = run_cd(data, cmd);
 	else if (ft_strncmp(cmd->path, "pwd", 4) == 0)
 		err_code = run_pwd(data);
 	else if (ft_strncmp(cmd->path, "export", 7) == 0)
