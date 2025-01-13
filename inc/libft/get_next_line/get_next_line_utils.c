@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:36:37 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/13 22:44:51 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/13 22:54:24 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	index_newline(t_list *lst)
 
 void	clear_lst(t_list **lst)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	while (*lst)
 	{
