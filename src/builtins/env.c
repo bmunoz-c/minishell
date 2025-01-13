@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 13:36:21 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/09 20:02:01 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/13 21:03:23 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,19 @@
 - imprimir la matriz.
 - liberar la matriz.
 */
-void    run_env(t_data *data)
+int    run_env(t_data *data)
 {
     char    **tmp;
 
     if(search_flags(data->cmd_list->args, "env"))
-        return ;
+        return (SYNTAX_ERROR);
     tmp = data->env_matrix;
     while (*tmp)
     {
         ft_putendl_fd(*tmp, STDOUT_FILENO);
         tmp++;
     }
+    return (EXIT_SUCCESS);
 }
 
 //Cada vez que modifique env,

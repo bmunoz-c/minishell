@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:50:26 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/07 20:38:25 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/13 20:27:06 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,21 @@ void	dup_fds(int new_in, int new_out, int old_in, int old_out)
 void	handle_builtin(t_data *data, t_cmd *cmd, int child)
 {
 	const int	save_std[2] = {dup(STDIN_FILENO), dup(STDOUT_FILENO)};
+    int err_code;
 
 	dup_fds(cmd->in_fd, cmd->out_fd, STDIN_FILENO, STDOUT_FILENO);
 	if (ft_strncmp(cmd->path, "echo", 5) == 0)
-		run_echo(cmd->args);
-	// else if (ft_strncmp(cmd->path, "cd", 3) == 0)
+		err_code = run_echo(cmd->args);
+	else if (ft_strncmp(cmd->path, "cd", 3) == 0)
+        err_code = run_cd(data, data->env, cmd);
 	else if (ft_strncmp(cmd->path, "pwd", 4) == 0)
-		run_pwd(data);
+		err_code = run_pwd(data);
 	else if (ft_strncmp(cmd->path, "export", 7) == 0)
-        run_export(data, cmd);
+        err_code = run_export(data, cmd);
 	else if (ft_strncmp(cmd->path, "unset", 6) == 0)
-        run_unset(cmd->args, data);
+        err_code = run_unset(cmd->args, data);
 	else if (ft_strncmp(cmd->path, "env", 4) == 0)
-		run_env(data);
+		err_code = run_env(data);
 	else if (ft_strncmp(cmd->path, "exit", 5) == 0)
 	{
 		run_exit(cmd, data, 0);
@@ -51,6 +53,7 @@ void	handle_builtin(t_data *data, t_cmd *cmd, int child)
 	dup_fds(save_std[0], save_std[1], STDIN_FILENO, STDOUT_FILENO);
 	if(child)
 		exit(EXIT_SUCCESS);
+    data->err_code = err_code;
 }
 
 void run_pipeline(t_data *data, t_cmd *cmd_list)

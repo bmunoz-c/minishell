@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:00:32 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/07 17:22:43 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/13 20:24:29 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONTEXT_H
 # define CONTEXT_H
-# define PERM_ERR 126
-# define NOFDIR_ERR 127
+# define PERM_ERR 1
+# define NOFDIR_ERR 1
+# define NODIR_ERR 1
 # define SYNTAX_ERROR 2
 
 //_____BUILDING_ERRORS_____//
@@ -22,6 +23,8 @@
 # define NOFILEDIR "No such file or directory"
 # define NOTDIR "Not a directory"
 # define PERM_DENIED "Permission denied"
+# define WRONG_ARG "Wrong number of arguments"
+# define STAT_ERR "Stat function failed"
 
 //_____CMD_ERRORS_____//
 # define CMDNOTFND "Command not found"

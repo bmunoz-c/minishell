@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:05:55 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/07 20:42:22 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/13 19:55:48 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,11 @@ int search_flags(char **cmd, char *name)
         i++;
     }
     return 0;
+}
+
+
+int ft_error( const char *cmd_name, const char *msg, int err_code)
+{
+    printf("%s: %s\n", cmd_name, msg);
+    return err_code;
 }

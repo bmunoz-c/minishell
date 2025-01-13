@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/09 19:52:10 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/13 21:39:41 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ char	*get_env_value(t_env *env, char *key);
 t_env	*get_env(t_env *env, char *key);
 t_env *new_env(char *key, char* value);
 void add_env(t_env **env_list, t_env *new_env);
+void	ft_change_env_value(char *key, char *value, t_env **env_lst);
 
 
 //////////// INIT STRUCTS
@@ -91,15 +92,17 @@ char	**env_as_matrix(t_env *env, char **arr);
 
 ///////////// BUILTINS
 int     run_echo(char **args);
-void    run_pwd(t_data *data);
+int     run_pwd(t_data *data);
 int     run_exit(t_cmd *cmd, t_data *data, int is_child);
-void    run_env(t_data *data);
+int     run_env(t_data *data);
 int     run_unset(char **cmd, t_data *data);
-void    run_export(t_data *data, t_cmd *cmd);
+int     run_export(t_data *data, t_cmd *cmd);
+int     run_cd(t_data *data, t_env *env, t_cmd *cmd);
 
 
 //////////// BUILTINS UTILS
 int search_flags(char **cmd, char *cmd_name);
+int ft_error( const char *cmd_name, const char *msg, int err_code);
 
 /////////// EXECUTION
 t_cmd	*group_cmd(t_data *data, t_token *tk_list);

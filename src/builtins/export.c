@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:04:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/09 19:53:50 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/13 20:32:03 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,10 @@ char *export_var(t_env *env, char *arg, t_data *data, char *key)
 
 	Return: int - Returns the value of the exit_status, which will depend on
 	each case. In case of success, the value is 0.
+
+	TODO: Anadir variable para guardar el error code y retornarlo al final
 */
-void   run_export(t_data *data, t_cmd *cmd)
+int   run_export(t_data *data, t_cmd *cmd)
 {
 	char *key;
 	char *old;
@@ -136,12 +138,12 @@ void   run_export(t_data *data, t_cmd *cmd)
 
 	data->err_code = EXIT_SUCCESS;
 	if(search_flags(cmd->args, "export"))
-		return ;
+		return (SYNTAX_ERROR) ;
 	i = 0;
 	if (!cmd->args[1])
 	{
 		print_env(data->env);
-		return ;
+		return (EXIT_SUCCESS);
 	}
 	while (cmd->args[++i])
 	{
@@ -151,12 +153,10 @@ void   run_export(t_data *data, t_cmd *cmd)
 			key = ft_substr(cmd->args[i], 0, ft_index_ch(cmd->args[i], '='));
 		if (ft_search_ch(key, '+'))
 			key = rm_plus(key);
-		printf("index =: |%d|\n",  ft_index_ch(cmd->args[i], '='));
-		printf("key: |%s|\n", key);
 		env = get_env(data->env, key);
 		
 		export_code = valid_varname(cmd->args[i]);
-		if(export_code == 0)
+		if (export_code == 0)
 		{
 			printf("%s export: %s : not a valid identifier\n", PROGRAM_NAME, key);
 			data->err_code = EXIT_FAILURE;
@@ -173,4 +173,5 @@ void   run_export(t_data *data, t_cmd *cmd)
 		free_ptr(key);
 		data->env_matrix = env_as_matrix(data->env, data->env_matrix);
 	}
+	return (EXIT_SUCCESS);
 }
