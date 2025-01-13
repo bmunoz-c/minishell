@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:03:10 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/13 22:03:40 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/13 22:37:32 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 char	**env_as_matrix(t_env *env, char **arr)
 {
-	char **data;
-	t_env *tmp;
-	int i;
+	char	**data;
+	t_env	*tmp;
+	int		i;
 
 	i = 0;
 	tmp = env;
@@ -41,21 +41,21 @@ char	**env_as_matrix(t_env *env, char **arr)
 	return (data);
 }
 
-void copy_env(char **org_env, t_data *data)
+void	copy_env(char **org_env, t_data *data)
 {
-	int i;
-	char *key;
-	t_env *tmp_env;
+	int		i;
+	char	*key;
+	t_env	*tmp_env;
 
 	i = 0;
-	while(org_env[i])
+	while (org_env[i])
 	{
 		key = ft_substr(org_env[i], 0, ft_index_ch(org_env[i], '='));
-		if(!key)
-			return free_env(data->env);
+		if (!key)
+			return (free_env(data->env));
 		tmp_env = new_env(key, getenv(key));
-		if(!tmp_env)
-			return free_env(data->env);
+		if (!tmp_env)
+			return (free_env(data->env));
 		add_env(&(data->env), tmp_env);
 		tmp_env = NULL;
 		i++;

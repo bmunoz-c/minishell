@@ -6,18 +6,18 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 20:47:49 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/13 22:03:51 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/13 22:29:00 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-t_env *new_env(char *key, char* value)
+t_env	*new_env(char *key, char *value)
 {
-	t_env *env;
+	t_env	*env;
 
 	env = malloc(sizeof(t_env));
-	if(!env)
+	if (!env)
 		return (free_ptr(env));
 	env->key = key;
 	env->value = ft_strdup(value);
@@ -27,7 +27,7 @@ t_env *new_env(char *key, char* value)
 	return (env);
 }
 
-void add_env(t_env **env_list, t_env *new_env)
+void	add_env(t_env **env_list, t_env *new_env)
 {
 	t_env	*tmp;
 
@@ -89,6 +89,3 @@ void	change_env_value(char *key, char *value, t_env **env_lst)
 		temp = temp->next;
 	}
 }
-
-
-

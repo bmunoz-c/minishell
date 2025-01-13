@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/07 18:57:24 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/13 22:29:20 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 int		g_sig_exit_status = 0;
-
 
 // TODO: call it in main before expansor.
 // Add to the main data struct a fd to store the heredoc content
@@ -61,7 +60,7 @@ void	read_prompt(t_data *data)
 	dirty_prompt = NULL;
 }
 
-int check_heredoc(t_token *tk_lst, t_data *data)
+int	check_heredoc(t_token *tk_lst, t_data *data)
 {
 	t_token	*tk;
 	t_token	*del;
@@ -72,19 +71,19 @@ int check_heredoc(t_token *tk_lst, t_data *data)
 		if (tk->type == HERE_DOC)
 		{
 			del = tk->next;
-			while(del->type == SPC)
+			while (del->type == SPC)
 				del = del->next;
-			if(del->type != WORD && del->type && DQ_STR && del->type != SQ_STR)
+			if (del->type != WORD && del->type && DQ_STR && del->type != SQ_STR)
 			{
 				syntax_error_msg(data, "heredoc");
-				return 0;
+				return (0);
 			}
 			printf("heredoc: |%s|\n", del->content);
 			heredoc(*data, del->content, tk->type == WORD);
 		}
 		tk = tk->next;
 	}
-	return 1;
+	return (1);
 }
 
 int	main(int ac, char **av, char **env)
@@ -107,9 +106,9 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		set_sig_ignore(SIGINT);
 		tokenizer(&data, 0);
-		if(syntax_error(&data, &data.token_list, 0))
+		if (syntax_error(&data, &data.token_list, 0))
 		{
-			if(check_heredoc(data.token_list, &data))
+			if (check_heredoc(data.token_list, &data))
 			{
 				print_token_list(data.token_list);
 				printf("#################################\n");
@@ -118,7 +117,7 @@ int	main(int ac, char **av, char **env)
 				printf("#################################\n");
 				merge_tokens(&data.token_list);
 				print_token_list(data.token_list);
-				if(syntax_error(&data, &data.token_list, 1))
+				if (syntax_error(&data, &data.token_list, 1))
 					execute(&data);
 			}
 		}

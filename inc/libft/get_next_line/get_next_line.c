@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 15:36:35 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/05/05 20:21:54 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/13 22:52:18 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ void	read_fd(int fd, t_list **lst)
 			return (clear_lst(lst));
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (!bytes_read)
-			return free(buffer);
+			return (free(buffer));
 		buffer[bytes_read] = '\0';
 		if (!add_node(lst, buffer))
 			return (clear_lst(lst));
 	}
 }
+
 char	*save_line(t_list **lst)
 {
 	int		len;
@@ -58,7 +59,7 @@ char	*save_line(t_list **lst)
 	return (line);
 }
 
-void save_next(t_list **lst)
+void	save_next(t_list **lst)
 {
 	t_list	*last;
 	char	*content;
@@ -82,7 +83,7 @@ void save_next(t_list **lst)
 	content[i] = '\0';
 	clear_lst(lst);
 	if (!add_node(lst, content))
-		return;
+		return ;
 }
 
 char	*get_next_line(int fd)
@@ -102,7 +103,7 @@ char	*get_next_line(int fd)
 	if (!lst)
 		return (NULL);
 	line = save_line(&lst);
-	if(!line)
+	if (!line)
 		clear_lst(&lst);
 	if (!lst)
 		return (NULL);

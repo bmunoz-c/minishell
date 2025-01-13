@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_list.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/07 16:06:51 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/13 22:26:37 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
 
 // Fills the command arguments array
 int	populate_args(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
@@ -20,15 +19,16 @@ int	populate_args(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 
 	i_args = 0;
 	if (!cmd->args)
-		return 0;
-	if(cmd->args && cmd->args[0]) 
+		return (0);
+	if (cmd->args && cmd->args[0])
 	{
 		i_args = 1;
 		tk_list = tk_list->next;
 	}
 	while (tk_list != tk_last)
 	{
-		if (tk_list->type == WORD || tk_list->type == SQ_STR || tk_list->type == DQ_STR)
+		if (tk_list->type == WORD || tk_list->type == SQ_STR
+			|| tk_list->type == DQ_STR)
 		{
 			cmd->args[i_args] = ft_strdup(tk_list->content);
 			if (!cmd->args[i_args])
@@ -39,7 +39,7 @@ int	populate_args(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 			i_args++;
 		}
 		else
-			break;
+			break ;
 		tk_list = tk_list->next;
 	}
 	cmd->args[i_args] = NULL; // Null-terminate the array
@@ -48,7 +48,7 @@ int	populate_args(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 
 // Handles input and output redirections
 // Function to handle input and output redirections
-int search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
+int	search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 {
 	while (tk_list != tk_last)
 	{
@@ -62,14 +62,16 @@ int search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 		else if (tk_list->type == OUTPUT || tk_list->type == APPEND)
 		{
 			if (tk_list->type == OUTPUT)
-				cmd->out_fd = open(tk_list->next->content, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+				cmd->out_fd = open(tk_list->next->content,
+						O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			else
-				cmd->out_fd = open(tk_list->next->content, O_WRONLY | O_CREAT | O_APPEND, 0644);
+				cmd->out_fd = open(tk_list->next->content,
+						O_WRONLY | O_CREAT | O_APPEND, 0644);
 			if (cmd->out_fd < 0)
 				return (1);
 			tk_list = tk_list->next;
 		}
-		else if(tk_list->type == HERE_DOC)
+		else if (tk_list->type == HERE_DOC)
 		{
 			cmd->in_fd = open(HEREDOC_NAME, O_RDONLY);
 			if (cmd->in_fd < 0)
@@ -77,7 +79,7 @@ int search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 		}
 		tk_list = tk_list->next;
 	}
-	//printf("redirs handled\n");
+	// printf("redirs handled\n");
 	return (0);
 }
 
@@ -123,9 +125,9 @@ void	add_cmd(t_cmd **cmd_list, t_cmd *cmd)
 // and it's necessary info to execute them
 t_cmd	*group_cmd(t_data *data, t_token *tk_list)
 {
-	t_token *tk;
-	t_cmd *cmd;
-	t_cmd *cmd_list;
+	t_token	*tk;
+	t_cmd	*cmd;
+	t_cmd	*cmd_list;
 
 	tk = tk_list;
 	cmd_list = NULL;
