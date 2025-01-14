@@ -1,3 +1,8 @@
+![Project logo][repo_logo_img]
+
+![42 Badge][42_badge]
+![Language Badge][language_badge]
+
 # 🐚 **Minishell**  
 A minimal Bash shell clone developed as part of the 42 School curriculum. This project challenges you to dive deep into shell programming, system calls, and teamwork while delivering a functional and interactive command-line interface.
 
@@ -63,3 +68,7 @@ exit
 ### Challenges
 Handling edge cases in redirections, piping, and variable expansions.
 Ensuring compliance with POSIX standards while maintaining simplicity.
+
+[repo_logo_img]: https://github.com/ayogun/42-project-badges/raw/main/badges/minishelle.png
+[42_badge]:  https://img.shields.io/badge/cursus-black?logo=42&
+[language_badge]:  https://img.shields.io/badge/project-purple?logo=C&
