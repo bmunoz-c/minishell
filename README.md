@@ -47,6 +47,23 @@ This project not only develops low-level programming skills but also instills pr
 - **Command History:** Navigate previous commands with arrow keys.  
 
 ---
+## ⚙️ Commands & Options
+
+### `make`
+
+Compiles different program pieces and builds a final executable
+
+```bash
+make [RULE]
+```
+
+| Rule | Description                                              | 
+|--------|----------------------------------------------------------|
+| `all`  | Default rule, compiles the mandatory part |
+|`clean`| Removes all the objects file of the project|
+|`fclean`| Removes some of the temporary files of the project (.o and .a)|
+|`fclean`| Removes all the temporary files of the project (.o, .a and executables)|
+
 
 ## 🛠️ **How to Use**
 
