@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expansor_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:22:37 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/26 19:26:18 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/13 22:27:18 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-//Search key in str, return value found in env.
+// Search key in str, return value found in env.
 char	*value_search(t_data *data, char *str, int *index)
 {
 	char	*key;

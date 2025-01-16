@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 17:25:56 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/18 19:34:44 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/13 22:51:06 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_strdup(const char *s1)
 	char	*s2;
 	size_t	size;
 
-	if(!s1)
+	if (!s1)
 		return (NULL);
 	size = ft_strlen(s1);
 	s2 = malloc(size * sizeof(char) + 1);

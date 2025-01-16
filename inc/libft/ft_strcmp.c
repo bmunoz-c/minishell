@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_ptr.c                                      :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/17 20:21:33 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/27 16:58:16 by ltrevin-         ###   ########.fr       */
+/*   Created: 2025/01/13 22:06:00 by bmunoz-c          #+#    #+#             */
+/*   Updated: 2025/01/13 22:51:48 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*free_ptr(void *ptr)
+int	ft_strcmp(char *ehe, char *cmp)
 {
-	if (ptr)
-		free(ptr);
-	ptr = NULL;
-	return (NULL);
+	int	i;
+
+	i = 0;
+	while (ehe[i] && cmp[i])
+	{
+		if (ehe[i] != cmp[i])
+			return (ehe[i] - cmp[i]);
+		i++;
+	}
+	if ((ehe[i] && !cmp[i]) || (cmp[i] && !ehe[i]))
+		return (ehe[i] - cmp[i]);
+	return (0);
 }

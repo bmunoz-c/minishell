@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:28:00 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/18 19:42:42 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/13 22:28:38 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,13 @@ int	tokenizer(t_data *data, int i)
 {
 	t_token	*token;
 
-	//data->prompt = ft_strtrimfree(data->prompt, " ", 1);
 	while (data->prompt[i])
 	{
 		if (data->prompt[i] == ' ')
 			token = sp_token(data->prompt, &i);
 		else if (data->prompt[i] == '<' || data->prompt[i] == '>'
 			|| data->prompt[i] == '|')
-			token = meta_token(data->prompt, &i);
+			token = meta_token(data, data->prompt, &i);
 		else if (data->prompt[i] == '"')
 			token = quote_token(data->prompt, &i, DQ_STR);
 		else if (data->prompt[i] == '\'')
@@ -40,7 +39,7 @@ int	tokenizer(t_data *data, int i)
 	return (0);
 }
 
-//Create a new token: type & content
+// Create a new token: type & content
 t_token	*new_token(char *_content, t_token_type _type)
 {
 	t_token	*token;
@@ -55,7 +54,7 @@ t_token	*new_token(char *_content, t_token_type _type)
 	return (token);
 }
 
-//Add a new token to the list.
+// Add a new token to the list.
 void	add_token(t_token **token_list, t_token *new_token)
 {
 	t_token	*tmp;

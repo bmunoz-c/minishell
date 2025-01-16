@@ -6,40 +6,90 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/05 17:33:44 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/16 18:13:35 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-#include <minishell.h>
 
+int		g_sig_exit_status = 0;
 
-//HERE_DOC > 16 mensaje de error (BASH) en el main.
-int	here_doc_error(t_data *data)
+// TODO: call it in main before expansor.
+// Add to the main data struct a fd to store the heredoc content
+// add the name of the file in the prompt
+void	heredoc(t_data data, const char *del, int expand)
 {
-	t_token	*tmp;
-	int		count;
+	char	*line;
+	int		fd;
+	t_token	*tk;
 
-	count = 0;
-	tmp = data->token_list;
-	while (tmp)
+	fd = open(HEREDOC_NAME, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
+	while (42)
 	{
-		if (tmp->type == HERE_DOC)
-			count++;
-		tmp = tmp->next;
+		line = readline("> ");
+		if (ft_strncmp(line, del, ft_strlen(del) + 1) == 0)
+			break ;
+		if (expand)
+		{
+			tk = new_token(ft_strdup(line), WORD);
+			expansor(&tk, &data);
+			free_ptr(line);
+			if (tk)
+				line = ft_strdup(tk->content);
+			free_token(tk);
+		}
+		ft_putendl_fd(line, fd);
+		free_ptr(line);
 	}
-	if (count > 16)
+	free_ptr(line);
+	close(fd);
+}
+
+void	read_prompt(t_data *data)
+{
+	char	*dirty_prompt;
+
+	printf(RED "$?: %d\n" RESET, data->err_code);
+	// set_sig_ignore(SIGQUIT);
+	signal(SIGQUIT, handle_signal_prompt);
+	dirty_prompt = readline(PROMPT);
+	if (!dirty_prompt)
+		return ;
+	add_history(dirty_prompt);
+	data->prompt = ft_strtrim(dirty_prompt, " ");
+	free(dirty_prompt);
+	dirty_prompt = NULL;
+}
+
+int	check_heredoc(t_token *tk_lst, t_data *data)
+{
+	t_token	*tk;
+	t_token	*del;
+
+	tk = tk_lst;
+	while (tk)
 	{
-		printf("bash: syntax error near unexpected token `<<'\n");
-		return (1);
+		if (tk->type == HERE_DOC)
+		{
+			del = tk->next;
+			while (del->type == SPC)
+				del = del->next;
+			if (del->type != WORD && del->type && DQ_STR && del->type != SQ_STR)
+			{
+				syntax_error_msg(data, "heredoc");
+				return (0);
+			}
+			printf("heredoc: |%s|\n", del->content);
+			heredoc(*data, del->content, tk->type == WORD);
+		}
+		tk = tk->next;
 	}
-	return (0);
+	return (1);
 }
 
 int	main(int ac, char **av, char **env)
 {
 	t_data	data;
-	char	*dirty_prompt;
 
 	(void)av;
 	if (ac != 1)
@@ -47,28 +97,36 @@ int	main(int ac, char **av, char **env)
 		printf("No args are allowed\n");
 		exit(1);
 	}
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, handle_signal_prompt);
 	init_data(&data);
 	copy_env(env, &data);
 	while (42)
 	{
-		dirty_prompt = readline(PROMPT);
-		data.prompt = ft_strtrim(dirty_prompt, " ");
-		free(dirty_prompt);
-		if (!data.prompt)
+		//init_signals(1);
+		//signal(SIGQUIT, handle_signal);
+		read_prompt(&data);
+		if (!data.prompt || !*data.prompt)
 			continue ;
-		if (!ft_strncmp(data.prompt, "exit", 4))
-			break ;
-		if (!ft_strncmp(data.prompt, "printenv", 8))
-			print_env(data.env);
+		//signal(SIGINT, handle_signal_prompt);
 		tokenizer(&data, 0);
-		print_token_list(data.token_list);
-		expansor(&data.token_list, &data);
-		merge_tokens(&data.token_list);
-		print_token_list(data.token_list);
-		if (here_doc_error(&data))
-			continue ;
-		execute(&data);
+		if (syntax_error(&data, &data.token_list, 0))
+		{
+			if (check_heredoc(data.token_list, &data))
+			{
+				print_token_list(data.token_list);
+				printf("#################################\n");
+				expansor(&data.token_list, &data);
+				print_token_list(data.token_list);
+				printf("#################################\n");
+				merge_tokens(&data.token_list);
+				print_token_list(data.token_list);
+				if (syntax_error(&data, &data.token_list, 1))
+					execute(&data);
+			}
+		}
 		free_data(&data, 0);
 	}
 	free_data(&data, 1);
+	return (EXIT_SUCCESS);
 }

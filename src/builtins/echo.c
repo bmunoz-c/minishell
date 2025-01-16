@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 22:04:56 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/11/10 22:05:27 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/13 22:25:55 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-#include <unistd.h>
-
-void	ft_putstring(char *s, int fd)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-		ft_putchar_fd(s[i++], fd);
-}
 
 int	check_option(char *arg, int *new_line)
 {
@@ -51,7 +41,7 @@ int	run_echo(char **args)
 		ft_putchar_fd('\n', 1);
 		return (0);
 	}
-	i = 0;
+	i = 1;
 	while (args[i] && check_option(args[i], &new_line))
 		i++;
 	first_print = i;
@@ -59,7 +49,7 @@ int	run_echo(char **args)
 	{
 		if (i != first_print)
 			ft_putchar_fd(' ', 1);
-		ft_putstring(args[i++], 1);
+		ft_putstr_fd(args[i++], 1);
 	}
 	if (new_line)
 		ft_putchar_fd('\n', 1);
@@ -68,8 +58,8 @@ int	run_echo(char **args)
 
 /*int main(int argc, char **argv)
 {
-	ft_putstring("Main to check the echo built-in command\n", 1);
-	ft_putstring("--------- Starting Execution ---------\n", 1);
+	ft_putstr_fd("Main to check the echo built-in command\n", 1);
+	ft_putstr_fd("--------- Starting Execution ---------\n", 1);
 	run_echo(&argv[1]);
-	ft_putstring("---------- End of Execution ----------\n", 1);
+	ft_putstr_fd("---------- End of Execution ----------\n", 1);
 }*/

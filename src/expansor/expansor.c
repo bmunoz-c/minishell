@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   expansor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 16:42:34 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/11/18 21:03:42 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/13 22:27:23 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-//TODO Sevillana: despues del expansor, 
-//joinear los tokens SQ DQ WORD si no hay otro tipo de token entre ellos +
-//liberacion de espacios
+// TODO Sevillana: despues del expansor,
+// joinear los tokens SQ DQ WORD si no hay otro tipo de token entre ellos +
+// liberacion de espacios
 t_token	*last_token(t_token *token)
 {
 	t_token	*tmp;
@@ -69,7 +69,8 @@ void	expansor(t_token **token, t_data *data)
 			newcont = expand_str(data, tmp->content, 0);
 			free(tmp->content);
 			tmp->content = newcont;
-			if (tmp->type == WORD && ft_strncmp(tmp->content, "", 1))
+			if (tmp->type == WORD && ft_strncmp(tmp->content, "", 1)
+				&& tmp->next)
 			{
 				old_tmp = tmp;
 				concat_tokens(&data->token_list, &tmp);

@@ -3,27 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   clean_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:20:51 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/05 17:23:52 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/13 22:40:21 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+//TODO: TO MANY FUNCTIONS
+void	remove_file(const char *filename)
+{
+	if (access(filename, F_OK) != 0)
+		return ;
+	if (unlink(filename) != 0)
+		perror("unlink");
+}
+
 void	free_data(t_data *data, int env_flag)
 {
 	if (!data)
 		return ;
-	if (data->prompt)
-	{
-		free_ptr(data->prompt);
-		data->prompt = NULL;
-	}
+	free_ptr(data->prompt);
 	if (data->env && env_flag)
 	{
 		free_env(data->env);
+		ft_free_split(data->env_matrix);
 		data->env = NULL;
 	}
 	if (data->token_list)
@@ -36,6 +42,12 @@ void	free_data(t_data *data, int env_flag)
 		free_cmds(data->cmd_list);
 		data->cmd_list = NULL;
 	}
+	if (data->err_msg)
+	{
+		free_ptr(data->err_msg);
+		data->err_msg = NULL;
+	}
+	remove_file(HEREDOC_NAME);
 }
 
 void	free_cmds(t_cmd *cmd_list)
@@ -60,24 +72,20 @@ void	*free_cmd(t_cmd *cmd)
 	if (!cmd)
 		return (NULL);
 	if (cmd->path)
-		free(cmd->path);
+		free_ptr(cmd->path);
 	if (cmd->args)
 	{
 		i = 0;
-		// BUG: Al crear los argumentos de los comandos, 
-		// se debe tener en cuenta que tienen que 
-		// acabar en null para poder iterarlos
-		while (i < cmd->nargs)
+		while (cmd->args && cmd->args[i])
 		{
 			free_ptr(cmd->args[i]);
 			i++;
 		}
 		free(cmd->args);
+		cmd->args = NULL;
 	}
-	if (cmd->input_file)
-		free(cmd->input_file);
-	if (cmd->output_file)
-		free(cmd->output_file);
+	// close(cmd->in_fd);
+	// close(cmd->out_fd);
 	free(cmd);
 	return (NULL);
 }
@@ -92,15 +100,15 @@ void	free_env(t_env *env)
 		env = env->next;
 		if (tmp->key)
 		{
-			free(tmp->key);
+			free_ptr(tmp->key);
 			tmp->key = NULL;
 		}
 		if (tmp->value)
 		{
-			free(tmp->value);
+			free_ptr(tmp->value);
 			tmp->value = NULL;
 		}
-		free(tmp);
+		free_ptr(tmp);
 		tmp = NULL;
 	}
 }
@@ -119,10 +127,25 @@ void	free_tokens(t_token *token_list)
 
 void	free_token(t_token *token)
 {
-	//printf("%s\n, TOKEN TOKEN TOKEN\n", token->content);
 	if (token->content)
-		free(token->content);
+		free_ptr(token->content);
 	token->content = NULL;
-	free(token);
+	if (token)
+		free_ptr(token);
 	token = NULL;
+}
+
+void	ft_free_split(char **split)
+{
+	int	i;
+
+	i = 0;
+	if (!split || !*split)
+		return ;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
 }
