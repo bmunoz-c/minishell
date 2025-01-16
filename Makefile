@@ -6,7 +6,7 @@
 #    By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
-#    Updated: 2025/01/13 22:04:26 by bmunoz-c         ###   ########.fr        #
+#    Updated: 2025/01/16 16:28:59 by bmunoz-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ SRC 			:=	main.c \
 					tokenizer/tokenizer.c tokenizer/token_type.c tokenizer/merge_token.c\
 					executor/executor.c executor/cmd_list.c executor/path_search.c\
 					expansor/expansor.c expansor/expansor_utils.c\
-					syntax/syntax.c signals/signals.c\
+					syntax/syntax.c signals/signal_borrador.c\
 					utils/init_data.c	utils/print_utils.c	utils/clean_utils.c \
 					utils/env_utils.c	utils/env_matrix_utils.c			
 SRC				:= $(addprefix $(SRC_DIR), $(SRC))

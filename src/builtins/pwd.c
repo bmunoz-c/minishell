@@ -6,24 +6,26 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:24:43 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/13 22:42:55 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/16 15:33:05 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+/*
+- Obtener el directorio actual de trabajo.
+- Si no se puede obtener el directorio actual de trabajo,
+	se obtiene el valor de la variable de entorno PWD.
+*/
 int	run_pwd(t_data *data)
 {
-	char    *pwd;
+	char	*pwd;
 
 	if (search_flags(data->cmd_list->args, "pwd"))
 		return (SYNTAX_ERROR);
-	// Ovtener el directorio actual de trabajo.
 	pwd = getcwd(NULL, 0);
-	// Si no se puede obtener el directorio actual de trabajo,
 	if (!pwd)
 	{
-		// Se obtiene el valor de la variable de entorno PWD.
 		get_env_value(data->env, "PWD");
 		if (!pwd)
 			ft_putstr_fd(NOFILEDIR, 2);

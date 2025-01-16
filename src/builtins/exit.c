@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:20:01 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/13 22:26:08 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/16 15:35:28 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,40 +81,10 @@ char	check_ll_max_min(const char *str)
 }
 
 /*
-	Receives a string that has already passed
-	all the necessary checks, and converts it from char
-	to long long int.
-*/
-long long	ft_atoll(const char *str)
-{
-	int			i;
-	long long	res;
-	int			sign;
-
-	res = 0;
-	sign = 1;
-	i = 0;
-	while (ft_is_space(str[i]))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			sign *= -1;
-		i++;
-	}
-	while (str[i] && (str[i] >= '0' && str[i] <= '9'))
-	{
-		res = res * 10 + str[i] - '0';
-		i++;
-	}
-	return (res * sign);
-}
-
-/*
--Finalizar la ejecución de la minishell.
--Liberar recursos asignados.
--Manejar avs de entrada para establecer un buen código de salida.
--Validar errores específicos, como avs no num o demasiados avs.
+- Finalizar la ejecución de la minishell.
+- Liberar recursos asignados.
+- Manejar avs de entrada para establecer un buen código de salida.
+- Validar errores específicos, como avs no num o demasiados avs.
 */
 int	run_exit(t_cmd *cmd, t_data *data, int is_child)
 {

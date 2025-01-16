@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:50:26 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/13 22:26:55 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/16 16:57:07 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	dup_fds(int new_in, int new_out, int old_in, int old_out)
 	if (new_in != old_in)
 	{
 		dup2(new_in, old_in);
-		// close(new_in);
+		close(new_in);
 	}
 	if (new_out != old_out)
 	{
 		dup2(new_out, old_out);
-		// close(new_out);
+		close(new_out);
 	}
 }
 

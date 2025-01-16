@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 01:47:22 by borjamc           #+#    #+#             */
-/*   Updated: 2025/01/13 22:27:40 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/16 17:53:49 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	syntax_error_msg(t_data *data, char *ch_err)
 }
 
 // 0 = EMPTY, 1 == WORD, 2 = SQ_STR, 3 = DQ_STR, 4 = PIPE.
+// Return 1 if the pipe is in the correct position.
 int	syntax_pipe(t_token *tk_lst, t_data *data)
 {
 	t_token	*tmp;
@@ -49,13 +50,10 @@ int	syntax_pipe(t_token *tk_lst, t_data *data)
 	{
 		if (tmp->type == PIPE)
 		{
-			// Si no hay token previo o siguiente, syntax error
 			if (!tmp->prev || !tmp->next)
 				return (syntax_error_msg(data, "|"));
 			else
 			{
-				// Si el token next & prev son
-				// PIPE, INPUT, OUTPUT, APPEND, HERE_DOC, syntax error
 				if ((tmp->prev->type >= 4 && tmp->prev->type <= 8)
 					|| (tmp->next->type >= 4 && tmp->next->type <= 8))
 					return (syntax_error_msg(data, "|"));
@@ -63,9 +61,7 @@ int	syntax_pipe(t_token *tk_lst, t_data *data)
 		}
 		tmp = tmp->next;
 	}
-	// Esto indica que la posicion de la PIPE es correcta.
 	return (1);
-	// probar: echo hola, > <<, >
 }
 
 // HERE_DOC > 16 mensaje de error (BASH) en el main.

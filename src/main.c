@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/13 22:29:20 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/16 18:13:35 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ void	read_prompt(t_data *data)
 	char	*dirty_prompt;
 
 	printf(RED "$?: %d\n" RESET, data->err_code);
-	set_sig_ignore(SIGQUIT);
+	// set_sig_ignore(SIGQUIT);
+	signal(SIGQUIT, handle_signal_prompt);
 	dirty_prompt = readline(PROMPT);
 	if (!dirty_prompt)
 		return ;
@@ -96,15 +97,18 @@ int	main(int ac, char **av, char **env)
 		printf("No args are allowed\n");
 		exit(1);
 	}
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, handle_signal_prompt);
 	init_data(&data);
 	copy_env(env, &data);
 	while (42)
 	{
-		init_signals(1);
+		//init_signals(1);
+		//signal(SIGQUIT, handle_signal);
 		read_prompt(&data);
 		if (!data.prompt || !*data.prompt)
 			continue ;
-		set_sig_ignore(SIGINT);
+		//signal(SIGINT, handle_signal_prompt);
 		tokenizer(&data, 0);
 		if (syntax_error(&data, &data.token_list, 0))
 		{

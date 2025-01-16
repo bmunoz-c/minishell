@@ -6,11 +6,41 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:05:55 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/13 22:42:31 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/16 17:50:52 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+/*
+	Receives a string that has already passed
+	all the necessary checks, and converts it from char
+	to long long int.
+*/
+long long	ft_atoll(const char *str)
+{
+	int			i;
+	long long	res;
+	int			sign;
+
+	res = 0;
+	sign = 1;
+	i = 0;
+	while (ft_is_space(str[i]))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign *= -1;
+		i++;
+	}
+	while (str[i] && (str[i] >= '0' && str[i] <= '9'))
+	{
+		res = res * 10 + str[i] - '0';
+		i++;
+	}
+	return (res * sign);
+}
 
 int	is_flag(char *str)
 {

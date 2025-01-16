@@ -6,31 +6,34 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:14:51 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/13 22:43:48 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/16 15:30:14 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+/* 
+- Validar que el puntero path no sea NULL
+- Comprobar existencia
+- Comprobar si es un directorio
+- Comprobar permisos de ejecución
+- Return 0, todo está bien 
+*/
+
 int	cd_access(char *path)
 {
 	struct stat	st;
 
-	// Validar que el puntero path no sea NULL
 	if (!path)
 		return (ft_error("cd", PATH_NULL, 1));
-	// Comprobar existencia
 	if (access(path, F_OK) == -1)
 		return (ft_error("cd", NOFILEDIR, 1));
-	// Comprobar si es un directorio
 	if (stat(path, &st) != 0)
 		return (ft_error("cd", STAT_ERR, 1));
 	if (!S_ISDIR(st.st_mode))
 		return (ft_error("cd", NOTDIR, 1));
-	// Comprobar permisos de ejecución
 	if (access(path, X_OK) == -1)
 		return (ft_error("cd", PERM_DENIED, 1));
-	// Todo está bien
 	return (0);
 }
 
@@ -51,7 +54,6 @@ char	*ft_getcwd(void)
 	return (res);
 }
 
-// TODO: Implementar la función cd_path
 int	cd_path(t_env **env_lst, t_cmd *cmd)
 {
 	char	*path;
@@ -72,7 +74,6 @@ int	cd_path(t_env **env_lst, t_cmd *cmd)
 	return (0);
 }
 
-// TODO: Implementar la función cd_home
 int	run_cd(t_data *data, t_cmd *cmd)
 {
 	char	*oldpwd;

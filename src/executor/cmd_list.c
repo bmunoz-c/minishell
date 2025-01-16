@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/13 22:26:37 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/16 17:52:40 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,14 @@ int	populate_args(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 			break ;
 		tk_list = tk_list->next;
 	}
-	cmd->args[i_args] = NULL; // Null-terminate the array
+	cmd->args[i_args] = NULL;
 	return (1);
 }
 
 // Handles input and output redirections
 // Function to handle input and output redirections
+	// printf("redirs handled\n"); - al final de la funcion.
+
 int	search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 {
 	while (tk_list != tk_last)
@@ -79,7 +81,6 @@ int	search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 		}
 		tk_list = tk_list->next;
 	}
-	// printf("redirs handled\n");
 	return (0);
 }
 
@@ -101,6 +102,7 @@ t_cmd	*build_cmd(t_data *data, t_token *tk_list, t_token *tk_last)
 	printf("cmd builded!\n\n");
 	return (cmd);
 }
+
 void	add_cmd(t_cmd **cmd_list, t_cmd *cmd)
 {
 	t_cmd	*tmp;
@@ -120,7 +122,6 @@ void	add_cmd(t_cmd **cmd_list, t_cmd *cmd)
 // This function iterates through the token list, grouping tokens into commands
 // based on the PIPE token. It initializes each command with its arguments,
 // input/output redirections, and executable path.
-
 // Basically it's a list with all cmds in the prompt
 // and it's necessary info to execute them
 t_cmd	*group_cmd(t_data *data, t_token *tk_list)

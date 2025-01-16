@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/13 22:50:04 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/16 18:14:49 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,13 @@ void		free_token(t_token *token);
 void		free_data(t_data *data, int env_flag);
 
 //////////// SIGNALS
-int			init_signals(int mode);
+/* int			init_signals(int mode);
 void		set_sig_ignore(int signum);
 void		ctrlc_handler(int sig);
-void		exit_signal_handler(int sig);
+void		exit_signal_handler(int sig); */
+
+void		handle_signal(int signal);
+void		handle_signal_prompt(int signal);
 
 void		ft_free_split(char **split);
 
@@ -93,6 +96,7 @@ int			run_cd(t_data *data, t_cmd *cmd);
 //////////// BUILTINS UTILS
 int			search_flags(char **cmd, char *cmd_name);
 int			ft_error(const char *cmd_name, const char *msg, int err_code);
+long long	ft_atoll(const char *str);
 
 /////////// EXECUTION
 t_cmd		*group_cmd(t_data *data, t_token *tk_list);

@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 20:29:28 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/13 22:27:34 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/16 16:24:29 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,14 +115,14 @@ void	exit_signal_handler(int sig)
 	// CTRL + C
 	if (sig == SIGINT)
 	{
-		g_sig_exit_status = 128 + sig;
+		g_sig_exit_status = 130;
 		printf("\n");
 		exit(130);
 	}
 	// CTRL + \.
 	else if (sig == SIGQUIT)
 	{
-		g_sig_exit_status = 128 + sig;
+		g_sig_exit_status = 131;
 		printf("Quit (core dumped)\n");
 		exit(131);
 	}
