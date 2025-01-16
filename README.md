@@ -1,5 +1,20 @@
-# 🐚 **Minishell**  
-A minimal Bash shell clone developed as part of the 42 School curriculum. This project challenges you to dive deep into shell programming, system calls, and teamwork while delivering a functional and interactive command-line interface.
+
+
+<p align="center">
+  <img src="https://github.com/ayogun/42-project-badges/raw/main/badges/minishelle.png" alt="minishell_badge"/>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/project-purple?logo=C&" alt="minishell_badge"/>
+  <img src="https://img.shields.io/badge/cursus-black?logo=42&" alt="minishell_badge"/>
+</p>
+
+<h1 align="center">🐚 Minishell 🐚</h1>    
+<p align="center">
+	<b><i>A minimal Bash shell clone developed as part of the 42 School curriculum. </i></b>
+  <br>
+  This project challenges you to dive deep into shell programming, system calls, and teamwork while delivering a functional and interactive command-line interface.
+</p>
 
 ---
 
@@ -32,6 +47,23 @@ This project not only develops low-level programming skills but also instills pr
 - **Command History:** Navigate previous commands with arrow keys.  
 
 ---
+## ⚙️ Commands & Options
+
+### `make`
+
+Compiles different program pieces and builds a final executable
+
+```bash
+make [RULE]
+```
+
+| Rule | Description                                              | 
+|--------|----------------------------------------------------------|
+| `all`  | Default rule, compiles the mandatory part |
+|`clean`| Removes all the objects file of the project|
+|`fclean`| Removes some of the temporary files of the project (.o and .a)|
+|`fclean`| Removes all the temporary files of the project (.o, .a and executables)|
+
 
 ## 🛠️ **How to Use**
 
@@ -63,3 +95,7 @@ exit
 ### Challenges
 Handling edge cases in redirections, piping, and variable expansions.
 Ensuring compliance with POSIX standards while maintaining simplicity.
+
+[repo_logo_img]: https://github.com/ayogun/42-project-badges/raw/main/badges/minishelle.png
+[42_badge]:  https://img.shields.io/badge/cursus-black?logo=42&
+[language_badge]:  https://img.shields.io/badge/project-purple?logo=C&

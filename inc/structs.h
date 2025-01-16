@@ -6,15 +6,14 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:16:51 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/09 16:39:12 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/13 22:46:42 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
-//ESTRUCTURA ENUMERACION TIPO DE TOKEN
+// ESTRUCTURA ENUMERACION TIPO DE TOKEN
 typedef enum e_token_type
 {
 	SPC,
@@ -28,21 +27,19 @@ typedef enum e_token_type
 	APPEND,
 	HERE_DOC,
 	ENV_VAR,
-}	t_token_type;
-
-
+}						t_token_type;
 
 typedef struct s_cmd
 {
-	char			*path;
-	int				nargs;
-	char			**args;
-	int 			in_fd;
-    int 			out_fd;
-	int				append_output;
-	int				builtin;
-	struct s_cmd	*next;
-}	t_cmd;
+	char				*path;
+	int					nargs;
+	char				**args;
+	int					in_fd;
+	int					out_fd;
+	int					append_output;
+	int					builtin;
+	struct s_cmd		*next;
+}						t_cmd;
 
 //_____TOKEN_STRUCT_____//
 typedef struct s_token
@@ -52,31 +49,29 @@ typedef struct s_token
 	struct s_token		*next;
 	struct s_token		*prev;
 
-}	t_token;
+}						t_token;
 
 //_____ENVIRONMENT_STRUCT_____//
 typedef struct s_env
 {
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-	struct s_env	*prev;
-	int				match;
-}	t_env;
-
-
+	char				*key;
+	char				*value;
+	struct s_env		*next;
+	struct s_env		*prev;
+	int					match;
+}						t_env;
 
 //_____DATA_______STRUCT_____//
 typedef struct s_data
 {
-	t_token		*token_list;
-	t_env		*env;
-	char		**path;
-	char		*prompt;
-	int			err_code;
-	char		*err_msg;
-	t_cmd		*cmd_list;
-	char		**env_matrix;
-}	t_data;
+	t_token				*token_list;
+	t_env				*env;
+	char				**path;
+	char				*prompt;
+	int					err_code;
+	char				*err_msg;
+	t_cmd				*cmd_list;
+	char				**env_matrix;
+}						t_data;
 
 #endif

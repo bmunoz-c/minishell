@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 22:04:56 by ltrevin-          #+#    #+#             */
-/*   Updated: 2024/12/11 19:06:02 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/13 22:25:55 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
 
 int	check_option(char *arg, int *new_line)
 {

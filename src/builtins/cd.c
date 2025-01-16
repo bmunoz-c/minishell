@@ -3,56 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:14:51 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/07 17:08:12 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/16 15:30:14 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #include <minishell.h>
 
-void set_error(t_data *data, const char *msg, int err_code, int cd_print)
-{
-    free(data->err_msg);
-    if (cd_print && msg)
-        data->err_msg = ft_strjoin("cd: ", msg);
-    else
-        data->err_msg = ft_strdup(msg);
-    data->err_code = err_code;
-}
+/* 
+- Validar que el puntero path no sea NULL
+- Comprobar existencia
+- Comprobar si es un directorio
+- Comprobar permisos de ejecución
+- Return 0, todo está bien 
+*/
 
-int cd_access(t_data *data, char *path)
+int	cd_access(char *path)
 {
-    struct stat st;
+	struct stat	st;
 
-    // Validar que el puntero path no sea NULL
-    if (!path)
-        return (set_error(data, PATH_NULL, 1, 0), 1);
-    // Obtener información del archivo o directorio
-    if (lstat(path, &st) == -1)
-    {
-        ft_putstr_fd("minishell: cd: ", 2);
-        perror(path);
-        return (set_error(data, INV_PATH, 126, 0), 1);
-    }
-    // Comprobar existencia
-    if (access(path, F_OK) == -1)
-    {
-        ft_putstr_fd("minishell: cd: ", 2);
-        perror(path);
-        return (set_error(data, NOFILEDIR, 127, 0), 1);
-    }
-    // Comprobar si es un directorio
-    if (!S_ISDIR(st.st_mode))
-        return (set_error(data, NOTDIR, 126, 0), 1);
-    // Comprobar permisos de ejecución
-    if (access(path, X_OK) == -1)
-        return (set_error(data, PERM_DENIED, 126, 0), 1);
-    // Todo está bien
-    return (set_error(data, NULL, 0, 1), 0);
+	if (!path)
+		return (ft_error("cd", PATH_NULL, 1));
+	if (access(path, F_OK) == -1)
+		return (ft_error("cd", NOFILEDIR, 1));
+	if (stat(path, &st) != 0)
+		return (ft_error("cd", STAT_ERR, 1));
+	if (!S_ISDIR(st.st_mode))
+		return (ft_error("cd", NOTDIR, 1));
+	if (access(path, X_OK) == -1)
+		return (ft_error("cd", PERM_DENIED, 1));
+	return (0);
 }
 
 // Obtener el directorio de trabajo (gwd) actual
@@ -71,28 +53,47 @@ char	*ft_getcwd(void)
 	}
 	return (res);
 }
-//TODO: Implementar la función cd_path
-int cd_path(t_data *data, t_cmd *cmd)
-{
-    char    *path;
-    char    *oldpwd;
 
-    path = cmd->args[1];
-    oldpwd = ft_getcwd();
-    if (oldpwd == NULL)
-        return (1);
-    
+int	cd_path(t_env **env_lst, t_cmd *cmd)
+{
+	char	*path;
+	char	*oldpwd;
+
+	path = cmd->args[1];
+	oldpwd = ft_getcwd();
+	if (oldpwd == NULL)
+		return (1);
+	change_env_value("OLDPWD", oldpwd, env_lst);
+	if (get_env_value(*env_lst, "OLDPWD"))
+		change_env_value("OLDPWD", oldpwd, env_lst);
+	free(oldpwd);
+	chdir(path);
+	oldpwd = ft_getcwd();
+	change_env_value("PWD", oldpwd, env_lst);
+	free(oldpwd);
+	return (0);
 }
-//TODO: Implementar la función cd_home
-int run_cd(t_data *data, t_env *env, t_cmd *cmd)
-{
-    char    *home;
-    char    *oldpwd;
 
-    home = get_env_value(env, "HOME");
-    oldpwd = ft_getcwd();
-    if (oldpwd == NULL)
-        return (1);
-    
-   
+int	run_cd(t_data *data, t_cmd *cmd)
+{
+	char	*oldpwd;
+	int		ret;
+
+	if (search_flags(cmd->args, "cd"))
+		return (2);
+	if (cmd->nargs != 2)
+		return (ft_error("cd", WRONG_ARG, 1));
+	ret = cd_access(cmd->args[1]);
+	if (ret != 0)
+		return (ret);
+	oldpwd = ft_getcwd();
+	if (oldpwd == NULL)
+		return (1);
+	free(oldpwd);
+	if (cd_access(cmd->args[1]))
+		return (1);
+	if (cd_path(&data->env, cmd))
+		return (1);
+	data->env_matrix = env_as_matrix(data->env, data->env_matrix);
+	return (0);
 }

@@ -6,18 +6,17 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 21:20:51 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/09 20:00:59 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/13 22:40:21 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+//TODO: TO MANY FUNCTIONS
 void	remove_file(const char *filename)
 {
-	// Check if file exists
 	if (access(filename, F_OK) != 0)
 		return ;
-	// Delete file
 	if (unlink(filename) != 0)
 		perror("unlink");
 }
@@ -128,7 +127,6 @@ void	free_tokens(t_token *token_list)
 
 void	free_token(t_token *token)
 {
-	// printf("%s\n, TOKEN TOKEN TOKEN\n", token->content);
 	if (token->content)
 		free_ptr(token->content);
 	token->content = NULL;
@@ -139,7 +137,7 @@ void	free_token(t_token *token)
 
 void	ft_free_split(char **split)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!split || !*split)

@@ -6,13 +6,13 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:19:03 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/12 19:45:04 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/13 22:28:16 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-//Limpia espacions y tokens vacios
+// Limpia espacions y tokens vacios
 void	clear_list(t_token **token_list)
 {
 	t_token	*token;
@@ -21,22 +21,23 @@ void	clear_list(t_token **token_list)
 	token = *token_list;
 	while (token)
 	{
-        tmp = token->next;
-	    if (token->type == SPC ||(token->content && ft_strlen(token->content) == 0))
-	    {
-		    if (token->prev)
-		    	token->prev->next = token->next;
-		    if (token->next)
-		    	token->next->prev = token->prev;
-		    free_token(token);
-	    }
-        token = tmp;
-    }
+		tmp = token->next;
+		if (token->type == SPC || (token->content
+				&& ft_strlen(token->content) == 0))
+		{
+			if (token->prev)
+				token->prev->next = token->next;
+			if (token->next)
+				token->next->prev = token->prev;
+			free_token(token);
+		}
+		token = tmp;
+	}
 }
 
 // Actualiza la lista de tokens
-void	update_list(t_token **token_list, t_token **tmp,
-		t_token **merge_last_t, t_token **token)
+void	update_list(t_token **token_list, t_token **tmp, t_token **merge_last_t,
+		t_token **token)
 {
 	if ((*token)->prev)
 	{

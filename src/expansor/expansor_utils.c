@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expansor_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:22:37 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/07 19:01:45 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/13 22:27:18 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-//Search key in str, return value found in env.
+// Search key in str, return value found in env.
 char	*value_search(t_data *data, char *str, int *index)
 {
 	char	*key;
@@ -41,7 +41,7 @@ void	expand_var(int *i, char **newcont, char *str)
 	char	*var;
 
 	start = *i;
-	while (str[*i + 1] && str[*i + 1] != '$' )
+	while (str[*i + 1] && str[*i + 1] != '$')
 		*i += 1;
 	var = ft_substr(str, start, *i - start + 1);
 	*newcont = ft_strjoin_f(*newcont, var, 3);
