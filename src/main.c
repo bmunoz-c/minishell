@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/16 18:13:35 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/16 18:56:26 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,10 @@ int	main(int ac, char **av, char **env)
 	copy_env(env, &data);
 	while (42)
 	{
-		//init_signals(1);
-		//signal(SIGQUIT, handle_signal);
 		read_prompt(&data);
 		if (!data.prompt || !*data.prompt)
 			continue ;
-		//signal(SIGINT, handle_signal_prompt);
+		// signal(SIGINT, handle_signal_prompt);
 		tokenizer(&data, 0);
 		if (syntax_error(&data, &data.token_list, 0))
 		{
