@@ -1,0 +1,90 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clean_utils_2.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/17 17:58:07 by bmunoz-c          #+#    #+#             */
+/*   Updated: 2025/01/17 18:00:47 by bmunoz-c         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <minishell.h>
+
+void	remove_file(const char *filename)
+{
+	if (access(filename, F_OK) != 0)
+		return ;
+	if (unlink(filename) != 0)
+		perror("unlink");
+}
+
+void	free_data(t_data *data, int env_flag)
+{
+	if (!data)
+		return ;
+	free_ptr(data->prompt);
+	if (data->env && env_flag)
+	{
+		free_env(data->env);
+		ft_free_split(data->env_matrix);
+		data->env = NULL;
+	}
+	if (data->token_list)
+	{
+		free_tokens(data->token_list);
+		data->token_list = NULL;
+	}
+	if (data->cmd_list)
+	{
+		free_cmds(data->cmd_list);
+		data->cmd_list = NULL;
+	}
+	if (data->err_msg)
+	{
+		free_ptr(data->err_msg);
+		data->err_msg = NULL;
+	}
+	remove_file(HEREDOC_NAME);
+}
+
+void	free_cmds(t_cmd *cmd_list)
+{
+	t_cmd	*tmp_lst;
+	t_cmd	*tmp_cmd;
+
+	tmp_lst = cmd_list;
+	while (tmp_lst)
+	{
+		tmp_cmd = tmp_lst;
+		tmp_lst = tmp_lst->next;
+		free_cmd(tmp_cmd);
+		tmp_cmd = NULL;
+	}
+}
+
+void	*free_cmd(t_cmd *cmd)
+{
+	int	i;
+
+	if (!cmd)
+		return (NULL);
+	if (cmd->path)
+		free_ptr(cmd->path);
+	if (cmd->args)
+	{
+		i = 0;
+		while (cmd->args && cmd->args[i])
+		{
+			free_ptr(cmd->args[i]);
+			i++;
+		}
+		free(cmd->args);
+		cmd->args = NULL;
+	}
+	// close(cmd->in_fd);
+	// close(cmd->out_fd);
+	free(cmd);
+	return (NULL);
+}

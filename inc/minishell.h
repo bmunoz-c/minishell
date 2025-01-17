@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/16 18:14:49 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/17 18:21:27 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,14 @@ int			run_exit(t_cmd *cmd, t_data *data, int is_child);
 int			run_env(t_data *data);
 int			run_unset(char **cmd, t_data *data);
 int			run_export(t_data *data, t_cmd *cmd);
+///////////// EXPORT_UTILS
+int			valid_varname(char *str);
+char		*export_var(t_env *env, char *arg, t_data *data, char *key);
+char		*rm_plus(char *str);
+char   		*get_key(char *str);
+void    	update_environment(t_data *data, const char *arg, char *key, int export_code);
+
+
 int			run_cd(t_data *data, t_cmd *cmd);
 
 //////////// BUILTINS UTILS

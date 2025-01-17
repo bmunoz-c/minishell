@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 01:47:22 by borjamc           #+#    #+#             */
-/*   Updated: 2025/01/16 17:53:49 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/17 17:54:54 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,14 @@ char	*syntax_char(t_token *tmp)
 	return (NULL);
 }
 
-// tmp->type almacena el tipo de token.
+/*
+- tmp->type almacena el tipo de token.
+- 39: Cerrar el mensaje con una comilla y salto de línea.
+*/
 int	syntax_error_msg(t_data *data, char *ch_err)
 {
 	data->err_msg = ft_strdup("dancingShell: syntax error near unexpected token `");
 	data->err_msg = ft_strjoin_f(data->err_msg, ch_err, 1);
-	// Cerrar el mensaje con una comilla y salto de línea.
 	data->err_msg = ft_strjoin_f(data->err_msg, "\'\n", 1);
 	data->err_code = SYNTAX_ERROR;
 	printf("%s", data->err_msg);
@@ -83,6 +85,12 @@ int	here_doc_error(t_data *data)
 	return (1);
 }
 
+/*
+- Si el token actual es una redirección:
+	- Si no tiene next, es un error.
+	- Si el siguiente token es una redirección, es un error.
+	- Si el token actual es una redirección y no tiene prev, es un error.
+*/
 int	syntax_error(t_data *data, t_token **token, int after_heredoc)
 {
 	t_token	*tmp;
@@ -95,16 +103,13 @@ int	syntax_error(t_data *data, t_token **token, int after_heredoc)
 		return (0);
 	while (tmp)
 	{
-		// Si el token actual es una redirección:
 		if (tmp->type > 4 && tmp->type < 9)
 		{
-			// Si no tiene next, es un error.
 			if (!tmp->next)
 				return (syntax_error_msg(data, "newline"));
-			// Si el siguiente token es una redirección, es un error.
 			if (tmp->next->type > 4 && tmp->next->type < 9)
 				return (syntax_error_msg(data, syntax_char(tmp->next)));
-			// OJO ESTIII
+			// OJO ESTO
 			(void)after_heredoc;
 			// if(!tmp->prev && (tmp->type != HERE_DOC || after_heredoc ))
 			//	return (0);

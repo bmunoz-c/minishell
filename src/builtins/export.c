@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:04:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/16 20:40:09 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/17 18:27:56 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ char	*export_var(t_env *env, char *arg, t_data *data, char *key)
 
 	TODO: Anadir variable para guardar el error code y retornarlo al final
 */
-int	run_export(t_data *data, t_cmd *cmd)
+/* int	run_export(t_data *data, t_cmd *cmd)
 {
 	char	*key;
 	char	*old;
@@ -172,6 +172,34 @@ int	run_export(t_data *data, t_cmd *cmd)
 		}
 		free_ptr(key);
 		data->env_matrix = env_as_matrix(data->env, data->env_matrix);
+	}
+	return (EXIT_SUCCESS);
+} */
+
+int	run_export(t_data *data, t_cmd *cmd)
+{
+	int		i;
+	char	*key;
+	int		export_code;
+
+	data->err_code = EXIT_SUCCESS;
+	if (search_flags(cmd->args, "export"))
+		return (SYNTAX_ERROR);
+	if (!cmd->args[1])
+	{
+		print_env(data->env);
+		return (EXIT_SUCCESS);
+	}
+	i = 0;
+	while (cmd->args[++i])
+	{
+		key = get_key(cmd->args[i]);
+		export_code = valid_varname(cmd->args[i]);
+		if (export_code == 0)
+			ft_error("export", "not a valid identifier", 1);
+		else
+			update_environment(data, cmd->args[i], key, export_code);
+		free_ptr(key);
 	}
 	return (EXIT_SUCCESS);
 }
