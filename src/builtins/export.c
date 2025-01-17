@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:04:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/17 18:27:56 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/17 19:45:07 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ int	run_export(t_data *data, t_cmd *cmd)
 		return (SYNTAX_ERROR);
 	if (!cmd->args[1])
 	{
-		print_env(data->env);
+		print_export(data->env);
 		return (EXIT_SUCCESS);
 	}
 	i = 0;

@@ -6,12 +6,35 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 18:05:01 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/17 18:33:10 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/17 19:47:16 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+/*
+	Print the environment variables in the format
+	"declare -x key=value".
+*/
+void	print_export(t_env *env)
+{
+	t_env	*tmp;
+
+	tmp = env;
+	while (tmp)
+	{
+		if (tmp->value)
+		{
+			printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
+		}
+		else
+			printf("declare -x %s\n", tmp->key);
+		tmp = tmp->next;
+	}
+}
+/*
+	Get the key from a string before the first '='.
+*/
 char	*get_key(char *str)
 {
 	char	*key;
@@ -25,6 +48,9 @@ char	*get_key(char *str)
 	return (key);
 }
 
+/*
+	Update the environment variable with the new value.
+*/
 void	update_environment(t_data *data, const char *arg, char *key,
 		int export_code)
 {
