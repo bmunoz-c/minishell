@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_ptr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltrevin- <ltrevin-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 20:21:33 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/12/27 16:58:16 by ltrevin-         ###   ########.fr       */
+/*   Updated: 2025/01/17 20:30:51 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,3 +19,15 @@ void	*free_ptr(void *ptr)
 	ptr = NULL;
 	return (NULL);
 }
+
+/* 
+//TODO: PROBAR ESTA FUNCION
+void free_ptr(void *ptr)
+{
+    if (ptr)
+    {
+        free(ptr);
+        ptr = NULL;
+    }
+}
+*/

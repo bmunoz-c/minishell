@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/17 19:36:14 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/17 20:30:59 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void		init_cmd_data(t_cmd *cmd, t_token *tk_first, t_token *tk_last);
 void		init_data(t_data *data);
 
 //////////// FREE utils
+//void		*free_ptr(void **ptr);
 void		*free_ptr(void *ptr);
 void		*free_cmd(t_cmd *cmd);
 void		free_cmds(t_cmd *cmd_list);

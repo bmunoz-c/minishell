@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/16 18:56:26 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/17 20:26:47 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,18 @@ void	read_prompt(t_data *data)
 	if (!dirty_prompt)
 		return ;
 	add_history(dirty_prompt);
+	
+	/* if (data->prompt)
+	{
+		free(data->prompt);
+		data->prompt = NULL;
+	} */
+		
 	data->prompt = ft_strtrim(dirty_prompt, " ");
 	free(dirty_prompt);
 	dirty_prompt = NULL;
+	if (!data->prompt)
+		printf("Error: ft_strtrim faied to allocate mem\n");
 }
 
 int	check_heredoc(t_token *tk_lst, t_data *data)
@@ -104,8 +113,13 @@ int	main(int ac, char **av, char **env)
 	while (42)
 	{
 		read_prompt(&data);
+		//BORJA
 		if (!data.prompt || !*data.prompt)
+		{
+			free(data.prompt);
+			data.prompt = NULL;
 			continue ;
+		}
 		// signal(SIGINT, handle_signal_prompt);
 		tokenizer(&data, 0);
 		if (syntax_error(&data, &data.token_list, 0))

@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 18:05:01 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/17 19:47:16 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/17 19:49:47 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	print_export(t_env *env)
 		tmp = tmp->next;
 	}
 }
+
 /*
 	Get the key from a string before the first '='.
 */
