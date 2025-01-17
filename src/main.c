@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/17 20:26:47 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/17 21:01:02 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	read_prompt(t_data *data)
 	signal(SIGQUIT, handle_signal_prompt);
 	dirty_prompt = readline(PROMPT);
 	if (!dirty_prompt)
-		return ;
+		exit(127);
 	add_history(dirty_prompt);
 	
 	/* if (data->prompt)

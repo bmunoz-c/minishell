@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/17 20:30:59 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/17 20:59:57 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void		init_cmd_data(t_cmd *cmd, t_token *tk_first, t_token *tk_last);
 void		init_data(t_data *data);
 
 //////////// FREE utils
-//void		*free_ptr(void **ptr);
+// void		*free_ptr(void **ptr);
 void		*free_ptr(void *ptr);
 void		*free_cmd(t_cmd *cmd);
 void		free_cmds(t_cmd *cmd_list);
@@ -76,7 +76,7 @@ void		free_data(t_data *data, int env_flag);
 /* int			init_signals(int mode);
 void		set_sig_ignore(int signum);
 void		ctrlc_handler(int sig);
-void		exit_signal_handler(int sig); */
+void	exit_signal_handler(int sig); */
 
 void		handle_signal(int signal);
 void		handle_signal_prompt(int signal);
@@ -97,11 +97,9 @@ int			valid_varname(char *str);
 char		*export_var(t_env *env, char *arg, t_data *data, char *key);
 char		*rm_plus(char *str);
 void		print_export(t_env *env);
-void		print_ord_alph_env(t_env *env);
-char   		*get_key(char *str);
-void    	update_environment(t_data *data, const char *arg, char *key, int export_code);
-
-
+char		*get_key(char *str);
+void		update_environment(t_data *data, const char *arg, char *key,
+				int export_code);
 int			run_cd(t_data *data, t_cmd *cmd);
 
 //////////// BUILTINS UTILS
