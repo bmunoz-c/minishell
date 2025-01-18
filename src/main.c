@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/17 21:01:02 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/18 13:10:37 by borjamc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ int	check_heredoc(t_token *tk_lst, t_data *data)
 			del = tk->next;
 			while (del->type == SPC)
 				del = del->next;
-			if (del->type != WORD && del->type && DQ_STR && del->type != SQ_STR)
+			//HABIA UN ERROR AQUI
+			if (del->type != WORD && del->type != DQ_STR && del->type != SQ_STR)
 			{
 				syntax_error_msg(data, "heredoc");
 				return (0);

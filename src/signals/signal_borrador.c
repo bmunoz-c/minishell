@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_borrador.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
+/*   By: borjamc <borjamc@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 17:55:01 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/16 17:55:05 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/18 12:59:41 by borjamc          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	handle_signal_prompt(int signal)
 	if (g_sig_exit_status == SIGINT)
 	{
 		printf("\n");
-		rl_replace_line("", 0);
+		//rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}
