@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:19:03 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/23 17:31:01 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/23 20:17:54 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	merge_tokens(t_token **token_list)
 	while (token)
 	{
 		if ((token->type == WORD || token->type == SQ_STR
-			|| token->type == DQ_STR) && token->next)
+				|| token->type == DQ_STR) && token->next)
 		{
 			tmp = merge_token(token, &merge_last_t);
 			if (tmp)

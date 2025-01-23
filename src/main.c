@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/23 18:25:34 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/23 20:18:43 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	heredoc(t_data data, const char *del, int expand)
 	char	*line;
 	int		fd;
 	t_token	*tk;
-	//TODO 
+
+	// TODO
 	printf("Expandir: %d\n", expand);
 	fd = open(HEREDOC_NAME, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
 	while (42)
@@ -60,13 +61,11 @@ void	read_prompt(t_data *data)
 	if (!dirty_prompt)
 		exit(127);
 	add_history(dirty_prompt);
-	
 	/* if (data->prompt)
 	{
 		free(data->prompt);
 		data->prompt = NULL;
 	} */
-		
 	data->prompt = ft_strtrim(dirty_prompt, " ");
 	free(dirty_prompt);
 	dirty_prompt = NULL;
@@ -87,14 +86,14 @@ int	check_heredoc(t_token *tk_lst, t_data *data)
 			del = tk->next;
 			while (del->type == SPC)
 				del = del->next;
-			//TODO: chequear cuando hay comillas despues del word, en el del.
+			// TODO: chequear cuando hay comillas despues del word, en el del.
 			if (del->type != WORD && del->type != DQ_STR && del->type != SQ_STR)
 			{
 				syntax_error_msg(data, "heredoc");
 				return (0);
 			}
 			printf("heredoc: |%s|\n", del->content);
-			printf("heredoc: |%i|\n", del->type);	
+			printf("heredoc: |%i|\n", del->type);
 			heredoc(*data, del->content, del->type == WORD);
 		}
 		tk = tk->next;
@@ -119,7 +118,7 @@ int	main(int ac, char **av, char **env)
 	while (42)
 	{
 		read_prompt(&data);
-		//BORJA
+		// BORJA
 		if (!data.prompt || !*data.prompt)
 		{
 			free(data.prompt);
@@ -132,11 +131,11 @@ int	main(int ac, char **av, char **env)
 		{
 			if (check_heredoc(data.token_list, &data))
 			{
-				//print_token_list(data.token_list);
-				//printf("#################################\n");
+				// print_token_list(data.token_list);
+				// printf("#################################\n");
 				expansor(&data.token_list, &data);
-				//print_token_list(data.token_list);
-				//printf("#################################\n");
+				// print_token_list(data.token_list);
+				// printf("#################################\n");
 				merge_tokens(&data.token_list);
 				print_token_list(data.token_list);
 				if (syntax_error(&data, &data.token_list, 1))

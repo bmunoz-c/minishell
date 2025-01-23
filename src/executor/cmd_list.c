@@ -6,13 +6,13 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/23 19:46:07 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/23 20:15:09 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static int	free_on_error (t_cmd *cmd, int i_args)
+static int	free_on_error(t_cmd *cmd, int i_args)
 {
 	while (i_args > 0)
 		free(cmd->args[--i_args]);
@@ -23,7 +23,7 @@ static int	free_on_error (t_cmd *cmd, int i_args)
 /*
 // Fills the command arguments array. (Validacion, iteracion, finalizacion).
 - TODO: He añadido un if en la linea 34.
-- TODO: He añadido tk_list != '\0' en la 40.
+- TODO: He añadido tk_list != '\0' en la 42.
 - TODO: He modificado el if de la 48 par acortar lineas.
 - TODO: He creado free_on_error para acortar la funcion. Usada en la 49.
 */
@@ -62,7 +62,7 @@ int	populate_args(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 
 // Handles input and output redirections
 // Function to handle input and output redirections
-	// printf("redirs handled\n"); - al final de la funcion.
+// printf("redirs handled\n"); - al final de la funcion.
 
 int	search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 {
@@ -153,8 +153,8 @@ t_cmd	*group_cmd(t_data *data, t_token *tk_list)
 		{
 			tk = tk->next->next;
 			tk_list = tk_list->next->next;
-			continue;
-		} 
+			continue ;
+		}
 		if (tk->type == PIPE)
 		{
 			cmd = build_cmd(data, tk_list, tk);
