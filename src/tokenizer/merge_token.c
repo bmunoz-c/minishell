@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:19:03 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/13 22:28:16 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/23 17:31:01 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	clear_list(t_token **token_list)
 	while (token)
 	{
 		tmp = token->next;
+		if (token->content)
+			printf("Token content: %s\n", token->content);
 		if (token->type == SPC || (token->content
 				&& ft_strlen(token->content) == 0))
 		{
@@ -29,7 +31,8 @@ void	clear_list(t_token **token_list)
 				token->prev->next = token->next;
 			if (token->next)
 				token->next->prev = token->prev;
-			free_token(token);
+			if (token->next || token->prev)
+				free_token(token);
 		}
 		token = tmp;
 	}
@@ -68,8 +71,8 @@ void	merge_tokens(t_token **token_list)
 	merge_last_t = NULL;
 	while (token)
 	{
-		if (token->type == WORD || token->type == SQ_STR
-			|| token->type == DQ_STR)
+		if ((token->type == WORD || token->type == SQ_STR
+			|| token->type == DQ_STR) && token->next)
 		{
 			tmp = merge_token(token, &merge_last_t);
 			if (tmp)

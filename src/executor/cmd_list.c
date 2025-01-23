@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/23 16:33:58 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/23 19:46:07 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ static int	free_on_error (t_cmd *cmd, int i_args)
 
 /*
 // Fills the command arguments array. (Validacion, iteracion, finalizacion).
-- TODO: He añadido un if en la linea 22.
-- TODO: He añadido un while en la linea 37 para liberar
-		todos los args previamente duplicados si falla. Revisar si es necesario.
-- TODO: He añadido tk_list != '\0' en la 32.
+- TODO: He añadido un if en la linea 34.
+- TODO: He añadido tk_list != '\0' en la 40.
+- TODO: He modificado el if de la 48 par acortar lineas.
+- TODO: He creado free_on_error para acortar la funcion. Usada en la 49.
 */
 int	populate_args(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 {
@@ -130,6 +130,7 @@ void	add_cmd(t_cmd **cmd_list, t_cmd *cmd)
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = cmd;
+	tmp->next->next = NULL;
 }
 
 // Takes the token list and creates a command list.
@@ -148,6 +149,12 @@ t_cmd	*group_cmd(t_data *data, t_token *tk_list)
 	cmd_list = NULL;
 	while (tk)
 	{
+		if (tk->type == HERE_DOC)
+		{
+			tk = tk->next->next;
+			tk_list = tk_list->next->next;
+			continue;
+		} 
 		if (tk->type == PIPE)
 		{
 			cmd = build_cmd(data, tk_list, tk);

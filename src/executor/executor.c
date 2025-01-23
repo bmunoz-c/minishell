@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:50:26 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/16 16:57:07 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/23 20:03:52 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,37 +56,69 @@ void	handle_builtin(t_data *data, t_cmd *cmd, int child)
 	data->err_code = err_code;
 }
 
-void	run_pipeline(t_data *data, t_cmd *cmd_list)
+void	create_pipes(int *pipefd, int count_pipes)
 {
-	int			pipefd[2];
+	int	i;
+
+	i = 0;
+	while (i < count_pipes)
+	{
+		if (pipe(pipefd + i * 2) == -1)
+		{
+			perror("pipe");
+			exit(EXIT_FAILURE);
+		}
+		i++;
+	}
+}
+
+void	close_all_pipes(int *pipefd, int count_pipes)
+{
+	int	i;
+
+	i = 0;
+	while (i < count_pipes * 2)
+	{
+		close(pipefd[i]);
+		i++;
+	}
+}
+
+void	wait_for_children(int cmd_count)
+{
+	int	i;
+
+	i = 0;
+	while (i <= cmd_count)
+	{
+		wait(NULL);
+		i++;
+	}
+}
+
+void	run_pipeline(t_data *data, t_cmd *cmd_list, int count_pipes)
+{
+	int			pipefd[count_pipes * 2];
 	pid_t		pid;
+	int			cmd_count;
 	const int	save_std[2] = {dup(STDIN_FILENO), dup(STDOUT_FILENO)};
 
-	int fd_in = STDIN_FILENO; // Input for the first command
-	int last_pid = -1;        // To keep track of the last process ID
+	cmd_count = 0;
+	printf("count_pipes: %d\n", count_pipes);
+	create_pipes(pipefd, count_pipes);
 	while (cmd_list)
 	{
+		// Configuramos el input
+		if (cmd_count > 0)
+			dup2(pipefd[cmd_count * 2 - 2], STDIN_FILENO);
+		// Configuramos el output
 		if (cmd_list->next)
-		{
-			if (pipe(pipefd) == -1)
-			{
-				perror("pipe");
-				exit(EXIT_FAILURE);
-			}
-		}
-		else
-		{
-			pipefd[0] = STDIN_FILENO;
-			if (cmd_list->out_fd != STDOUT_FILENO)
-				pipefd[1] = cmd_list->out_fd;
-			else
-				pipefd[1] = STDOUT_FILENO;
-		}
+			dup2(pipefd[cmd_count * 2 + 1], STDOUT_FILENO);
 		pid = fork();
 		if (pid == 0)
 		{
-			// Child
-			dup_fds(fd_in, pipefd[1], STDIN_FILENO, STDOUT_FILENO);
+			/// Child
+			close_all_pipes(pipefd, count_pipes);
 			if (cmd_list->builtin)
 				handle_builtin(data, cmd_list, 1);
 			else if (cmd_list->path && execve(cmd_list->path, cmd_list->args,
@@ -104,24 +136,34 @@ void	run_pipeline(t_data *data, t_cmd *cmd_list)
 		else
 		{
 			// parent
-			last_pid = pid;
-			close(pipefd[1]);
-			fd_in = pipefd[0];
+			dup2(save_std[1], STDOUT_FILENO);
+			dup2(save_std[0], STDIN_FILENO);
 		}
 		cmd_list = cmd_list->next;
+		cmd_count++;
 	}
-	waitpid(last_pid, NULL, 0);
-	dup_fds(save_std[0], save_std[1], STDIN_FILENO, STDOUT_FILENO);
+	close_all_pipes(pipefd, count_pipes);
+	wait_for_children(cmd_count);
 }
 
 void	execute(t_data *data)
 {
+	int		count_pipes;
+	t_cmd	*current;
+
+	count_pipes = 0;
 	data->cmd_list = group_cmd(data, data->token_list);
 	print_cmd(data->cmd_list);
+	current = data->cmd_list;
+	while (current && current->next)
+	{
+		count_pipes++;
+		current = current->next;
+	}
 	if (!data->cmd_list)
 		return ;
 	if (!data->cmd_list->next && data->cmd_list->builtin)
 		handle_builtin(data, data->cmd_list, 0);
 	else
-		run_pipeline(data, data->cmd_list);
+		run_pipeline(data, data->cmd_list, count_pipes);
 }

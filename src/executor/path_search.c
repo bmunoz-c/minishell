@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 00:49:05 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/13 22:27:04 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/23 17:38:19 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*search_in_env(t_data *data, char *cmd)
 // TODO: if this func returns 0 and it's not a builtin throw cmd not found
 int	handle_command_path(t_data *data, t_cmd *cmd, char *content, t_token *tk)
 {
-	if (tk->type != WORD)
+	if (tk->type != WORD && tk->type != DQ_STR && tk->type != SQ_STR)
 		return (1);
 	if (ft_strncmp(content, "echo", 5) == 0 || ft_strncmp(content, "cd", 3) == 0
 		|| ft_strncmp(content, "pwd", 4) == 0 || ft_strncmp(content, "export",

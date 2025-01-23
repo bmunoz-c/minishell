@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/23 15:51:09 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/23 18:25:34 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,21 @@ int		g_sig_exit_status = 0;
 
 // TODO: call it in main before expansor.
 // Add to the main data struct a fd to store the heredoc content
-// add the name of the file in the prompt
+// add the name of the file in the prompt.
+// HE ARREGLADO EL ERROR DE HEREDOC CON CONTRL D, linea 32 y 32.
 void	heredoc(t_data data, const char *del, int expand)
 {
 	char	*line;
 	int		fd;
 	t_token	*tk;
-
+	//TODO 
+	printf("Expandir: %d\n", expand);
 	fd = open(HEREDOC_NAME, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
 	while (42)
 	{
 		line = readline("> ");
+		if (line == NULL)
+			break ;
 		if (ft_strncmp(line, del, ft_strlen(del) + 1) == 0)
 			break ;
 		if (expand)
@@ -83,14 +87,15 @@ int	check_heredoc(t_token *tk_lst, t_data *data)
 			del = tk->next;
 			while (del->type == SPC)
 				del = del->next;
-			//HABIA UN ERROR AQUI
+			//TODO: chequear cuando hay comillas despues del word, en el del.
 			if (del->type != WORD && del->type != DQ_STR && del->type != SQ_STR)
 			{
 				syntax_error_msg(data, "heredoc");
 				return (0);
 			}
 			printf("heredoc: |%s|\n", del->content);
-			heredoc(*data, del->content, tk->type == WORD);
+			printf("heredoc: |%i|\n", del->type);	
+			heredoc(*data, del->content, del->type == WORD);
 		}
 		tk = tk->next;
 	}
@@ -127,15 +132,18 @@ int	main(int ac, char **av, char **env)
 		{
 			if (check_heredoc(data.token_list, &data))
 			{
-				print_token_list(data.token_list);
-				printf("#################################\n");
+				//print_token_list(data.token_list);
+				//printf("#################################\n");
 				expansor(&data.token_list, &data);
-				print_token_list(data.token_list);
-				printf("#################################\n");
+				//print_token_list(data.token_list);
+				//printf("#################################\n");
 				merge_tokens(&data.token_list);
 				print_token_list(data.token_list);
 				if (syntax_error(&data, &data.token_list, 1))
+				{
+					printf("Intento ejecutar\n");
 					execute(&data);
+				}
 			}
 		}
 		free_data(&data, 0);
