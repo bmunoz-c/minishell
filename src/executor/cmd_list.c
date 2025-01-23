@@ -6,37 +6,51 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/16 17:52:40 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/23 16:33:58 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-// Fills the command arguments array
+static int	free_on_error (t_cmd *cmd, int i_args)
+{
+	while (i_args > 0)
+		free(cmd->args[--i_args]);
+	free_cmd(cmd);
+	return (0);
+}
+
+/*
+// Fills the command arguments array. (Validacion, iteracion, finalizacion).
+- TODO: He añadido un if en la linea 22.
+- TODO: He añadido un while en la linea 37 para liberar
+		todos los args previamente duplicados si falla. Revisar si es necesario.
+- TODO: He añadido tk_list != '\0' en la 32.
+*/
 int	populate_args(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 {
 	int	i_args;
 
-	i_args = 0;
-	if (!cmd->args)
+	if (!cmd || !cmd->args || !tk_list)
 		return (0);
-	if (cmd->args && cmd->args[0])
+	i_args = 0;
+	if (cmd->args[0])
 	{
 		i_args = 1;
 		tk_list = tk_list->next;
 	}
-	while (tk_list != tk_last)
+	while (tk_list && tk_list != tk_last)
 	{
 		if (tk_list->type == WORD || tk_list->type == SQ_STR
 			|| tk_list->type == DQ_STR)
 		{
-			cmd->args[i_args] = ft_strdup(tk_list->content);
+			// TODO: este if reduce la funcion a 25 lineas. Revisar
+			if (!(cmd->args[i_args++] = ft_strdup(tk_list->content)))
+				return (free_on_error(cmd, i_args - 1));
+			/*cmd->args[i_args] = ft_strdup(tk_list->content);
 			if (!cmd->args[i_args])
-			{
-				free_cmd(cmd);
-				return (0);
-			}
-			i_args++;
+				return (free_on_error(cmd, i_args));
+			i_args++;*/
 		}
 		else
 			break ;

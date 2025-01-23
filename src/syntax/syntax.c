@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 01:47:22 by borjamc           #+#    #+#             */
-/*   Updated: 2025/01/17 17:54:54 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/23 16:03:06 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*syntax_char(t_token *tmp)
 */
 int	syntax_error_msg(t_data *data, char *ch_err)
 {
-	data->err_msg = ft_strdup("dancingShell: syntax error near unexpected token `");
+	data->err_msg = ft_strdup(SYNT_ERR_UN_T);
 	data->err_msg = ft_strjoin_f(data->err_msg, ch_err, 1);
 	data->err_msg = ft_strjoin_f(data->err_msg, "\'\n", 1);
 	data->err_code = SYNTAX_ERROR;
@@ -41,8 +41,10 @@ int	syntax_error_msg(t_data *data, char *ch_err)
 	return (0);
 }
 
-// 0 = EMPTY, 1 == WORD, 2 = SQ_STR, 3 = DQ_STR, 4 = PIPE.
-// Return 1 if the pipe is in the correct position.
+/*
+- 0 = EMPTY, 1 == WORD, 2 = SQ_STR, 3 = DQ_STR, 4 = PIPE.
+- Return 1 if the pipe is in the correct position.
+*/
 int	syntax_pipe(t_token *tk_lst, t_data *data)
 {
 	t_token	*tmp;

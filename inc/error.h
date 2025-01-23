@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:00:32 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/13 22:47:31 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/23 16:02:06 by bmunoz-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 
 //_____TOKENIZER_ERRORS_____//
 # define NEAR_UN_TOKEN "near unexpexted token "
+# define SYNT_ERR_UN_T "dancingShell: syntax error near unexpected token `"
 # define QUOTE_FORMAT_ERROR "quotes not closed correctly"
 
 # define FLAG_FOUND "%s %s: %c%c: options are not allowed\n"
