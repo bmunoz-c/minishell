@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/23 20:18:43 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/24 17:41:27 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	heredoc(t_data data, const char *del, int expand)
 	// TODO
 	printf("Expandir: %d\n", expand);
 	fd = open(HEREDOC_NAME, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
+	signal(SIGINT, heredoc_handler);
 	while (42)
 	{
 		line = readline("> ");
@@ -125,17 +126,16 @@ int	main(int ac, char **av, char **env)
 			data.prompt = NULL;
 			continue ;
 		}
-		// signal(SIGINT, handle_signal_prompt);
 		tokenizer(&data, 0);
 		if (syntax_error(&data, &data.token_list, 0))
 		{
 			if (check_heredoc(data.token_list, &data))
 			{
-				// print_token_list(data.token_list);
-				// printf("#################################\n");
+				print_token_list(data.token_list);
+				printf("#################################\n");
 				expansor(&data.token_list, &data);
-				// print_token_list(data.token_list);
-				// printf("#################################\n");
+				print_token_list(data.token_list);
+				printf("#################################\n");
 				merge_tokens(&data.token_list);
 				print_token_list(data.token_list);
 				if (syntax_error(&data, &data.token_list, 1))

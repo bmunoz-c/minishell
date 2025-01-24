@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.c                                         :+:      :+:    :+:   */
+/*   exeggutor.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:50:26 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/23 20:03:52 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/24 17:53:05 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	close_all_pipes(int *pipefd, int count_pipes)
 		close(pipefd[i]);
 		i++;
 	}
+	free(pipefd);
 }
 
 void	wait_for_children(int cmd_count)
@@ -98,11 +99,17 @@ void	wait_for_children(int cmd_count)
 
 void	run_pipeline(t_data *data, t_cmd *cmd_list, int count_pipes)
 {
-	int			pipefd[count_pipes * 2];
+	int			*pipefd;
 	pid_t		pid;
 	int			cmd_count;
 	const int	save_std[2] = {dup(STDIN_FILENO), dup(STDOUT_FILENO)};
 
+	pipefd = malloc(sizeof(int) * (count_pipes * 2));
+	if (!pipefd)
+	{
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
 	cmd_count = 0;
 	printf("count_pipes: %d\n", count_pipes);
 	create_pipes(pipefd, count_pipes);

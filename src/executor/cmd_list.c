@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/23 20:15:09 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/24 18:04:07 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ static int	free_on_error(t_cmd *cmd, int i_args)
 /*
 // Fills the command arguments array. (Validacion, iteracion, finalizacion).
 - TODO: He añadido un if en la linea 34.
-- TODO: He añadido tk_list != '\0' en la 42.
-- TODO: He modificado el if de la 48 par acortar lineas.
+- TODO: He modificado el if de la 47 par acortar lineas.
 - TODO: He creado free_on_error para acortar la funcion. Usada en la 49.
 */
 int	populate_args(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
@@ -39,18 +38,14 @@ int	populate_args(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 		i_args = 1;
 		tk_list = tk_list->next;
 	}
-	while (tk_list && tk_list != tk_last)
+	while (tk_list != tk_last)
 	{
-		if (tk_list->type == WORD || tk_list->type == SQ_STR
-			|| tk_list->type == DQ_STR)
+		if (tk_list->type == 1 || tk_list->type == 2 || tk_list->type == 3)
 		{
-			// TODO: este if reduce la funcion a 25 lineas. Revisar
-			if (!(cmd->args[i_args++] = ft_strdup(tk_list->content)))
-				return (free_on_error(cmd, i_args - 1));
-			/*cmd->args[i_args] = ft_strdup(tk_list->content);
+			cmd->args[i_args] = ft_strdup(tk_list->content);
 			if (!cmd->args[i_args])
 				return (free_on_error(cmd, i_args));
-			i_args++;*/
+			i_args++;
 		}
 		else
 			break ;
