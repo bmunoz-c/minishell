@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/24 17:41:27 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/24 20:26:16 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,38 +18,39 @@ int		g_sig_exit_status = 0;
 // Add to the main data struct a fd to store the heredoc content
 // add the name of the file in the prompt.
 // HE ARREGLADO EL ERROR DE HEREDOC CON CONTRL D, linea 32 y 32.
-void	heredoc(t_data data, const char *del, int expand)
-{
-	char	*line;
-	int		fd;
-	t_token	*tk;
+// void	heredoc(t_data data, const char *del, int expand)
+// {
+// 	char	*line;
+// 	int		fd;
+// 	t_token	*tk;
 
-	// TODO
-	printf("Expandir: %d\n", expand);
-	fd = open(HEREDOC_NAME, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
-	signal(SIGINT, heredoc_handler);
-	while (42)
-	{
-		line = readline("> ");
-		if (line == NULL)
-			break ;
-		if (ft_strncmp(line, del, ft_strlen(del) + 1) == 0)
-			break ;
-		if (expand)
-		{
-			tk = new_token(ft_strdup(line), WORD);
-			expansor(&tk, &data);
-			free_ptr(line);
-			if (tk)
-				line = ft_strdup(tk->content);
-			free_token(tk);
-		}
-		ft_putendl_fd(line, fd);
-		free_ptr(line);
-	}
-	free_ptr(line);
-	close(fd);
-}
+// 	// TODO
+// 	printf("Expandir: %d\n", expand);
+// 	fd = open(HEREDOC_NAME, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
+// 	signal(SIGINT, heredoc_handler);
+// 	(void)expand;
+// 	while (42)
+// 	{
+// 		line = readline("> ");
+// 		if (line == NULL)
+// 			break ;
+// 		if (ft_strncmp(line, del, ft_strlen(del) + 1) == 0)
+// 			break ;
+// 		// if (expand)
+// 		// {
+// 		// 	tk = new_token(ft_strdup(line), WORD);
+// 		// 	expansor(&tk, &data);
+// 		// 	free_ptr(line);
+// 		// 	if (tk)
+// 		// 		line = ft_strdup(tk->content);
+// 		// 	free_token(tk);
+// 		// }
+// 		ft_putendl_fd(line, fd);
+// 		free_ptr(line);
+// 	}
+// 	free_ptr(line);
+// 	close(fd);
+// }
 
 void	read_prompt(t_data *data)
 {
@@ -93,9 +94,11 @@ int	check_heredoc(t_token *tk_lst, t_data *data)
 				syntax_error_msg(data, "heredoc");
 				return (0);
 			}
+			// if (del->type == DQ_STR || del->type == SQ_STR)
+			// 	merge_tokens(&tk);
 			printf("heredoc: |%s|\n", del->content);
 			printf("heredoc: |%i|\n", del->type);
-			heredoc(*data, del->content, del->type == WORD);
+			exec_here(data, del->content);
 		}
 		tk = tk->next;
 	}

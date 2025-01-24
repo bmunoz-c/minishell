@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/24 17:36:30 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/24 20:26:25 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,3 +119,9 @@ int			handle_command_path(t_data *data, t_cmd *cmd, char *content,
 ////////// BUG: Print utils, delete before submit
 void		print_env(t_env *env);
 void		print_cmd(t_cmd *cmd);
+
+////////// HEREDOC
+
+void	exec_here(t_data *data, const char *del);
+void	print_here(t_data *data, const char *del, int fd);
+

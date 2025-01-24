@@ -6,7 +6,7 @@
 #    By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
-#    Updated: 2025/01/24 17:37:52 by jsebasti         ###   ########.fr        #
+#    Updated: 2025/01/24 20:10:21 by jsebasti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRC 			:=	main.c \
 					builtins/echo.c builtins/pwd.c builtins/exit.c builtins/export.c builtins/export_utils.c\
 					builtins/env.c builtins/unset.c builtins/cd.c builtins/utils.c\
 					tokenizer/tokenizer.c tokenizer/token_type.c tokenizer/merge_token.c\
-					executor/exeggutor.c executor/cmd_list.c executor/path_search.c\
+					executor/exeggutor.c executor/heredoc.c executor/cmd_list.c executor/path_search.c\
 					expansor/expansor.c expansor/expansor_utils.c\
 					syntax/syntax.c signals/signal_borrador.c\
 					utils/init_data.c	utils/print_utils.c	utils/clean_utils.c \
