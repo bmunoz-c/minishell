@@ -6,7 +6,7 @@
 #    By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
-#    Updated: 2025/01/25 09:40:12 by jsebasti         ###   ########.fr        #
+#    Updated: 2025/01/25 09:52:52 by jsebasti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,9 +38,9 @@ SRC 			:=	main.c \
 					executor/exeggutor.c executor/cmd_list.c executor/path_search.c\
 					expansor/expansor.c expansor/expansor_utils.c\
 					syntax/syntax.c signals/signal_borrador.c\
-					heredoc/heredoc.c \
-					utils/init_data.c	utils/print_utils.c	utils/clean_utils.c \
-					utils/env_utils.c	utils/env_matrix_utils.c utils/clean_utils_2.c 		
+					utils/init_data.c utils/print_utils.c utils/clean_utils.c\
+					utils/env_utils.c utils/env_matrix_utils.c utils/clean_utils_2.c\
+					heredoc/heredoc.c
 SRC				:= $(addprefix $(SRC_DIR), $(SRC))
 OBJ				= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
@@ -68,7 +68,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADER) Makefile $(LIBFT_EXEC) | $(OBJ_DIR) libft
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR) $(OBJ_DIR)builtins $(OBJ_DIR)tokenizer
-	@mkdir -p $(OBJ_DIR)expansor $(OBJ_DIR)executor $(OBJ_DIR)prep_exec
+	@mkdir -p $(OBJ_DIR)expansor $(OBJ_DIR)executor $(OBJ_DIR)heredoc
 	@mkdir -p $(OBJ_DIR)syntax  $(OBJ_DIR)signals $(OBJ_DIR)utils
 	@echo "$(WHITE_BOLD)Created obj dir!$(DEF_COLOR)"
 

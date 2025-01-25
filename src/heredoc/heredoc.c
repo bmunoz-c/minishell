@@ -6,7 +6,7 @@
 /*   By: jsebasti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 17:45:11 by jsebasti          #+#    #+#             */
-/*   Updated: 2025/01/25 09:44:10 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/25 09:59:25 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int	check_heredoc(t_token *tk_lst, t_data *data)
 				return (0);
 			}
 			del = get_delimiter(tmp_del);
+			printf("DELIMITER |%s|\n", del->content);
 			exec_here(del->content);
 			free(del);
 		}
