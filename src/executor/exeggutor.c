@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:50:26 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/24 17:53:05 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/25 09:10:42 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	run_pipeline(t_data *data, t_cmd *cmd_list, int count_pipes)
 		exit(EXIT_FAILURE);
 	}
 	cmd_count = 0;
-	printf("count_pipes: %d\n", count_pipes);
+	// printf("count_pipes: %d\n", count_pipes);
 	create_pipes(pipefd, count_pipes);
 	while (cmd_list)
 	{
@@ -160,7 +160,7 @@ void	execute(t_data *data)
 
 	count_pipes = 0;
 	data->cmd_list = group_cmd(data, data->token_list);
-	print_cmd(data->cmd_list);
+	// print_cmd(data->cmd_list);
 	current = data->cmd_list;
 	while (current && current->next)
 	{

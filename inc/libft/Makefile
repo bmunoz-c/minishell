@@ -36,7 +36,7 @@ INCLUDE		=	libft.h Makefile
 #_____Commands_____#
 LIB			=	ar -rcs
 CC			=	gcc
-CCFLAGS		=	-Wall -Wextra -Werror
+CCFLAGS		=	-Wall -Wextra -Werror -g -fsanitize=address
 RM			=	rm -f
 
 

@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:07:10 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/13 22:38:00 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/25 09:03:46 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,15 @@ void	init_cmd_data(t_cmd *cmd, t_token *tk_first, t_token *tk_last)
 		if (tk_first->type == WORD || tk_first->type == DQ_STR
 			|| tk_first->type == SQ_STR)
 			cmd->nargs++;
+		else if (tk_first->type == HERE_DOC)
+		{
+			cmd->nargs++;
+			tk_first = tk_first->next;
+		}
 		else
 			break ;
-		tk_first = tk_first->next;
+		if (tk_first)
+			tk_first = tk_first->next;
 	}
 	cmd->args = ft_calloc(sizeof(char *) * (cmd->nargs + 1), 1);
 }

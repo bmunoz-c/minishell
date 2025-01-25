@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:19:03 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/24 19:49:59 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/25 09:33:55 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,14 @@ t_token	*merge_token(t_token *token, t_token **merge_last_t)
 	t_token	*newtoken;
 
 	(void)merge_last_t;
-	newtoken = new_token(ft_strdup(token->content), SQ_STR);
+	newtoken = new_token(ft_strdup(token->content), token->type);
 	tmp = token->next;
 	while (tmp && (tmp->type == WORD || tmp->type == SQ_STR
 			|| tmp->type == DQ_STR))
 	{
 		newtoken->content = ft_strjoin_f(newtoken->content, tmp->content, 1);
-		*merge_last_t = tmp;
+		if (merge_last_t)
+			*merge_last_t = tmp;
 		tmp = tmp->next;
 	}
 	if (ft_strlen(newtoken->content) <= ft_strlen(token->content))

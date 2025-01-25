@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/24 18:04:07 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/25 09:12:28 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,14 @@ int	populate_args(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 			if (!cmd->args[i_args])
 				return (free_on_error(cmd, i_args));
 			i_args++;
+		}
+		else if (tk_list->type == HERE_DOC)
+		{
+			cmd->args[i_args] = ft_strdup(HEREDOC_NAME);
+			if (!cmd->args[i_args])
+				return (free_on_error(cmd, i_args));
+			i_args++;
+			break ;
 		}
 		else
 			break ;
@@ -108,7 +116,7 @@ t_cmd	*build_cmd(t_data *data, t_token *tk_list, t_token *tk_last)
 		return (free_cmd(cmd));
 	if (search_redirs(cmd, tk_list->next, tk_last))
 		return (free_cmd(cmd));
-	printf("cmd builded!\n\n");
+	// printf("cmd builded!\n\n");
 	return (cmd);
 }
 
@@ -142,12 +150,14 @@ t_cmd	*group_cmd(t_data *data, t_token *tk_list)
 
 	tk = tk_list;
 	cmd_list = NULL;
+	// printf("===============================================\n");
+	// print_token_list(tk_list);
+	// printf("===============================================\n");
 	while (tk)
 	{
 		if (tk->type == HERE_DOC)
 		{
 			tk = tk->next->next;
-			tk_list = tk_list->next->next;
 			continue ;
 		}
 		if (tk->type == PIPE)
@@ -159,8 +169,9 @@ t_cmd	*group_cmd(t_data *data, t_token *tk_list)
 		}
 		tk = tk->next;
 	}
-	if (tk_list)
+	if (tk_list && tk_list->type != HERE_DOC)
 	{
+		// printf("CONTENT: %s\n\n", tk_list->content);
 		cmd = build_cmd(data, tk_list, NULL);
 		if (cmd)
 			add_cmd(&cmd_list, cmd);
