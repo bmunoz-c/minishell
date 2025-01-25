@@ -6,18 +6,20 @@
 /*   By: jsebasti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 17:45:11 by jsebasti          #+#    #+#             */
-/*   Updated: 2025/01/25 09:59:25 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/25 10:10:24 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void	exec_here(const char *del)
+void	exec_here(t_token *delimiter)
 {
 	int	pid;
 	int	status;
 	int	fd;
+	const char	*del;
 
+	del = delimiter->content;
 	fd = open(HEREDOC_NAME, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
 	pid = fork();
 	signal(SIGINT, SIG_IGN);
@@ -32,6 +34,7 @@ void	exec_here(const char *del)
 	g_sig_exit_status = WEXITSTATUS(status);
 	signal(SIGINT, handle_signal_prompt);
 	signal(SIGQUIT, SIG_IGN);
+	free(delimiter);
 	close(fd);
 }
 
@@ -86,9 +89,7 @@ int	check_heredoc(t_token *tk_lst, t_data *data)
 				return (0);
 			}
 			del = get_delimiter(tmp_del);
-			printf("DELIMITER |%s|\n", del->content);
-			exec_here(del->content);
-			free(del);
+			exec_here(del);
 		}
 		tk = tk->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/25 09:35:35 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/25 10:10:40 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,6 @@ void		print_cmd(t_cmd *cmd);
 
 ////////// HEREDOC
 
-void	exec_here(const char *del);
+void	exec_here(t_token *delimiter);
 void	print_here(const char *del, int fd);
 int		check_heredoc(t_token *tk_list, t_data *data);
