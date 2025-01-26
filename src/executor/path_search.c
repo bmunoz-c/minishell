@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 00:49:05 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/25 09:11:23 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/26 22:38:59 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,21 @@ char	*search_in_env(t_data *data, char *cmd)
 // TODO: if this func returns 0 and it's not a builtin throw cmd not found
 int	handle_command_path(t_data *data, t_cmd *cmd, char *content, t_token *tk)
 {
-	// printf("TYPE: %i\n", tk->type);
+	int flag;
+
+	flag = 1;
+	while (tk->type == INPUT)
+	{
+		if (search_redirs(cmd, tk, NULL))
+			return (0);
+		tk = tk->next->next;
+		if (!tk)
+			return (0);
+		content = tk->content;
+		flag = 2;
+	}
 	if (tk->type != WORD && tk->type != DQ_STR && tk->type != SQ_STR)
-		return (1);
+		return (0);
 	if (ft_strncmp(content, "echo", 5) == 0 || ft_strncmp(content, "cd", 3) == 0
 		|| ft_strncmp(content, "pwd", 4) == 0 || ft_strncmp(content, "export",
 			7) == 0 || ft_strncmp(content, "unset", 6) == 0
@@ -98,7 +110,7 @@ int	handle_command_path(t_data *data, t_cmd *cmd, char *content, t_token *tk)
 	{
 		cmd->builtin = 1;
 		cmd->path = ft_strdup(content);
-		return (1);
+		return (flag);
 	}
 	if (verify_path(content) == IS_F_EXEC)
 		cmd->path = ft_strdup(content);
@@ -108,8 +120,7 @@ int	handle_command_path(t_data *data, t_cmd *cmd, char *content, t_token *tk)
 		cmd->args[0] = ft_strdup(cmd->path);
 		cmd->args[1] = NULL;
 	}
-	cmd->builtin = 0;
 	if (!cmd->path)
 		return (0);
-	return (1);
+	return (flag);
 }

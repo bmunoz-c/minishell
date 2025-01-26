@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 01:47:22 by borjamc           #+#    #+#             */
-/*   Updated: 2025/01/23 16:03:06 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/26 21:27:02 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	syntax_error_msg(t_data *data, char *ch_err)
 	data->err_msg = ft_strjoin_f(data->err_msg, ch_err, 1);
 	data->err_msg = ft_strjoin_f(data->err_msg, "\'\n", 1);
 	data->err_code = SYNTAX_ERROR;
-	printf("%s", data->err_msg);
+	write(2, data->err_msg, ft_strlen(data->err_msg));
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/25 10:10:40 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/26 22:06:32 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,14 +114,16 @@ void		execute(t_data *data);
 int			handle_command_path(t_data *data, t_cmd *cmd, char *content,
 				t_token *tk);
 
-#endif
-
-////////// BUG: Print utils, delete before submit
-void		print_env(t_env *env);
-void		print_cmd(t_cmd *cmd);
+int			search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last);
 
 ////////// HEREDOC
 
 void	exec_here(t_token *delimiter);
 void	print_here(const char *del, int fd);
 int		check_heredoc(t_token *tk_list, t_data *data);
+
+#endif
+////////// BUG: Print utils, delete before submit
+void		print_env(t_env *env);
+void		print_cmd(t_cmd *cmd);
+char		*get_tokentype(int n);

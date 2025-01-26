@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/25 09:12:28 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/26 22:33:18 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,33 +67,86 @@ int	populate_args(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 // Function to handle input and output redirections
 // printf("redirs handled\n"); - al final de la funcion.
 
+// int	search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
+// {
+// 	while (tk_list != tk_last)
+// 	{
+// 		if (tk_list->type == INPUT)
+// 		{
+// 			cmd->in_fd = open(tk_list->next->content, O_RDONLY);
+// 			if (cmd->in_fd < 0)
+// 				return (1);
+// 			tk_list = tk_list->next;
+// 		}
+// 		else if (tk_list->type == OUTPUT || tk_list->type == APPEND)
+// 		{
+// 			if (tk_list->type == OUTPUT)
+// 				cmd->out_fd = open(tk_list->next->content,
+// 						O_WRONLY | O_CREAT | O_TRUNC, 0644);
+// 			else
+// 				cmd->out_fd = open(tk_list->next->content,
+// 						O_WRONLY | O_CREAT | O_APPEND, 0644);
+// 			if (cmd->out_fd < 0)
+// 				return (1);
+// 			tk_list = tk_list->next;
+// 		}
+// 		else if (tk_list->type == HERE_DOC)
+// 		{
+// 			cmd->in_fd = open(HEREDOC_NAME, O_RDONLY);
+// 			if (cmd->in_fd < 0)
+// 				return (1);
+// 		}
+// 		tk_list = tk_list->next;
+// 	}
+// 	return (0);
+// }
+
+int	open_file(int *fd, char *path, int flags, int mode)
+{
+	*fd = open(path, flags, mode);
+	if (*fd < 0)
+		return (1);
+	return (0);
+}
+
 int	search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 {
 	while (tk_list != tk_last)
 	{
+		if (tk_list->type == PIPE)
+			break ;
 		if (tk_list->type == INPUT)
 		{
-			cmd->in_fd = open(tk_list->next->content, O_RDONLY);
-			if (cmd->in_fd < 0)
+			if (!tk_list->next)
+				return (1);
+			if (open_file(&cmd->in_fd, tk_list->next->content, O_RDONLY, 0))
+			{
+				perror(tk_list->next->content);
+				return (1);
+			}
+			tk_list = tk_list->next;
+		}
+		else if (tk_list->type == OUTPUT)
+		{
+			if (!tk_list->next)
+				return (1);
+			if (open_file(&cmd->out_fd, tk_list->next->content,
+					O_WRONLY | O_CREAT | O_TRUNC, 0644))
 				return (1);
 			tk_list = tk_list->next;
 		}
-		else if (tk_list->type == OUTPUT || tk_list->type == APPEND)
+		else if (tk_list->type == APPEND)
 		{
-			if (tk_list->type == OUTPUT)
-				cmd->out_fd = open(tk_list->next->content,
-						O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			else
-				cmd->out_fd = open(tk_list->next->content,
-						O_WRONLY | O_CREAT | O_APPEND, 0644);
-			if (cmd->out_fd < 0)
+			if (!tk_list->next)
+				return (1);
+			if (open_file(&cmd->out_fd, tk_list->next->content,
+					O_WRONLY | O_CREAT | O_APPEND, 0644))
 				return (1);
 			tk_list = tk_list->next;
 		}
 		else if (tk_list->type == HERE_DOC)
 		{
-			cmd->in_fd = open(HEREDOC_NAME, O_RDONLY);
-			if (cmd->in_fd < 0)
+			if (open_file(&cmd->in_fd, HEREDOC_NAME, O_RDONLY, 0))
 				return (1);
 		}
 		tk_list = tk_list->next;
@@ -105,18 +158,23 @@ int	search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 t_cmd	*build_cmd(t_data *data, t_token *tk_list, t_token *tk_last)
 {
 	t_cmd	*cmd;
+	int		input;
 
 	cmd = malloc(sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
 	init_cmd_data(cmd, tk_list, tk_last);
-	if (!handle_command_path(data, cmd, tk_list->content, tk_list))
+	input = handle_command_path(data, cmd, tk_list->content, tk_list);
+	if (input == 0)
 		return (free_cmd(cmd));
+	else if (input == 2)
+		tk_list = tk_list->next->next;
+	printf("tk: %s %s\n", get_tokentype(tk_list->type), tk_list->content);
 	if (!populate_args(cmd, tk_list, tk_last) || !cmd->args)
 		return (free_cmd(cmd));
-	if (search_redirs(cmd, tk_list->next, tk_last))
+	if (search_redirs(cmd, tk_list->next, tk_last) == 1)
 		return (free_cmd(cmd));
-	// printf("cmd builded!\n\n");
+	printf("cmd builded!\n\n");
 	return (cmd);
 }
 
@@ -150,9 +208,9 @@ t_cmd	*group_cmd(t_data *data, t_token *tk_list)
 
 	tk = tk_list;
 	cmd_list = NULL;
-	// printf("===============================================\n");
-	// print_token_list(tk_list);
-	// printf("===============================================\n");
+	printf("===============================================\n");
+	print_token_list(tk_list);
+	printf("===============================================\n");
 	while (tk)
 	{
 		if (tk->type == HERE_DOC)
@@ -169,7 +227,7 @@ t_cmd	*group_cmd(t_data *data, t_token *tk_list)
 		}
 		tk = tk->next;
 	}
-	if (tk_list && tk_list->type != HERE_DOC)
+	if (tk_list)
 	{
 		// printf("CONTENT: %s\n\n", tk_list->content);
 		cmd = build_cmd(data, tk_list, NULL);
