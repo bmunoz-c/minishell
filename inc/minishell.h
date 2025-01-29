@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/29 07:35:10 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/29 12:30:48 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ void		copy_env(char **org_env, t_data *data);
 
 # define PROMPT "\033[0;35mdancingShell🩰🦦 \033[0;34m> \033[0m"
 
+# define EXIT_SUCCES 0
+# define EXIT_FAILURE 1
+
 ///////////// INIT STRUCTS
 void		init_data(t_data *data);
 void		init_cmd_data(t_cmd *cmd, t_token *tk_first, t_token *tk_last);
@@ -78,9 +81,9 @@ void		set_sig_ignore(int signum);
 void		ctrlc_handler(int sig);
 void	exit_signal_handler(int sig); */
 
-void		heredoc_handler(int signal);
-void		handle_signal(int signal);
-void		handle_signal_prompt(int signal);
+void		heredoc_handler(int sig);
+void		handle_signal(int sig);
+void		handle_signal_prompt(int sig);
 
 void		ft_free_split(char **split);
 

@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 21:00:32 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/23 16:02:06 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/29 11:27:40 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define STAT_ERR "Stat function failed"
 
 //_____CMD_ERRORS_____//
-# define CMDNOTFND "Command not found"
+# define CMDNOTFND ": command not found\n"
 
 //_____TOKENIZER_ERRORS_____//
 # define NEAR_UN_TOKEN "near unexpexted token "

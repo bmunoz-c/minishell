@@ -6,13 +6,13 @@
 /*   By: bmunoz-c <bmunoz-c@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 17:48:51 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2024/02/05 17:54:55 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/29 12:06:26 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+void	ft_putstr_fd(const char *s, int fd)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 20:47:49 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/13 22:29:00 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/29 10:01:54 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ t_env	*new_env(char *key, char *value)
 		return (free_ptr(env));
 	env->key = key;
 	env->value = ft_strdup(value);
-	if (!env->value)
-		env->value = ft_strdup("");
 	env->next = NULL;
 	return (env);
 }

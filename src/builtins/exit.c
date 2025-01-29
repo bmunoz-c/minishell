@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:20:01 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/16 15:35:28 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/29 11:31:06 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ char	check_ll_max_min(const char *str)
 	len = ft_strlen(str);
 	if (len > 19)
 		return (0);
-	if (len < 19)
-		return (1);
 	if (str[0] == '-')
 	{
 		if (ft_strncmp("9223372036854775808", &(str[i]), len) < 0)
@@ -102,8 +100,6 @@ int	run_exit(t_cmd *cmd, t_data *data, int is_child)
 	}
 	if (cmd && cmd->nargs > 2)
 		return (print_err_many_args_exit(data));
-	if (!cmd)
-		data->err_code = 1;
 	exit(data->err_code);
 	return (EXIT_SUCCESS);
 }

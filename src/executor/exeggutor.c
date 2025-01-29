@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:50:26 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/29 08:06:41 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/29 12:34:53 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,10 @@ void	handle_builtin(t_data *data, t_cmd *cmd, int child)
 	else if (ft_strncmp(cmd->path, "env", 4) == 0)
 		err_code = run_env(data);
 	else if (ft_strncmp(cmd->path, "exit", 5) == 0)
-	{
-		run_exit(cmd, data, 0);
-		return ;
-	}
+		err_code = run_exit(cmd, data, 0);
 	dup_fds(save_std[0], save_std[1], STDIN_FILENO, STDOUT_FILENO);
 	if (child)
-		exit(EXIT_SUCCESS);
+		exit(err_code);
 	data->err_code = err_code;
 }
 
@@ -85,15 +82,31 @@ void	close_all_pipes(int *pipefd, int count_pipes)
 	free_ptr(pipefd);
 }
 
-void	wait_for_children(int cmd_count)
+void	wait_for_children(t_data *data, int cmd_count)
 {
 	int	i;
+	int	exit_status;
 
 	i = 0;
 	while (i <= cmd_count)
 	{
-		wait(NULL);
+		wait(&exit_status);
 		i++;
+	}
+	if (WIFEXITED(exit_status))
+		data->err_code = WEXITSTATUS(exit_status);
+	else if (WIFSIGNALED(exit_status))
+	{
+		if (WTERMSIG(exit_status) == SIGINT)
+		{
+			printf("\n");
+			data->err_code = 130;
+		}
+		else if (WTERMSIG(exit_status) == SIGQUIT)
+		{
+			data->err_code = 131;
+			printf("Quit: 3\n");
+		}
 	}
 }
 
@@ -121,12 +134,16 @@ void	run_pipeline(t_data *data, t_cmd *cmd_list, int count_pipes)
 		if (cmd_count > 0 && cmd_list->in_fd == 0)
 			dup2(pipefd[cmd_count * 2 - 2], STDIN_FILENO);
 		// Configuramos el output
+		if (cmd_list->out_fd != 1)
+			dup2(cmd_list->out_fd, STDOUT_FILENO);
 		if (cmd_list->next)
 			dup2(pipefd[cmd_count * 2 + 1], STDOUT_FILENO);
 		pid = fork();
+		signal(SIGINT, SIG_IGN);
 		if (pid == 0)
 		{
 			/// Child
+			signal(SIGINT, handle_signal);
 			close_all_pipes(pipefd, count_pipes);
 			if (cmd_list->builtin)
 				handle_builtin(data, cmd_list, 1);
@@ -152,7 +169,9 @@ void	run_pipeline(t_data *data, t_cmd *cmd_list, int count_pipes)
 		cmd_count++;
 	}
 	close_all_pipes(pipefd, count_pipes);
-	wait_for_children(cmd_count);
+	wait_for_children(data, cmd_count);
+	signal(SIGINT, handle_signal_prompt);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	execute(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 00:49:05 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/29 07:38:09 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/29 12:36:22 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,11 @@ int	handle_command_path(t_data *data, t_cmd *cmd, char *content, t_token *tk)
 		cmd->args[1] = NULL;
 	}
 	if (!cmd->path)
+	{
+		ft_putstr_fd(content, 2);
+		ft_putstr_fd(CMDNOTFND, 2);
+		data->err_code = 127;
 		return (0);
+	}
 	return (flag);
 }

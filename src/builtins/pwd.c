@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:24:43 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/16 15:33:05 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/29 09:50:32 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,16 @@ int	run_pwd(t_data *data)
 	char	*pwd;
 
 	if (search_flags(data->cmd_list->args, "pwd"))
-		return (SYNTAX_ERROR);
+		return (EXIT_FAILURE);
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 	{
 		get_env_value(data->env, "PWD");
 		if (!pwd)
+		{
 			ft_putstr_fd(NOFILEDIR, 2);
+			return (EXIT_FAILURE);
+		}
 	}
 	ft_putstr_fd(pwd, 1);
 	ft_putstr_fd("\n", 1);

@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/25 09:39:14 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/29 10:36:51 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	read_prompt(t_data *data)
 {
 	char	*dirty_prompt;
 
-	printf(RED "$?: %d\n" RESET, data->err_code);
 	dirty_prompt = readline(PROMPT);
 	if (!dirty_prompt)
 		exit(127);

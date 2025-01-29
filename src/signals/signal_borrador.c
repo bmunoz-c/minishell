@@ -6,32 +6,25 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 17:55:01 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/24 17:35:12 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/29 12:31:10 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <signal.h>
 
-void	handle_signal(int signal)
+void	handle_signal(int sig)
 {
-	g_sig_exit_status = signal;
-	if (g_sig_exit_status == SIGINT)
-	{
-		printf("\n");
-		exit(130);
-	}
-	else if (g_sig_exit_status == SIGQUIT)
-	{
+	write(1, "a", 1);
+	if (sig == SIGINT)
+		write(1, "\n", 1);
+	else if (sig == SIGQUIT)
 		printf("Quit (core dumped)\n");
-		exit(131);
-	}
 }
 
-void	handle_signal_prompt(int signal)
+void	handle_signal_prompt(int sig)
 {
-	g_sig_exit_status = signal;
-	if (g_sig_exit_status == SIGINT)
+	if (sig == SIGINT)
 	{
 		printf("\n");
 		rl_replace_line("", 0);
@@ -40,14 +33,3 @@ void	handle_signal_prompt(int signal)
 	}
 }
 
-void	heredoc_handler(int sig)
-{
-	if (sig == SIGINT)
-	{
-		rl_replace_line("", 1);
-		rl_on_new_line();
-		rl_redisplay();
-		ft_putstr_fd("\n", 1);
-		g_sig_exit_status = 1;
-	}
-}

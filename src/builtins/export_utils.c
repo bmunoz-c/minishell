@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 18:05:01 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/17 19:49:47 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/29 10:07:56 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,10 @@ void	print_export(t_env *env)
 	tmp = env;
 	while (tmp)
 	{
+		printf("declare -x %s", tmp->key);
 		if (tmp->value)
-		{
-			printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
-		}
-		else
-			printf("declare -x %s\n", tmp->key);
+			printf("=\"%s\"", tmp->value);
+		printf("\n");
 		tmp = tmp->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jsebasti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 17:45:11 by jsebasti          #+#    #+#             */
-/*   Updated: 2025/01/25 10:10:24 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/29 12:06:08 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,25 @@ void	exec_here(t_token *delimiter)
 void	print_here(const char *del, int fd)
 {
 	char	*line;
+	int		n_line;
 
 	line = readline("> ");
+	n_line = 1;
 	while (line != NULL && ft_strncmp(line, del, ft_strlen(del) + 1))
 	{
 		ft_putendl_fd(line, fd);
 		free_ptr(line);
+		n_line++;
 		line = readline("> ");
+	}
+	if (!line)
+	{
+		line = ft_itoa(n_line);
+		ft_putstr_fd("warning: here-document at line ", 2);
+		ft_putstr_fd(line, 2);
+		ft_putstr_fd(" delimited by end-of-file (wanted\'", 2);
+		ft_putstr_fd(del, 2);
+		ft_putstr_fd("\')\n", 2);
 	}
 	free_ptr(line);
 }

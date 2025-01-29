@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 17:22:37 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/13 22:27:18 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/29 09:38:56 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ char	*value_search(t_data *data, char *str, int *index)
 	key = ft_substr(str, *index + 1, len);
 	if (!key)
 		return (NULL);
-	value = ft_strdup(get_env_value(data->env, key));
+	if (ft_strncmp(key, "?", ft_strlen(key)))
+		value = ft_strdup(get_env_value(data->env, key));
+	else
+		value = ft_itoa(data->err_code);
 	free(key);
 	*index = j;
 	if (!value)

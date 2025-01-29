@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 22:04:56 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/13 22:25:55 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/29 09:40:23 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	run_echo(char **args)
 	if (!args[0])
 	{
 		ft_putchar_fd('\n', 1);
-		return (0);
+		return (1);
 	}
 	i = 1;
 	while (args[i] && check_option(args[i], &new_line))
@@ -53,7 +53,7 @@ int	run_echo(char **args)
 	}
 	if (new_line)
 		ft_putchar_fd('\n', 1);
-	return (1);
+	return (0);
 }
 
 /*int main(int argc, char **argv)

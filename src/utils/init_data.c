@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:07:10 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/26 22:02:52 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/29 10:37:38 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ void	init_data(t_data *data)
 	data->cmd_list = NULL;
 	data->path = NULL;
 	data->env_matrix = NULL;
-	data->err_code = 0;
+	data->err_code = g_sig_exit_status;
 	data->err_msg = NULL;
 }
