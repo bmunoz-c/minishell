@@ -6,32 +6,17 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:03:10 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/29 14:22:28 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/29 20:56:59 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-char	**env_as_matrix(t_env *env, char **arr)
+void	save_env_matrix(t_env *env, char **arr, char **data)
 {
-	char	**data;
-	t_env	*tmp;
-	int		i;
+	int	i;
 
 	i = 0;
-	tmp = env;
-	while (env)
-	{
-		env = env->next;
-		i++;
-	}
-	if (i == 0)
-		return (NULL);
-	data = ft_calloc(sizeof(char *), (i + 1));
-	if (!data)
-		return (NULL);
-	i = 0;
-	env = tmp;
 	while (env)
 	{
 		if (!env->value)
@@ -46,6 +31,28 @@ char	**env_as_matrix(t_env *env, char **arr)
 		i++;
 	}
 	ft_free_split(arr);
+}
+
+char	**env_as_matrix(t_env *env, char **arr)
+{
+	char	**data;
+	t_env	*tmp;
+	int		i;
+
+	i = 0;
+	tmp = env;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	if (i == 0)
+		return (NULL);
+	data = ft_calloc(sizeof(char *), (i + 1));
+	if (!data)
+		return (NULL);
+	i = 0;
+	save_env_matrix(env, arr, data);
 	return (data);
 }
 

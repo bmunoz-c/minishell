@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/29 18:33:32 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/29 20:07:10 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	read_prompt(t_data *data)
 void	exec_minishell(t_data *data)
 {
 	while (42)
-	{	
+	{
 		read_prompt(data);
 		if (!data->prompt || !*data->prompt)
 		{

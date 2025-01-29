@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/29 19:14:39 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/29 20:58:03 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ void	dup_fds(int new_in, int new_out, int old_in, int old_out);
 void	close_all_pipes(int *pipefd, int count_pipes);
 void	wait_for_children(t_data *data, int cmd_count);
 void	create_pipes(int *pipefd, int count_pipes);
+void	asign_in_out(int *pipefd, t_cmd *cmd_list, int cmd_count);
 
 #endif
 ////////// BUG: Print utils, delete before submit

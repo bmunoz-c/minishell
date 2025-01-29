@@ -6,7 +6,7 @@
 #    By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
-#    Updated: 2025/01/29 19:15:57 by jsebasti         ###   ########.fr        #
+#    Updated: 2025/01/29 20:08:15 by jsebasti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ SRC 			:=	main.c \
 					tokenizer/tokenizer.c tokenizer/token_type.c tokenizer/merge_token.c\
 					executor/exeggutor.c executor/cmd_list.c executor/path_search.c executor/pipes.c\
 					expansor/expansor.c expansor/expansor_utils.c\
-					syntax/syntax.c signals/signal_borrador.c\
+					syntax/syntax.c signals/signals.c\
 					utils/init_data.c utils/print_utils.c utils/clean_utils.c\
 					utils/env_utils.c utils/env_matrix_utils.c utils/clean_utils_2.c\
 					heredoc/heredoc.c

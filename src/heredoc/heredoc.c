@@ -6,7 +6,7 @@
 /*   By: jsebasti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 17:45:11 by jsebasti          #+#    #+#             */
-/*   Updated: 2025/01/29 12:06:08 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/29 20:06:54 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	exec_here(t_token *delimiter)
 {
-	int	pid;
-	int	status;
-	int	fd;
+	int			pid;
+	int			status;
+	int			fd;
 	const char	*del;
 
 	del = delimiter->content;
