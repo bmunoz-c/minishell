@@ -6,11 +6,31 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 18:05:01 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/29 13:55:14 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/29 18:45:44 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+int	valid_varname(char *str)
+{
+	int	i;
+
+	if (!str)
+		return (1);
+	i = 0;
+	while (str[i] == '_' || ft_isalpha(str[i]))
+		i++;
+	if (str[i] == '\0')
+		return (4);
+	if (str[i] == '+' && str[i + 1] && str[i + 1] == '=')
+		return (2);
+	if (str[i] == '+' && !str[i + 1])
+		return (0);
+	if (str[i] == '=')
+		return (3);
+	return (0);
+}
 
 /*
 	Print the environment variables in the format

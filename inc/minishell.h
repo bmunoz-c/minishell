@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/29 12:30:48 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/29 19:14:39 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,6 @@ void		free_token(t_token *token);
 void		free_data(t_data *data, int env_flag);
 
 //////////// SIGNALS
-/* int			init_signals(int mode);
-void		set_sig_ignore(int signum);
-void		ctrlc_handler(int sig);
-void	exit_signal_handler(int sig); */
-
 void		heredoc_handler(int sig);
 void		handle_signal(int sig);
 void		handle_signal_prompt(int sig);
@@ -96,6 +91,7 @@ int			run_exit(t_cmd *cmd, t_data *data, int is_child);
 int			run_env(t_data *data);
 int			run_unset(char **cmd, t_data *data);
 int			run_export(t_data *data, t_cmd *cmd);
+
 ///////////// EXPORT_UTILS
 int			valid_varname(char *str);
 char		*export_var(t_env *env, char *arg, t_data *data, char *key);
@@ -124,6 +120,13 @@ int			search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last, int in_pathh
 void	exec_here(t_token *delimiter);
 void	print_here(const char *del, int fd);
 int		check_heredoc(t_token *tk_list, t_data *data);
+
+/////////	PIPES
+
+void	dup_fds(int new_in, int new_out, int old_in, int old_out);
+void	close_all_pipes(int *pipefd, int count_pipes);
+void	wait_for_children(t_data *data, int cmd_count);
+void	create_pipes(int *pipefd, int count_pipes);
 
 #endif
 ////////// BUG: Print utils, delete before submit

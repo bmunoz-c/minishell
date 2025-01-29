@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:16:51 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/29 13:51:49 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/29 18:54:07 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_data
 	char				*err_msg;
 	t_cmd				*cmd_list;
 	char				**env_matrix;
+	int					count_pipes;
 }						t_data;
 
 #endif
