@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:16:51 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/23 18:28:41 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/29 13:51:49 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ typedef enum e_token_type
 	SQ_STR,
 	DQ_STR,
 	PIPE,
-	//____Redirections_____//
 	INPUT,
 	OUTPUT,
 	APPEND,

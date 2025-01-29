@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:04:14 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/29 10:08:13 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/29 13:56:51 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,11 @@ int	run_export(t_data *data, t_cmd *cmd)
 	while (cmd->args[++i])
 	{
 		key = get_key(cmd->args[i]);
+		if (!key)
+		{
+			ft_error("export", "not a valid identifier", 1);
+			return (EXIT_FAILURE);
+		}
 		export_code = valid_varname(cmd->args[i]);
 		if (export_code == 0)
 			ft_error("export", "not a valid identifier", 1);

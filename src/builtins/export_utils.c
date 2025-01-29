@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 18:05:01 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/29 10:07:56 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/29 13:55:14 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ char	*get_key(char *str)
 {
 	char	*key;
 
+	if (str[0] == '\0')
+		return (NULL);
 	if (!ft_search_ch(str, '='))
 		key = ft_strdup(str);
 	else

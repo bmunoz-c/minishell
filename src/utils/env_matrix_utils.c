@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:03:10 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/29 10:10:15 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/29 14:22:28 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ char	**env_as_matrix(t_env *env, char **arr)
 		env = env->next;
 		i++;
 	}
+	if (i == 0)
+		return (NULL);
 	data = ft_calloc(sizeof(char *), (i + 1));
 	if (!data)
 		return (NULL);
@@ -34,6 +36,8 @@ char	**env_as_matrix(t_env *env, char **arr)
 	{
 		if (!env->value)
 		{
+			data[i] = env->key;
+			i++;
 			env = env->next;
 			continue ;
 		}

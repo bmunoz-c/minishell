@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 01:47:22 by borjamc           #+#    #+#             */
-/*   Updated: 2025/01/26 21:27:02 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/29 13:57:43 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,7 @@ int	syntax_error(t_data *data, t_token **token, int after_heredoc)
 			// if(!tmp->prev && (tmp->type != HERE_DOC || after_heredoc ))
 			//	return (0);
 		}
-		if (tmp)
-			tmp = tmp->next;
+		tmp = tmp->next;
 	}
 	return (1);
 }

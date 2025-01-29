@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 17:16:40 by borjamc           #+#    #+#             */
-/*   Updated: 2025/01/13 22:26:24 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/29 12:44:47 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ void	remove_var(t_data *data, t_env *current)
 	current->next = NULL;
 	current->prev = NULL;
 	free_env(current);
-	print_env(data->env);
-	ft_free_split(data->env_matrix);
 	data->env_matrix = env_as_matrix(data->env, data->env_matrix);
 }
 

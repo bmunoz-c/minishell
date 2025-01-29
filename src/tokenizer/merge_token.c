@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:19:03 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/25 09:57:23 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/29 13:53:07 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ void	clear_list(t_token **token_list)
 		tmp = token->next;
 		// if (token->content)
 		// 	printf("Token content: %s\n", token->content);
-		if (token->type == SPC || (token->content
-				&& ft_strlen(token->content) == 0))
+		if (token->type == SPC)
 		{
 			if (token->prev)
 				token->prev->next = token->next;
