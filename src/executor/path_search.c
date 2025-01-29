@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 00:49:05 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/26 22:38:59 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/29 07:38:09 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,9 @@ int	handle_command_path(t_data *data, t_cmd *cmd, char *content, t_token *tk)
 	int flag;
 
 	flag = 1;
-	while (tk->type == INPUT)
+	while (tk->type != WORD && tk->type != DQ_STR && tk->type != SQ_STR)
 	{
-		if (search_redirs(cmd, tk, NULL))
+		if (search_redirs(cmd, tk, NULL, 1) != 2)
 			return (0);
 		tk = tk->next->next;
 		if (!tk)
@@ -100,8 +100,6 @@ int	handle_command_path(t_data *data, t_cmd *cmd, char *content, t_token *tk)
 		content = tk->content;
 		flag = 2;
 	}
-	if (tk->type != WORD && tk->type != DQ_STR && tk->type != SQ_STR)
-		return (0);
 	if (ft_strncmp(content, "echo", 5) == 0 || ft_strncmp(content, "cd", 3) == 0
 		|| ft_strncmp(content, "pwd", 4) == 0 || ft_strncmp(content, "export",
 			7) == 0 || ft_strncmp(content, "unset", 6) == 0

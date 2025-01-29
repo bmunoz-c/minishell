@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 17:58:07 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/17 18:00:47 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/29 07:46:40 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,10 @@ void	*free_cmd(t_cmd *cmd)
 		free(cmd->args);
 		cmd->args = NULL;
 	}
-	// close(cmd->in_fd);
-	// close(cmd->out_fd);
+	if (cmd->in_fd != 0)
+		close(cmd->in_fd);
+	if (cmd->out_fd != 1)
+		close(cmd->out_fd);
 	free(cmd);
 	return (NULL);
 }

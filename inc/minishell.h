@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/26 22:06:32 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/29 07:35:10 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void		execute(t_data *data);
 int			handle_command_path(t_data *data, t_cmd *cmd, char *content,
 				t_token *tk);
 
-int			search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last);
+int			search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last, int in_pathhand);
 
 ////////// HEREDOC
 
