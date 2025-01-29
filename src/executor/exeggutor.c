@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:50:26 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/29 14:02:44 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/29 14:33:15 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ void	wait_for_children(t_data *data, int cmd_count)
 		}
 		else if (WTERMSIG(exit_status) == SIGQUIT)
 		{
+			printf("Quit (Core dumped)\n");
 			data->err_code = 131;
-			printf("Quit: 3\n");
 		}
 	}
 }
@@ -124,16 +124,13 @@ void	run_pipeline(t_data *data, t_cmd *cmd_list, int count_pipes)
 		exit(EXIT_FAILURE);
 	}
 	cmd_count = 0;
-	// printf("count_pipes: %d\n", count_pipes);
 	create_pipes(pipefd, count_pipes);
 	while (cmd_list)
 	{
 		if (cmd_list->in_fd != 0)
 			dup2(cmd_list->in_fd, STDIN_FILENO);
-		// Configuramos el input
 		if (cmd_count > 0 && cmd_list->in_fd == 0)
 			dup2(pipefd[cmd_count * 2 - 2], STDIN_FILENO);
-		// Configuramos el output
 		if (cmd_list->out_fd != 1)
 			dup2(cmd_list->out_fd, STDOUT_FILENO);
 		if (cmd_list->next)
@@ -142,8 +139,8 @@ void	run_pipeline(t_data *data, t_cmd *cmd_list, int count_pipes)
 		signal(SIGINT, SIG_IGN);
 		if (pid == 0)
 		{
-			/// Child
 			signal(SIGINT, handle_signal);
+			signal(SIGQUIT, SIG_DFL);
 			close_all_pipes(pipefd, count_pipes);
 			if (cmd_list->builtin)
 				handle_builtin(data, cmd_list, 1);
@@ -161,7 +158,6 @@ void	run_pipeline(t_data *data, t_cmd *cmd_list, int count_pipes)
 		}
 		else
 		{
-			// parent
 			dup2(save_std[1], STDOUT_FILENO);
 			dup2(save_std[0], STDIN_FILENO);
 		}
