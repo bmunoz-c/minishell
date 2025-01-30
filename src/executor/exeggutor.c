@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:50:26 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/29 19:28:51 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/30 02:38:46 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	execute(t_data *data)
 	t_cmd	*current;
 
 	data->count_pipes = 0;
-	data->cmd_list = group_cmd(data, data->token_list);
+	data->cmd_list = group_cmd(data, data->token_list, data->token_list);
 	current = data->cmd_list;
 	while (current && current->next)
 	{

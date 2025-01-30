@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 00:49:05 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/29 13:59:45 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/30 02:42:10 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*search_in_env(t_data *data, char *cmd)
 // TODO: if this func returns 0 and it's not a builtin throw cmd not found
 int	handle_command_path(t_data *data, t_cmd *cmd, char *content, t_token *tk)
 {
-	int flag;
+	int	flag;
 
 	flag = 1;
 	while (tk->type != WORD && tk->type != DQ_STR && tk->type != SQ_STR)
@@ -100,30 +100,12 @@ int	handle_command_path(t_data *data, t_cmd *cmd, char *content, t_token *tk)
 		content = tk->content;
 		flag = 2;
 	}
-	if (ft_strncmp(content, "echo", 5) == 0 || ft_strncmp(content, "cd", 3) == 0
-		|| ft_strncmp(content, "pwd", 4) == 0 || ft_strncmp(content, "export",
-			7) == 0 || ft_strncmp(content, "unset", 6) == 0
-		|| ft_strncmp(content, "env", 4) == 0 || ft_strncmp(content, "exit",
-			5) == 0)
-	{
-		cmd->builtin = 1;
-		cmd->path = ft_strdup(content);
+	if (check_builtin(cmd, content, flag))
 		return (flag);
-	}
 	if (verify_path(content) == IS_F_EXEC)
 		cmd->path = ft_strdup(content);
 	if (!cmd->path)
-	{
-		cmd->path = search_in_env(data, content);
-		cmd->args[0] = ft_strdup(cmd->path);
-		cmd->args[1] = NULL;
-	}
-	if (!cmd->path)
-	{
-		ft_putstr_fd(content, 2);
-		ft_putstr_fd(CMDNOTFND, 2);
-		data->err_code = 127;
-		return (0);
-	}
+		if (!check_relative_cmd(cmd, data, content))
+			return (0);
 	return (flag);
 }

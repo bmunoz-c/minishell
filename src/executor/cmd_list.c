@@ -6,19 +6,11 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/29 19:30:00 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/30 02:38:27 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-static int	free_on_error(t_cmd *cmd, int i_args)
-{
-	while (i_args > 0)
-		free(cmd->args[--i_args]);
-	free_cmd(cmd);
-	return (0);
-}
 
 /*
 // Fills the command arguments array. (Validacion, iteracion, finalizacion).
@@ -36,26 +28,12 @@ int	populate_args(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 	if (cmd->args[0])
 	{
 		i_args = 1;
-		if (tk_list->type != HERE_DOC)
-			tk_list = tk_list->next;
+		tk_list = tk_list->next;
 	}
 	while (tk_list != tk_last)
 	{
 		if (tk_list->type == 1 || tk_list->type == 2 || tk_list->type == 3)
-		{
-			cmd->args[i_args] = ft_strdup(tk_list->content);
-			if (!cmd->args[i_args])
-				return (free_on_error(cmd, i_args));
-			i_args++;
-		}
-		else if (tk_list->type == HERE_DOC)
-		{
-			cmd->args[i_args] = ft_strdup(HEREDOC_NAME);
-			if (!cmd->args[i_args])
-				return (free_on_error(cmd, i_args));
-			i_args++;
-			break ;
-		}
+			save_args(cmd, &i_args, tk_list->content);
 		else
 			break ;
 		tk_list = tk_list->next;
@@ -64,66 +42,28 @@ int	populate_args(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 	return (1);
 }
 
-int	open_file(int *fd, char *path, int flags, int mode)
+int	search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last,
+		int in_pathhand)
 {
-	if (*fd != 1 && *fd != 0 && *fd != 2)
-		close(*fd);
-	*fd = open(path, flags, mode);
-	if (*fd < 0)
-		return (1);
-	return (0);
-}
+	static int	ret = 0;
 
-int	search_redirs(t_cmd *cmd, t_token *tk_list, t_token *tk_last, int in_pathhand)
-{
 	while (tk_list != tk_last)
 	{
 		if (tk_list->type == PIPE)
 			break ;
-		if (tk_list->type == INPUT)
+		ret = input_tokens(cmd, tk_list, in_pathhand);
+		if (ret == 1 || ret == 2)
+			return (ret);
+		if (ret == 0)
 		{
-			if (!tk_list->next)
-				return (1);
-			if (open_file(&cmd->in_fd, tk_list->next->content, O_RDONLY, 0))
-			{
-				perror(tk_list->next->content);
-				return (1);
-			}
+			tk_list = tk_list->next->next;
+			continue ;
+		}
+		ret = output_tokens(cmd, tk_list);
+		if (ret == 1)
+			return (ret);
+		if (ret == 0)
 			tk_list = tk_list->next;
-			if (in_pathhand)
-				return (2);
-		}
-		else if (tk_list->type == OUTPUT)
-		{
-			if (!tk_list->next)
-				return (1);
-			if (open_file(&cmd->out_fd, tk_list->next->content,
-					O_WRONLY | O_CREAT | O_TRUNC, 0644))
-				return (1);
-			tk_list = tk_list->next;
-		}
-		else if (tk_list->type == APPEND)
-		{
-			if (!tk_list->next)
-				return (1);
-			if (open_file(&cmd->out_fd, tk_list->next->content,
-					O_WRONLY | O_CREAT | O_APPEND, 0644))
-			{
-				perror(tk_list->next->content);
-				return (1);
-			}
-			tk_list = tk_list->next;
-		}
-		else if (tk_list->type == HERE_DOC)
-		{
-			if (open_file(&cmd->in_fd, HEREDOC_NAME, O_RDONLY, 0))
-			{
-				perror(tk_list->next->content);
-				return (1);
-			}
-			if (in_pathhand)
-				return (2);
-		}
 		tk_list = tk_list->next;
 	}
 	return (0);
@@ -176,28 +116,23 @@ void	add_cmd(t_cmd **cmd_list, t_cmd *cmd)
 // input/output redirections, and executable path.
 // Basically it's a list with all cmds in the prompt
 // and it's necessary info to execute them
-t_cmd	*group_cmd(t_data *data, t_token *tk_list)
+t_cmd	*group_cmd(t_data *data, t_token *tk_list, t_token *tk)
 {
-	t_token	*tk;
 	t_cmd	*cmd;
 	t_cmd	*cmd_list;
 
-	tk = tk_list;
 	cmd_list = NULL;
 	while (tk)
 	{
-		if (tk->type == HERE_DOC)
-		{
-			tk = tk->next->next;
-			continue ;
-		}
 		if (tk->type == PIPE)
 		{
 			cmd = build_cmd(data, tk_list, tk);
 			if (cmd)
 				add_cmd(&cmd_list, cmd);
-			tk_list = tk->next;
+			tk = tk->next;
 		}
+		if (tk->type == HERE_DOC)
+			tk = tk->next;
 		tk = tk->next;
 	}
 	if (tk_list)

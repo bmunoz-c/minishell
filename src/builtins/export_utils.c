@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 18:05:01 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/29 18:45:44 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/29 23:52:29 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	update_environment(t_data *data, const char *arg, char *key,
 	env = get_env(data->env, key);
 	old = export_var(env, rm_plus(ft_strdup(arg)), data, key);
 	if (export_code == 1)
-		print_env(data->env);
+		print_export(data->env);
 	if (old && export_code == 2)
 		env->value = ft_strjoin_f(old, env->value, 2);
 	free_ptr(old);

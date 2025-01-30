@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 17:16:51 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/29 18:54:07 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/29 21:40:51 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_token
 	char				*content;
 	struct s_token		*next;
 	struct s_token		*prev;
-	int					expand; // 0 o 1 para saber si se expandir o no SOLO en el heredoc.
+	int					expand;
 
 }						t_token;
 
