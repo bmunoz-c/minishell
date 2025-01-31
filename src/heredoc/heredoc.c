@@ -6,7 +6,7 @@
 /*   By: jsebasti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 17:45:11 by jsebasti          #+#    #+#             */
-/*   Updated: 2025/01/31 11:14:10 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/31 14:37:47 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,15 @@ void	exec_here(t_token *delimiter)
 	if (pid == 0)
 	{
 		del = get_delimiter(delimiter);
-		signal(SIGINT, handle_signal);
+		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_IGN);
 		print_here(del, fd);
 		free(del);
 		exit(0);
 	}
 	wait(&status);
-	g_sig_exit_status = WEXITSTATUS(status);
+	if (WIFSIGNALED(status))
+		g_sig_exit_status = 1;
 	signal(SIGINT, handle_signal_prompt);
 	signal(SIGQUIT, SIG_IGN);
 	close(fd);
@@ -81,7 +82,7 @@ int	check_heredoc(t_token *tk_lst, t_data *data)
 	t_token	*tmp_del;
 
 	tk = tk_lst;
-	while (tk)
+	while (tk && g_sig_exit_status != 1)
 	{
 		if (tk->type == HERE_DOC)
 		{

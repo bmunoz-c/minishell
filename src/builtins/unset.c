@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 17:16:40 by borjamc           #+#    #+#             */
-/*   Updated: 2025/01/29 12:44:47 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/31 14:58:28 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	remove_var(t_data *data, t_env *current)
 		data->env = current->next;
 	if (current->next)
 		current->next->prev = current->prev;
-	else
+	else if (current->prev)
 		current->prev->next = NULL;
 	current->next = NULL;
 	current->prev = NULL;

@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:50:26 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/31 11:15:21 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/31 14:32:22 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,13 @@ void	execute(t_data *data)
 	}
 	if (!data->cmd_list)
 		return ;
-	if (!data->cmd_list->next && data->cmd_list->builtin)
-		handle_builtin(data, data->cmd_list, 0);
-	else
-		run_pipeline(data, data->cmd_list);
+	if (g_sig_exit_status != 1)
+	{
+		if (!data->cmd_list->next && data->cmd_list->builtin)
+			handle_builtin(data, data->cmd_list, 0);
+		else
+			run_pipeline(data, data->cmd_list);
+	}
 	signal(SIGINT, handle_signal_prompt);
 	signal(SIGQUIT, SIG_IGN);
 }
