@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 00:49:05 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/31 08:54:32 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/31 11:14:57 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ char	*join_path(char *dir, char *cmd)
 	ft_strlcat(full_path, cmd, len);
 	return (full_path);
 }
+
 int	verify_path(char *path)
 {
 	struct stat	path_stat;

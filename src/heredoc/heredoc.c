@@ -6,7 +6,7 @@
 /*   By: jsebasti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 17:45:11 by jsebasti          #+#    #+#             */
-/*   Updated: 2025/01/31 10:52:09 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/31 11:14:10 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,12 @@
 
 char	*get_delimiter(t_token *tk)
 {
-	// t_token	*delimiter;
 	t_token	*tk_list;
 	char	*del;
 
 	merge_tokens(&tk);
 	tk_list = tk->next;
-	// delimiter = new_token(tk->content, tk->type);
-	// if (tk->next && (tk->next->type == DQ_STR || tk->next->type == SQ_STR
-	// 		|| tk->next->type == WORD))
-	// {
-	// 	free_token(delimiter);
-	// 	delimiter = merge_tokens(&tk_list);
-	// 	if (!delimiter)
-	// 		delimiter = new_token(tk->content, tk->type);
-	// }
 	del = ft_strdup(tk_list->content);
-	// free_token(delimiter);
 	return (del);
 }
 

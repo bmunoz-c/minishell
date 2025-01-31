@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:19:03 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/31 11:10:02 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/31 11:15:08 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_token	*merge_token(t_token *token, t_token **merge_last_t)
 		tmp = tmp->next;
 	}
 	if (ft_strlen(newtoken->content) <= ft_strlen(token->content)
-			&& ft_strlen(token->next->content) != 0)
+		&& ft_strlen(token->next->content) != 0)
 	{
 		free_token(newtoken);
 		newtoken = NULL;
