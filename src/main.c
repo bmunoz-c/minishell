@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/31 15:07:52 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/31 15:35:05 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int	main(int ac, char **av, char **env)
 		exit(1);
 	}
 	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);
 	signal(SIGINT, handle_signal_prompt);
 	init_data(&data);
 	copy_env(env, &data);
