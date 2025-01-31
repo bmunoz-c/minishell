@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:19:03 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/29 20:51:15 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/31 11:10:02 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,13 @@ void	update_list(t_token **token_list, t_token **tmp, t_token **merge_last_t,
 	}
 	else
 		*token_list = *tmp;
-	if ((*merge_last_t)->next)
+	if (*merge_last_t && (*merge_last_t)->next)
 	{
 		(*merge_last_t)->next->prev = *tmp;
 		(*tmp)->next = (*merge_last_t)->next;
 	}
-	(*merge_last_t)->next = NULL;
+	if (*merge_last_t)
+		(*merge_last_t)->next = NULL;
 	free_tokens(*token);
 	*token = *tmp;
 }
@@ -85,8 +86,7 @@ t_token	*merge_token(t_token *token, t_token **merge_last_t)
 	t_token	*tmp;
 	t_token	*newtoken;
 
-	(void)merge_last_t;
-	newtoken = new_token(ft_strdup(token->content), token->type);
+	newtoken = new_token(ft_strdup(token->content), WORD);
 	tmp = token->next;
 	while (tmp && (tmp->type == WORD || tmp->type == SQ_STR
 			|| tmp->type == DQ_STR))
@@ -96,7 +96,8 @@ t_token	*merge_token(t_token *token, t_token **merge_last_t)
 			*merge_last_t = tmp;
 		tmp = tmp->next;
 	}
-	if (ft_strlen(newtoken->content) <= ft_strlen(token->content))
+	if (ft_strlen(newtoken->content) <= ft_strlen(token->content)
+			&& ft_strlen(token->next->content) != 0)
 	{
 		free_token(newtoken);
 		newtoken = NULL;

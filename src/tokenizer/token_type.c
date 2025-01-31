@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 18:07:39 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/13 22:41:21 by bmunoz-c         ###   ########.fr       */
+/*   Updated: 2025/01/31 10:40:01 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_token	*quote_token(char *prompt, int *index, t_token_type type)
 
 	i = *index + 1;
 	if (!prompt[i])
-		return (new_token(strdup(""), type));
+		return (new_token(ft_strdup(""), type));
 	while (prompt[i] && prompt[i] != prompt[*index])
 		i++;
 	content = ft_substr(prompt, *index + 1, i - *index - 1);

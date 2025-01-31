@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 18:05:01 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/29 23:52:29 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/31 07:37:52 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ int	valid_varname(char *str)
 	if (!str)
 		return (1);
 	i = 0;
-	while (str[i] == '_' || ft_isalpha(str[i]))
+	if (ft_isdigit(str[i]))
+		return (0);
+	while (str[i] == '_' || ft_isalnum(str[i]))
 		i++;
 	if (str[i] == '\0')
 		return (4);

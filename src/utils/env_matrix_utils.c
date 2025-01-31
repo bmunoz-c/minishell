@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 22:03:10 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/29 20:56:59 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/31 07:31:19 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,9 @@ void	save_env_matrix(t_env *env, char **arr, char **data)
 	while (env)
 	{
 		if (!env->value)
-		{
-			data[i] = env->key;
-			i++;
-			env = env->next;
-			continue ;
-		}
-		data[i] = ft_strjoin_f(ft_strjoin(env->key, "="), env->value, 1);
+			data[i] = ft_strdup(env->key);
+		else
+			data[i] = ft_strjoin_f(ft_strjoin(env->key, "="), env->value, 1);
 		env = env->next;
 		i++;
 	}
@@ -51,7 +47,6 @@ char	**env_as_matrix(t_env *env, char **arr)
 	data = ft_calloc(sizeof(char *), (i + 1));
 	if (!data)
 		return (NULL);
-	i = 0;
 	save_env_matrix(env, arr, data);
 	return (data);
 }

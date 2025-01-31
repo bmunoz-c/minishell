@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:07:10 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/29 18:54:45 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/31 11:12:51 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 // Initializes the t_cmd structure and counts the number of arguments
 void	init_cmd_data(t_cmd *cmd, t_token *tk_first, t_token *tk_last)
 {
+	int	redir;
+
+	redir = 0;
 	cmd->path = NULL;
 	cmd->in_fd = STDIN_FILENO;
 	cmd->out_fd = STDOUT_FILENO;
@@ -25,18 +28,12 @@ void	init_cmd_data(t_cmd *cmd, t_token *tk_first, t_token *tk_last)
 	cmd->builtin = 0;
 	while (tk_first != tk_last)
 	{
-		if (tk_first->type == WORD || tk_first->type == DQ_STR
-			|| tk_first->type == SQ_STR)
+		if ((tk_first->type == WORD || tk_first->type == DQ_STR
+				|| tk_first->type == SQ_STR) && redir == 0)
 			cmd->nargs++;
-		else if (tk_first->type == HERE_DOC || tk_first->type == INPUT)
-		{
-			cmd->nargs++;
-			tk_first = tk_first->next;
-		}
 		else
-			break ;
-		if (tk_first)
-			tk_first = tk_first->next;
+			redir = !redir;
+		tk_first = tk_first->next;
 	}
 	cmd->args = ft_calloc(sizeof(char *) * (cmd->nargs + 1), 1);
 }

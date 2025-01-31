@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 21:18:25 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/30 02:38:27 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/31 08:54:27 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@
 int	populate_args(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 {
 	int	i_args;
+	int	redir;
 
+	redir = 0;
 	if (!cmd || !cmd->args || !tk_list)
 		return (0);
 	i_args = 0;
@@ -32,10 +34,11 @@ int	populate_args(t_cmd *cmd, t_token *tk_list, t_token *tk_last)
 	}
 	while (tk_list != tk_last)
 	{
-		if (tk_list->type == 1 || tk_list->type == 2 || tk_list->type == 3)
+		if ((tk_list->type == WORD || tk_list->type == SQ_STR
+				|| tk_list->type == DQ_STR) && redir == 0)
 			save_args(cmd, &i_args, tk_list->content);
 		else
-			break ;
+			redir = !redir;
 		tk_list = tk_list->next;
 	}
 	cmd->args[i_args] = NULL;
@@ -75,7 +78,7 @@ t_cmd	*build_cmd(t_data *data, t_token *tk_list, t_token *tk_last)
 	t_cmd	*cmd;
 	int		input;
 
-	cmd = malloc(sizeof(t_cmd));
+	cmd = ft_calloc(sizeof(t_cmd), 1);
 	if (!cmd)
 		return (NULL);
 	init_cmd_data(cmd, tk_list, tk_last);
@@ -110,36 +113,25 @@ void	add_cmd(t_cmd **cmd_list, t_cmd *cmd)
 	tmp->next->next = NULL;
 }
 
-// Takes the token list and creates a command list.
-// This function iterates through the token list, grouping tokens into commands
-// based on the PIPE token. It initializes each command with its arguments,
-// input/output redirections, and executable path.
-// Basically it's a list with all cmds in the prompt
-// and it's necessary info to execute them
-t_cmd	*group_cmd(t_data *data, t_token *tk_list, t_token *tk)
+t_cmd	*group_cmd(t_data *data, t_token *tk_list)
 {
-	t_cmd	*cmd;
 	t_cmd	*cmd_list;
+	t_token	*tk;
 
+	tk = tk_list;
 	cmd_list = NULL;
 	while (tk)
 	{
 		if (tk->type == PIPE)
 		{
-			cmd = build_cmd(data, tk_list, tk);
-			if (cmd)
-				add_cmd(&cmd_list, cmd);
-			tk = tk->next;
+			create_cmd(data, tk_list, tk, &cmd_list);
+			tk_list = tk->next;
 		}
 		if (tk->type == HERE_DOC)
 			tk = tk->next;
 		tk = tk->next;
 	}
 	if (tk_list)
-	{
-		cmd = build_cmd(data, tk_list, NULL);
-		if (cmd)
-			add_cmd(&cmd_list, cmd);
-	}
+		create_cmd(data, tk_list, NULL, &cmd_list);
 	return (cmd_list);
 }

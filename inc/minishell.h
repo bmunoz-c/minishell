@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:19:52 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/30 02:43:32 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/31 08:15:35 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int			ft_error(const char *cmd_name, const char *msg, int err_code);
 long long	ft_atoll(const char *str);
 
 /////////// EXECUTION
-t_cmd		*group_cmd(t_data *data, t_token *tk_list, t_token *tk);
+t_cmd		*group_cmd(t_data *data, t_token *tk_list);
 void		execute(t_data *data);
 int			handle_command_path(t_data *data, t_cmd *cmd, char *content,
 				t_token *tk);
@@ -116,6 +116,10 @@ int			save_args(t_cmd *cmd, int *i_args, char *content);
 int			check_relative_cmd(t_cmd *cmd, t_data *data, char *content);
 int			check_builtin(t_cmd *cmd, char *content, int flag);
 char		*search_in_env(t_data *data, char *cmd);
+void		create_cmd(t_data *data, t_token *tk_list, t_token *tk_last,
+				t_cmd **cmd_list);
+void		add_cmd(t_cmd **cmd_list, t_cmd *cmd);
+t_cmd		*build_cmd(t_data *data, t_token *tk_list, t_token *tk_last);
 
 ////////// HEREDOC
 

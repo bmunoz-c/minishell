@@ -6,7 +6,7 @@
 #    By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/10 21:20:48 by ltrevin-          #+#    #+#              #
-#    Updated: 2025/01/30 02:39:53 by jsebasti         ###   ########.fr        #
+#    Updated: 2025/01/31 07:21:06 by jsebasti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ SRC 			:=	main.c \
 					executor/exeggutor.c executor/cmd_list.c executor/path_search.c executor/pipes.c executor/utils.c executor/utils2.c\
 					expansor/expansor.c expansor/expansor_utils.c\
 					syntax/syntax.c signals/signals.c\
-					utils/init_data.c utils/print_utils.c utils/clean_utils.c\
+					utils/init_data.c utils/clean_utils.c\
 					utils/env_utils.c utils/env_matrix_utils.c utils/clean_utils_2.c\
 					heredoc/heredoc.c
 SRC				:= $(addprefix $(SRC_DIR), $(SRC))

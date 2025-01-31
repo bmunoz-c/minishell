@@ -6,7 +6,7 @@
 /*   By: jsebasti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 02:34:18 by jsebasti          #+#    #+#             */
-/*   Updated: 2025/01/30 02:42:01 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/31 08:54:21 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,14 @@ int	check_relative_cmd(t_cmd *cmd, t_data *data, char *content)
 		return (0);
 	}
 	return (1);
+}
+
+void	create_cmd(t_data *data, t_token *tk_list, t_token *tk_last,
+		t_cmd **cmd_list)
+{
+	t_cmd	*cmd;
+
+	cmd = build_cmd(data, tk_list, tk_last);
+	if (cmd)
+		add_cmd(cmd_list, cmd);
 }
