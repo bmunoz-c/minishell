@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 17:55:01 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/31 14:35:07 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:33:22 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ void	handle_signal_prompt(int sig)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
+		g_sig_exit_status = 2;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 21:30:48 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/02/03 13:52:54 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:30:21 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,19 @@ void	read_prompt(t_data *data)
 		printf("Error: ft_strtrim faied to allocate mem\n");
 }
 
+void	set_status(t_data *data)
+{
+	if (g_sig_exit_status == 2)
+		data->err_code = 130;
+	g_sig_exit_status = 0;
+}
+
 void	exec_minishell(t_data *data)
 {
 	while (42)
 	{
 		read_prompt(data);
+		set_status(data);
 		if (!data->prompt || !*data->prompt)
 		{
 			free(data->prompt);
@@ -51,7 +59,6 @@ void	exec_minishell(t_data *data)
 					execute(data);
 			}
 		}
-		g_sig_exit_status = 0;
 		free_data(data, 0);
 	}
 }

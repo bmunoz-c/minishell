@@ -6,11 +6,24 @@
 /*   By: jsebasti <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 17:45:11 by jsebasti          #+#    #+#             */
-/*   Updated: 2025/01/31 14:37:47 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:34:54 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+void	update_status(int status, t_data *data)
+{
+	if (WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status) == SIGINT)
+		{
+			printf("\n");
+			data->err_code = 130;
+		}
+		g_sig_exit_status = 1;
+	}
+}
 
 char	*get_delimiter(t_token *tk)
 {
@@ -23,12 +36,12 @@ char	*get_delimiter(t_token *tk)
 	return (del);
 }
 
-void	exec_here(t_token *delimiter)
+void	exec_here(t_data *data, t_token *delimiter)
 {
-	int			pid;
-	int			status;
-	int			fd;
-	char		*del;
+	int		pid;
+	int		status;
+	int		fd;
+	char	*del;
 
 	fd = open(HEREDOC_NAME, O_WRONLY | O_CREAT | O_TRUNC, S_IRWXU);
 	pid = fork();
@@ -43,8 +56,7 @@ void	exec_here(t_token *delimiter)
 		exit(0);
 	}
 	wait(&status);
-	if (WIFSIGNALED(status))
-		g_sig_exit_status = 1;
+	update_status(status, data);
 	signal(SIGINT, handle_signal_prompt);
 	signal(SIGQUIT, SIG_IGN);
 	close(fd);
@@ -95,7 +107,7 @@ int	check_heredoc(t_token *tk_lst, t_data *data)
 				syntax_error_msg(data, "heredoc");
 				return (0);
 			}
-			exec_here(tk);
+			exec_here(data, tk);
 		}
 		tk = tk->next;
 	}
