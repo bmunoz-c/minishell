@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 18:07:39 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/01/31 10:40:01 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/02/03 13:51:46 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 // Token: ' '
 // Be careful multiple spaces
+//
+
 t_token	*sp_token(char *prompt, int *index)
 {
 	int		i;
@@ -44,23 +46,23 @@ t_token	*meta_token(t_data *data, char *prompt, int *index)
 	if (prompt[i] == '|')
 	{
 		if (prompt[i + 1] != '|')
-			return (new_token(NULL, PIPE));
+			return (new_token(ft_strdup(""), PIPE));
 		syntax_error_msg(data, "||");
 	}
 	else if (prompt[i] == '>' && prompt[i + 1] == '>')
 	{
 		*index += 1;
-		return (new_token(NULL, APPEND));
+		return (new_token(ft_strdup(""), APPEND));
 	}
 	else if (prompt[i] == '<' && prompt[i + 1] == '<')
 	{
 		*index += 1;
-		return (new_token(NULL, HERE_DOC));
+		return (new_token(ft_strdup(""), HERE_DOC));
 	}
 	else if (prompt[i] == '>')
-		return (new_token(NULL, OUTPUT));
+		return (new_token(ft_strdup(""), OUTPUT));
 	else if (prompt[i] == '<')
-		return (new_token(NULL, INPUT));
+		return (new_token(ft_strdup(""), INPUT));
 	return (NULL);
 }
 
