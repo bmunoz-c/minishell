@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 21:19:03 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/02/03 13:57:16 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:58:04 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,15 @@ void	merge_tokens(t_token **token_list)
 	clear_list(token_list);
 }
 
-int	is_newtoken(t_token *newtoken, t_token *token, t_token *tmp)
+int	is_newtoken(t_token *newtoken, t_token *token)
 {
+	t_token	*tmp;
+
+	tmp = token->next;
 	if (ft_strlen(newtoken->content) <= ft_strlen(token->content)
 		&& ft_strlen(token->next->content) != 0)
 		return (1);
-	if (tmp && (tmp->type == INPUT || tmp->type == OUTPUT
+	else if (tmp && (tmp->type == INPUT || tmp->type == OUTPUT
 			|| tmp->type == HERE_DOC || tmp->type == APPEND))
 		return (1);
 	return (0);
@@ -107,7 +110,7 @@ t_token	*merge_token(t_token *token, t_token **merge_last_t)
 			*merge_last_t = tmp;
 		tmp = tmp->next;
 	}
-	if (is_newtoken(newtoken, token, tmp))
+	if (is_newtoken(newtoken, token))
 	{
 		free_token(newtoken);
 		newtoken = NULL;

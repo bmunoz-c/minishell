@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 18:07:39 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/02/03 13:51:46 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:00:50 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_token	*sp_token(char *prompt, int *index)
 	i = *index;
 	if (ft_is_space(prompt[i + 1]))
 	{
-		while (prompt[i] && prompt[i] == ' ')
+		while (prompt[i] && ft_is_space(prompt[i]))
 			i++;
 		i -= 1;
 	}

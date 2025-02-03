@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/15 18:28:00 by bmunoz-c          #+#    #+#             */
-/*   Updated: 2025/02/03 13:39:10 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/02/03 18:02:37 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int	tokenizer(t_data *data, int i)
 {
 	t_token	*token;
 
-	while (data->prompt[i])
+	while (data->prompt[i] != '\0')
 	{
-		if (data->prompt[i] == ' ')
+		if (ft_is_space(data->prompt[i]))
 			token = sp_token(data->prompt, &i);
 		else if (data->prompt[i] == '<' || data->prompt[i] == '>'
 			|| data->prompt[i] == '|')
