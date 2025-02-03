@@ -6,7 +6,7 @@
 /*   By: bmunoz-c <bmunoz-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 14:50:26 by ltrevin-          #+#    #+#             */
-/*   Updated: 2025/01/31 15:35:23 by jsebasti         ###   ########.fr       */
+/*   Updated: 2025/01/31 16:54:20 by jsebasti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ void	run_pipeline(t_data *data, t_cmd *cmd_list)
 		cmd_list = cmd_list->next;
 		cmd_count++;
 	}
+	close(save_std[0]);
+	close(save_std[1]);
 	close_all_pipes(pipefd, data->count_pipes);
 	wait_for_children(data, cmd_count);
 }
